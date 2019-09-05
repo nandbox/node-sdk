@@ -1,6 +1,6 @@
 {
   "name": "nandbox-bot-api",
-  "version": "1.1.1",
+  "version": "1.1.4",
   "description": "A Node.js library for creating bots in NandBox",
   "main": "index.js",
   "scripts": {
@@ -8,21 +8,21 @@
     "test": "node test"
   },
   "keywords": [
-    "Nandbox",
+    "nandbox",
     "node",
     "Web Sockets",
     "bots"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AmirAlahmedy/nandboxbotsapi.git"
+    "url": "git+https://github.com/nandbox/nandboxbotsapi-js"
   },
   "author": "Amir Salah",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AmirAlahmedy/nandboxbotsapi/issues"
+    "url": "https://github.com/nandbox/nandboxbotsapi-js/issues"
   },
-  "homepage": "https://github.com/AmirAlahmedy/nandboxbotsapi#readme",
+  "homepage": "https://github.com/nandbox/nandboxbotsapi-js/blob/master/README.md",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "axios": "^0.19.0",
