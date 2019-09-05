@@ -6,13 +6,13 @@ Node.js library to interact with official Nandbox Bot API. A bot token is **requ
 ## Install
 After you download the library, just run the following command.
 ```bash
-$ npm install
+$ npm i nandbox-bot-api
 ```
 
 ## Build your first bot
 You can easily build your bot by following the below steps:
 
-**1.Setup your configuration file** once you get your bot configuration data from nandbox app , copy it to `config.json`
+**1.Setup your configuration object** once you get your bot configuration data from nandbox app , copy it to a `config` object.
 
 If you don't know how to get bot configuration data and token from nandbox 
 
@@ -36,10 +36,10 @@ save your token you will use it later and add other data to  `config` object jus
 ```
 
 **2.Implement your main.js file :** To do that please follow the next instructions:
-1- Replace `TOKEN` with your own bot token.
-2- Make sure `config` object is created.
-3- Implement the `nCallBack.onConnect` function.
-4- Implement the rest of the functions as your application requires.
+1. Replace `TOKEN` with your own bot token.
+2. Make sure `config` object is created.
+3. Implement the `nCallBack.onConnect` function.
+4. Implement the rest of the functions as your application requires.
 
 You will find the below code snippet already written in the `main.js`, implement the necessary functions.
 ```js
@@ -103,6 +103,7 @@ client.connect(TOKEN, nCallBack);
 ```
 
 ____Have a look at the [test](./src/test) folder, you might find useful examples.____
+
 
 ## License 
 MIT License
