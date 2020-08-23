@@ -9,7 +9,7 @@ module.exports = class InlineSearchAnswer extends OutMessage{
     toJsonObject(){
         let obj = super.toJsonObject();
 
-        if (results) {
+        if (this.results) {
             let resultArrayObj = [];
             for (let i = 0; i < results.length(); i++) {
                 resultArrayObj.push(results[i].toJsonObject());
@@ -17,8 +17,8 @@ module.exports = class InlineSearchAnswer extends OutMessage{
             obj.results = resultArrayObj;
         }
 
-        if (searchId) obj.search_id = searchId;
-        if (nextOffset) obj.next_offset = nextOffset;
+        if (this.search_id) obj.search_id = search_id;
+        if (this.next_offset) obj.next_offset = next_offset;
 
         return obj;
     }

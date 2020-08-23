@@ -10,6 +10,9 @@ const Video = require("../data/Video");
 const Voice = require("../data/Voice");
 const Audio = require("../data/Audio");
 const TextFile = require("../data/TextFile");
+const Article = require("../data/Article");
+const WhiteListUser = require("../data/WhiteListUser");
+const TagDefinition = require("../data/TagDefinition");
 /** 
  * it represents Incoming message Object , the incoming message Object is
  * representing Server Messages with method : message
@@ -48,6 +51,10 @@ module.exports = class IncomingMessage {
         this.status = obj.status;
         this.chat_settings = obj.chat_settings;
         this.bg_color = obj.bg_color;
+        this.article = obj.article ? new Article(obj.article) : null;
+        this.url = obj.url;
+        this.users = obj.users ? new WhiteListUser(obj.users) : null;
+        this.tagsDefinition = obj.tagsDefinition ? new TagDefinition(obj.tagsDefinition) : null;
     }
 
     toJsonObject(){
@@ -70,12 +77,18 @@ module.exports = class IncomingMessage {
         if (this.document) obj.document = this.document;
         if (this.photo) obj.photo = this.photo.toJsonObject();
         if (this.gif) obj.gif = this.gif.toJsonObject();
-        if (voice) obj.voice = voice.toJsonObject();
+        if (this.voice) obj.voice = voice.toJsonObject();
         if (this.video) obj.video = this.video.toJsonObject();
-        if (audio) obj.audio = audio.toJsonObject();
+        if (this.audio) obj.audio = audio.toJsonObject();
         if (this.sticker) obj.sticker = this.sticker.toJsonObject();
-        if (text_file) obj.text_file = text_file.toJsonObject();
+        if (this.text_file) obj.text_file = text_file.toJsonObject();
         if (this.bg_color) obj.bg_color = this.bg_color;
+        if (this.article) obj.article = this.article.toJsonObject();
+        if (this.url) obj.url = this.url;
+        if (this.users) obj.users = this.users;
+        if (this.tagsDefinition) obj.tagsDefinition = this.tagsDefinition;
+        if (this.schedule_date) obj.schedule_date = this.schedule_date
+
 
         console.log("to " + JSON.stringify(obj));
         return obj;

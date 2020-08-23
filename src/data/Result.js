@@ -18,15 +18,15 @@ module.exports = class Result {
     toJsonObject(){
         let obj;
 
-        if (id) obj.id =  id;
-        if (caption) obj.caption =  caption;
-        if (title) obj.title =  title;
-        if (description) obj.description =  description;
-        if (url) obj.url =  url;
-        if (type) obj.type =  type;
-        if (thumbUrl) obj.thumbUrl =  thumbUrl;
-        if (width) obj.width =  width;
-        if (height) obj.height = height;
+        if (this.id) obj.id =  this.id;
+        if (this.caption) obj.caption =  this.caption;
+        if (this.title) obj.title =  this.title;
+        if (this.description) obj.description =  this.description;
+        if (this.url) obj.url =  this.url;
+        if (this.type) obj.type =  this.type;
+        if (this.thumb_url) obj.thumb_url =  this.thumb_url;
+        if (this.width) obj.width =  this.width;
+        if (this.height) obj.height = this.height;
         
         return obj;
     }
