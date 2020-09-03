@@ -1,4 +1,4 @@
-"use strict";
+    "use strict";
 const Button = require("../data/Button");
 const SetNavigationButtonOutMessage = require("../outmessages/SetNavigationButtonOutMessage");
 
@@ -17,7 +17,7 @@ class Utils {
         return durationInMinsAndSeconds;
     }
 
-    setNavigationButton(chatId, nextMenu, api){
+    static setNavigationButton(chatId, nextMenu, api){
         let fb = new Button();
         fb.next_menu = nextMenu;
         let navMsg = new SetNavigationButtonOutMessage();
@@ -37,7 +37,18 @@ class Utils {
         }
         return ab;
     }
-    // TODO: complete
+    
+    static setAdminNavigationButton(chatId, nextMenu, api) {
+
+		let fb = new Button();
+		fb.next_menu = nextMenu;
+		let navMsg = new SetAdminNavigationButtonOutMessage();
+		navMsg.chat_id = chatId;
+		navMsg.navigation_button = fb;
+
+		api.send(JSON.stringify(navMsg));
+
+	}
 
 }
 
