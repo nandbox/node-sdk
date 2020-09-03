@@ -1,7 +1,7 @@
 const Chat = require('../data/Chat');
 const SignupUser = require('../data/SignupUser');
 
-export default class WhiteList {
+module.exports = class WhiteList {
 
 	constructor(jsonObj) {
 

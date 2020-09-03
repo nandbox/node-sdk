@@ -1,4 +1,4 @@
-export default  class Data {
+module.exports =  class Data {
 
 
 	constructor(obj) {

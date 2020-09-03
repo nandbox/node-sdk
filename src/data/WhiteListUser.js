@@ -1,6 +1,6 @@
 const { default: SignupUser } = require("./SignupUser");
 
-export default class WhiteListUser  {
+module.exports =  class WhiteListUser  {
 
 	constructor(obj) {
 		this.signupUser = obj.signup_user;

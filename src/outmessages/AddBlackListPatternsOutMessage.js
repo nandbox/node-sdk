@@ -1,9 +1,9 @@
-import OutMessage from '../outmessages/OutMessage';
+const OutMessage = require('../outmessages/OutMessage');
 /**
  * @author Hossam
  * @author Amir
  */
-export default class AddBlacklistPatternsOutMessage extends OutMessage {
+module.exports = class AddBlacklistPatternsOutMessage extends OutMessage {
 
 	constructor() {
 		this.method = 'addBlacklistPatterns';

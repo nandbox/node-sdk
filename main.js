@@ -3,11 +3,11 @@ const NandBox = require("./src/NandBox");
 const Nand = require("./src/NandBoxClient");
 const NandBoxClient = Nand.NandBoxClient;
 
-const TOKEN = "90091783927225986:0:ymJORgQkQcboixXrbCqaDVYb5BuHeB";
+const TOKEN = "<put your Bot Token proviuded by nandbox bot>";
 const config = {
-    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
+    URI: "<put URI provided by nandbox bot>",
+    DownloadServer: "<put download Server provided by nandbox bot>",
+    UploadServer: "<put upload server provided by nandbox bot>"
 }
 
 

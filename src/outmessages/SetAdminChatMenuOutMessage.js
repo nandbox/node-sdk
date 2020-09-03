@@ -1,3 +1,4 @@
+const OutMessage = require('../outmessages/OutMessage');
 /**
  * 
  * This class represents Output Message used to send Chat Menu
@@ -5,7 +6,7 @@
  * @author Hossam Mohamed
  *
  */
-export default class SetAdminChatMenuOutMessage extends OutMessage {
+module.exports = class SetAdminChatMenuOutMessage extends OutMessage {
 
 	constructor() {
 		this.method = OutMessageMethod.setAdminChatMenu;

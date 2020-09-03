@@ -6,7 +6,7 @@ const OutMessage = require('../outmessages/OutMessage');
  *
  */
 
-export default class ArticleOutMessage extends OutMessage {
+module.exports = class ArticleOutMessage extends OutMessage {
 
 
 	constructor() {

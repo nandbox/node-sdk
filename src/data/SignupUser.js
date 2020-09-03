@@ -1,5 +1,5 @@
 
-export default  class SignupUser {
+module.exports = class SignupUser {
 
 	constructor(obj) {
 		this.id = obj.id;

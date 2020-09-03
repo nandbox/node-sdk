@@ -1,10 +1,10 @@
-import OutMessage from '../outmessages/OutMessage';
+const OutMessage = require('../outmessages/OutMessage');
 
 /**
  * @author Hossam
  *
  */
-export default class GetBlackListOutMessage extends OutMessage {
+module.exports = class GetBlackListOutMessage extends OutMessage {
 
 	constructor() {
 		this.method = 'getBlacklist';

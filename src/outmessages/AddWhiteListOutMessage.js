@@ -1,9 +1,9 @@
-import OutMessage from '../outmessages/OutMessage';
+const OutMessage = require('../outmessages/OutMessage');
 /**
  * @author Hossam
  *
  */
-export default class AddWhiteListOutMessage extends OutMessage {
+module.exports = class AddWhiteListOutMessage extends OutMessage {
 
 	// private WhiteListUser whiteListUser;
 	constructor() {

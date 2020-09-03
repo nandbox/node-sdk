@@ -1,7 +1,7 @@
 const Chat = require('../data/Chat');
 const SignupUser = require('../data/SignupUser');
 
-export default class BlackList {
+module.exports =  class BlackList {
 
 
 	constructor(jsonObj) {

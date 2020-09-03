@@ -1,5 +1,5 @@
 
-export default class TagDefination {
+module.exports = class TagDefination {
 
 	constructor(obj) {
 		this.id = obj.id;

@@ -2,8 +2,7 @@ const OutMessage = require('./OutMessage');
 /**
  * @author Hossam
  * @author Amir
- */
-export default class AddBlackListOutMessage extends OutMessage {
+ */module.exports =  class AddBlackListOutMessage extends OutMessage {
 
 	constructor() {
 		this.method = 'addBlacklist';

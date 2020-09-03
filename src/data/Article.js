@@ -6,7 +6,7 @@
  * @author Hossam Mohamed
  *
  */
-export default class Article {
+module.exports = class Article {
 
 
 	constructor(obj) {

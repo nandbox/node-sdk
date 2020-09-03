@@ -1,10 +1,10 @@
-import OutMessage from '../outmessages/OutMessage';
+const OutMessage = require('../outmessages/OutMessage');
 
 /**
  * @author Hossam
  *
  */
-export default class DeleteWhiteListOutMessage extends OutMessage {
+module.exports = class DeleteWhiteListOutMessage extends OutMessage {
 
 	constructor() {
 		this.method = 'deleteWhitelist';
