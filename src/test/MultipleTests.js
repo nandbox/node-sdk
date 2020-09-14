@@ -22,8 +22,7 @@ const Button = require("../data/Button");
 const Data = require('../data/Data');
 const WhiteListUser = require('../data/WhiteListUser');
 const BlackList = require('../inmessages/BlackList');
-const GifOutMessage = require('../outmessages/GifOutMessage');
-const SetChatMenuOutMessage = require('../outmessages/setChatMenuOutMessage');
+
 
 
 let TOKEN = "90091783927225986:0:ymJORgQkQcboixXrbCqaDVYb5BuHeB"; // you can put your own bot token

@@ -4,7 +4,7 @@ const NandBoxClient = Nand.NandBoxClient;
 const NandBox = require("../NandBox");
 
 
-const WhiteList = require("../data/WhiteList");
+const WhiteList = require("../inmessages/WhiteList");
 
 const TOKEN = "90091783927225986:0:DVi21J0RFyVv0zZrDMxkYbmN1V74x1"; // replace it with your token
 

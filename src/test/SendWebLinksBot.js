@@ -39,7 +39,7 @@ nCallBack.onReceive = incomingMsg => {
                     let msgsCount = data[0].split("=")[1];
                     let format = data[1].split("=")[1];
 
-                    if ("larg" =- format.toLowerCase()) {
+                    if ("larg" == format.toLowerCase()) {
                         for (let i = 0; i < msgsCount; i++) {
                             api.sendText(chatId, i + 1, Id(), null, null, null, null, null, getRandomColorString());
                             //TODO: sleep
