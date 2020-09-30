@@ -25,7 +25,7 @@ const BlackList = require('../inmessages/BlackList');
 
 
 
-let TOKEN = "90091783927225986:0:ymJORgQkQcboixXrbCqaDVYb5BuHeB"; // you can put your own bot token
+let TOKEN = "90091783927225986:0:iqnW9n18atSQF1vsq8fIwYIyK6GrBz"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
@@ -58,11 +58,11 @@ nCallBack.onReceive = incomingMsg => {
             else if (incomingMsg.text.toLowerCase() == "getChat".toLowerCase()) {
                 api.getChat(incomingMsg.chat.id);
             }
-            else if (incomingMsg.text.toLocaleLowerCase() == "getBlackList".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "getBlackList".toLowerCase()) {
                 api.getBlackList(incomingMsg.chat.id);
             }
-            else if (incomingMsg.text.toLocaleLowerCase() == "addBlackListPatterns".toLowerCase()){
-                
+            else if (incomingMsg.text.toLocaleLowerCase() == "addBlackListPatterns".toLowerCase()) {
+
                 let dataList = [];
 
                 let data = new Data();
@@ -79,7 +79,7 @@ nCallBack.onReceive = incomingMsg => {
 
                 api.addBlackListPatterns(incomingMsg.chat.id, dataList);
             }
-            else if(incomingMsg.text.toLocaleLowerCase() == "addWhitelistPatterns".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "addWhitelistPatterns".toLowerCase()) {
                 let dataList = [];
 
                 let data = new Data();
@@ -90,10 +90,10 @@ nCallBack.onReceive = incomingMsg => {
 
                 api.addWhitelistPatterns(incomingMsg.chat.id, dataList);
             }
-            else if(incomingMsg.text.toLocaleLowerCase() == "getWhiteList".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "getWhiteList".toLowerCase()) {
                 api.getWhiteList(incomingMsg.chat.id);
             }
-            else if(incomingMsg.text.toLocaleLowerCase() == "addBlackList".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "addBlackList".toLowerCase()) {
                 let users = [];
 
                 users.push("111133");
@@ -101,7 +101,7 @@ nCallBack.onReceive = incomingMsg => {
 
                 api.addBlackList(incomingMsg.chat.id, users);
             }
-            else if(incomingMsg.text.toLocaleLowerCase() == "addWhiteList".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "addWhiteList".toLowerCase()) {
                 let tagsList = [];
                 tagsList.push("1");
                 tagsList.push("2");
@@ -115,13 +115,13 @@ nCallBack.onReceive = incomingMsg => {
 
                 api.addWhiteList(incomingMsg.chat.id, whiteListUsersArray);
             }
-            else if(incomingMsg.text.toLocaleLowerCase() == "deleteBlackList".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "deleteBlackList".toLowerCase()) {
                 let users = [];
                 users.push("111133");
 
                 api.deleteBlackList(incomingMsg.chat.id, users);
             }
-            else if(incomingMsg.text.toLocaleLowerCase() == "deleteWhitelist".toLowerCase()){
+            else if (incomingMsg.text.toLocaleLowerCase() == "deleteWhitelist".toLowerCase()) {
                 let users = [];
                 users.push("111133");
 
@@ -133,7 +133,7 @@ nCallBack.onReceive = incomingMsg => {
                 pattern.push("222*");
                 api.deleteBlackListPatterns(incomingMsg.chat.id, pattern);
 
-            } 
+            }
             else if (incomingMsg.text.toLowerCase() == "deleteWhitelistPatterns".toLocaleLowerCase()) {
 
                 let pattern = [];
@@ -358,7 +358,7 @@ nCallBack.onReceive = incomingMsg => {
         else if (incomingMsg.isDocumentMsg()) handleIncomingDocumentMsg(incomingMsg);
 
         // Incoming Article Message
-        else if(incomingMsg.isArticleMsg()) handleIncomingArticleMsg(incomingMsg);
+        else if (incomingMsg.isArticleMsg()) handleIncomingArticleMsg(incomingMsg);
 
     }
 
@@ -408,7 +408,8 @@ nCallBack.onChatMenuCallBack = chatMenuCallback => {
     if (chatMenuCallback.button_label == 'Funny') {
 
         MediaTransfer.uploadFile(TOKEN, "./upload/giphy.gif", config.UploadServer)
-        
+
+
             .then(gifId => {
                 let gifMsg = new GifOutMessage("Photo", gifId);
                 gifMsg.chat_id = chatMenuCallback.chat.id;
@@ -494,7 +495,7 @@ let handleIncomingDocumentMsg = incomingMsg => {
 
 }
 
-let  handleIncomingArticleMsg = incomingMsg => {
+let handleIncomingArticleMsg = incomingMsg => {
     console.log("================start of Article Object ===================");
     console.log("incomingMsg.article.url : " + incomingMsg.url);
     console.log("================start of Article  Object ===================");
@@ -502,7 +503,7 @@ let  handleIncomingArticleMsg = incomingMsg => {
     let articleOutMessage = new ArticleOutMessage();
     articleOutMessage.chat_id = incomingMsg.chat.id;
     articleOutMessage.reference = Id();
-    articleOutMessage.url  = incomingMsg.url;
+    articleOutMessage.url = incomingMsg.url;
 
     api.send(articleOutMessage);
 }

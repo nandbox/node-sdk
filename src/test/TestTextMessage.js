@@ -1,5 +1,6 @@
 const OutMessage = require("../outmessages/OutMessage");
-const NandBoxClient = require("../NandBoxClient");
+const Nand = require("../NandBoxClient");
+const NandBoxClient = Nand.NandBoxClient;
 const NandBox = require("../NandBox");
 const Utils = require("../util/Utility");
 const Id = Utils.Id;
@@ -17,7 +18,7 @@ const User = require("../data/User");
 const Photo = require("../data/Photo");
 
 
-const TOKEN = "90091784169275314:0:MPgzj802RbiMZ3RL7GHpwuDp9QxVTq"; // you can put your own bot token
+const TOKEN = "90091783927225986:0:iqnW9n18atSQF1vsq8fIwYIyK6GrBz"; // you can put your own bot token
 const MAIN_MENU_001 = "MAIN_MENU_001";
 
 let outMsgsListener = new Map();
@@ -72,6 +73,8 @@ nCallBack.onReceive = incomingMsg => {
         handleIncomingTextMsg(incomingMsg);
 
 }
+
+client.connect(TOKEN, nCallBack);
 
 /**
 * Handle incoming Text messages
@@ -665,8 +668,8 @@ onUserJoinedBot = user => console.log("User ID =" + user.getId());
 userStartedBot = user => console.log("User ID = " + user.getId());
 userStoppedBot = user => console.log("User ID =" + user.getId());
 userLeftBot = user => console.log("User ID =" + user.getId());
-onBlackList = blackList => {}
-onWhiteList = whiteList => {}
+onBlackList = blackList => { }
+onWhiteList = whiteList => { }
 permanentUrl = permenantUrl => { }
 onChatDetails = chat => { }
 onInlineSearh = inlineSearch => { }

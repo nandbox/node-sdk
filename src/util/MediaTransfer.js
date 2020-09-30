@@ -41,13 +41,18 @@ module.exports = class MediaTransfer {
             axios({
                 url: downloadServerURL + mediaFileId,
                 method: 'GET',
-                timeout: 40000,
+                timeout: 300000,
                 responseType: 'stream',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-TOKEN': token,
                     //'Authorization': 'Bearer ' + token
-                }
+                },
+                // `maxContentLength` defines the max size of the http response content in bytes allowed in node.js
+                maxContentLength: Infinity,
+
+                // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed
+                maxBodyLength: Infinity,
             }).then(response => {
 
                 response.data.pipe(file);
@@ -84,14 +89,14 @@ module.exports = class MediaTransfer {
     */
     static uploadFile(token, mediaFileFullPath, uploadServerURL) {
         let media = null;
-
+        console.log("Inside UploadFile , Media file path " + mediaFileFullPath);
         const file = fs.createReadStream(mediaFileFullPath);
         const { size } = fs.statSync(mediaFileFullPath);
         const fileContentType = mime.getType(mediaFileFullPath);
         const reqCon = {
             url: uploadServerURL + path.basename(mediaFileFullPath),
             method: 'PUT',
-            timeout: 40000,
+            timeout: 300000,
             // TODO: socket timeout?
             headers: {
                 'Content-Type': fileContentType,
@@ -106,8 +111,14 @@ module.exports = class MediaTransfer {
             }],
             onUploadProgress: progressEvent => {
                 let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                console.log("Upload: " + percentCompleted);
             },
-            data: file
+            data: file,
+            // `maxContentLength` defines the max size of the http response content in bytes allowed in node.js
+            maxContentLength: Infinity,
+
+            // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed
+            maxBodyLength: Infinity,
         };
         console.log("fileContentType " + fileContentType);
         const uploadStartTime = (new Date()).getTime();

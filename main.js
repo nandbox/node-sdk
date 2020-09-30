@@ -2,13 +2,9 @@
 const NandBox = require("./src/NandBox");
 const Nand = require("./src/NandBoxClient");
 const NandBoxClient = Nand.NandBoxClient;
+const Logger = require('./src/util/Logger');
 
-const TOKEN = "<put your Bot Token proviuded by nandbox bot>";
-const config = {
-    URI: "<put URI provided by nandbox bot>",
-    DownloadServer: "<put download Server provided by nandbox bot>",
-    UploadServer: "<put upload server provided by nandbox bot>"
-}
+const config = require("./config.json");
 
 
 var client = NandBoxClient.get(config);
@@ -20,11 +16,13 @@ nCallBack.onConnect = (_api) => {
     // it will go here if the bot connected to the server successfuly 
     api = _api;
     console.log("Authenticated");
+    Logger.logger.info("Authenticated");
 }
 
 
 nCallBack.onReceive = incomingMsg => {
     console.log("Message Received");
+    Logger.logger.info("Message Received");
 
     if (incomingMsg.isTextMsg()) {
         let chatId = incomingMsg.chat.id; // get your chat Id
@@ -35,10 +33,17 @@ nCallBack.onReceive = incomingMsg => {
 }
 
 // implement other nandbox.Callback() as per your bot need
-nCallBack.onReceiveObj = obj => console.log("received object: ", obj);
+nCallBack.onReceiveObj = obj => {
+    console.log("received object: ", obj);
+    Logger.logger.info("received object: " + JSON.stringify(obj));
+}
 
-nCallBack.onClose = () => console.log("ONCLOSE");
-nCallBack.onError = () => console.log("ONERROR");
+nCallBack.onClose = () => {
+    Logger.logger.info("ONCLOSE");
+}
+nCallBack.onError = () => {  
+    Logger.logger.error("ONERROR");   
+}
 nCallBack.onChatMenuCallBack = chatMenuCallback => { }
 nCallBack.onInlineMessageCallback = inlineMsgCallback => { }
 nCallBack.onMessagAckCallback = msgAck => { }
@@ -54,4 +59,4 @@ nCallBack.permanentUrl = permenantUrl => { }
 nCallBack.onChatDetails = chat => { }
 nCallBack.onInlineSearh = inlineSearch => { }
 
-client.connect(TOKEN, nCallBack);
+client.connect(config.Token, nCallBack);

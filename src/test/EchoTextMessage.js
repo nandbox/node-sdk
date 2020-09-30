@@ -6,7 +6,7 @@ const NandBox = require("../NandBox");
 
 const WhiteList = require("../inmessages/WhiteList");
 
-const TOKEN = "90091783927225986:0:DVi21J0RFyVv0zZrDMxkYbmN1V74x1"; // replace it with your token
+const TOKEN = "90091783927225986:0:iqnW9n18atSQF1vsq8fIwYIyK6GrBz"; // replace it with your token
 
 
 const config = {
@@ -48,23 +48,23 @@ nCallBack.onReceiveObj = obj => {
     console.log("received object: ", obj);
 }
 
-nCallBack.onClose = () => {}
-nCallBack.onError = () => {}
-nCallBack.onChatMenuCallBack = chatMenuCallback => {}
-nCallBack.onInlineMessageCallback = inlineMsgCallback => {}
-nCallBack.onMessagAckCallback = msgAck => {}
-nCallBack.onUserJoinedBot = user => {}
-nCallBack.onChatMember = chatMember => {}
-nCallBack.onChatAdministrators = chatAdministrators => {}
-nCallBack.userStartedBot = user => {}
-nCallBack.onMyProfile = user => {}
-nCallBack.onUserDetails = user => {}
-nCallBack.userStoppedBot = user => {}
-nCallBack.userLeftBot = user => {}
-nCallBack.permanentUrl = permenantUrl => {}
-nCallBack.onChatDetails = chat => {}
-nCallBack.onInlineSearh = inlineSearch => {}
-nCallBack.onBlackList = blackList => {}
-nCallBack.onWhiteList = whiteList => {}
+nCallBack.onClose = () => { }
+nCallBack.onError = () => { }
+nCallBack.onChatMenuCallBack = chatMenuCallback => { }
+nCallBack.onInlineMessageCallback = inlineMsgCallback => { }
+nCallBack.onMessagAckCallback = msgAck => { }
+nCallBack.onUserJoinedBot = user => { }
+nCallBack.onChatMember = chatMember => { }
+nCallBack.onChatAdministrators = chatAdministrators => { }
+nCallBack.userStartedBot = user => { }
+nCallBack.onMyProfile = user => { }
+nCallBack.onUserDetails = user => { }
+nCallBack.userStoppedBot = user => { }
+nCallBack.userLeftBot = user => { }
+nCallBack.permanentUrl = permenantUrl => { }
+nCallBack.onChatDetails = chat => { }
+nCallBack.onInlineSearh = inlineSearch => { }
+nCallBack.onBlackList = blackList => { }
+nCallBack.onWhiteList = whiteList => { }
 
 client.connect(TOKEN, nCallBack);
