@@ -5,6 +5,7 @@ const NandBoxClient = Nand.NandBoxClient;
 const TextOutMessage = require("../outmessages/TextOutMessage");
 const Utils = require("../util/Utility");
 const Id = Utils.Id;
+const Utility = Utils.Utility;
 const OutMessage = require("../outmessages/OutMessage");
 const Menu = require("../data/Menu");
 const Row = require("../data/Row");
@@ -408,7 +409,6 @@ nCallBack.onChatMenuCallBack = chatMenuCallback => {
     if (chatMenuCallback.button_label == 'Funny') {
 
         MediaTransfer.uploadFile(TOKEN, "./upload/giphy.gif", config.UploadServer)
-
 
             .then(gifId => {
                 let gifMsg = new GifOutMessage("Photo", gifId);

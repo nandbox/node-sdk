@@ -2,7 +2,7 @@ const NandBox = require("../NandBox");
 const Nand = require("../NandBoxClient");
 const NandBoxClient = Nand.NandBoxClient;
 
-let TOKEN = "90091783927225986:0:iqnW9n18atSQF1vsq8fIwYIyK6GrBz";// you can put your own bot token
+let TOKEN = "90091784656342996:0:90eH09mTSJ4ME9A77AuDJjhEzDCqHF";// you can put your own bot token
 let CHAT_SETTINGS = 1;
 let FROM_ADMIN = 1;
 let TEXT = "text";
@@ -43,7 +43,6 @@ nCallBack.onReceive = incomingMsg => {
                         for (let i = 0; i < msgsCount; i++) {
                             api.sendText(chatId, i + 1, Id(), null, null, null, null, null, getRandomColorString());
                             //TODO: sleep
-                            //Thread.sleep(500);
                         }
                     }
                     else {

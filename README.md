@@ -26,20 +26,20 @@ url:wss://<SERVER>:<PORT>/nandbox/api/
 download:https://<SERVER>:<PORT>/nandbox/download/  
 upload:https://<SERVER>:<PORT>/nandbox/upload/
 ```
-save your token you will use it later and add other data to  `config` object just like below :
+Add your token and the other data to  `config.json` file just like below :
 ```json
 {
-    URI: "wss://<SERVER>:<PORT>/nandbox/api/",
-    DownloadServer: "https://<SERVER>:<PORT>/nandbox/download/",  
-    UploadServer: "https://<SERVER>:<PORT>/nandbox/upload/"
+    "Token": "<your token>",
+    "URI": "wss://<SERVER>:<PORT>/nandbox/api/",
+    "DownloadServer": "https://<SERVER>:<PORT>/nandbox/download/",  
+    "UploadServer": "https://<SERVER>:<PORT>/nandbox/upload/"
 }
 ```
 
 **2.Implement your main.js file :** To do that please follow the next instructions:
-1. Replace `TOKEN` with your own bot token.
-2. Make sure `config` object is created.
-3. Implement the `nCallBack.onConnect` function.
-4. Implement the rest of the functions as your application requires.
+1. Make sure `config.json` file is created.
+2. Implement the `nCallBack.onConnect` function.
+3. Implement the rest of the functions as your application requires.
 
 You will find the below code snippet already written in the `main.js`, implement the necessary functions.
 ```js
@@ -48,12 +48,7 @@ const NandBox = require("nandbox-bot-api/src/NandBox");
 const Nand = require("nandbox-bot-api/src/NandBoxClient");
 const NandBoxClient = Nand.NandBoxClient;
 
-const TOKEN = "90091783927225986:0:ymJORgQkQcboixXrbCqaDVYb5BuHeB";
-const config = {
-    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
-}
+const config = require("./config.json");
 
 
 var client = NandBoxClient.get(config);
@@ -99,7 +94,7 @@ nCallBack.permanentUrl = permenantUrl => { }
 nCallBack.onChatDetails = chat => { }
 nCallBack.onInlineSearh = inlineSearch => { }
 
-client.connect(TOKEN, nCallBack);
+client.connect(config.Token, nCallBack);
 ```
 
 ____Have a look at the [test](./src/test) folder, you might find useful examples.____

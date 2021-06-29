@@ -89,7 +89,7 @@ module.exports = class MediaTransfer {
     */
     static uploadFile(token, mediaFileFullPath, uploadServerURL) {
         let media = null;
-        console.log("Inside UploadFile , Media file path " + mediaFileFullPath);
+
         const file = fs.createReadStream(mediaFileFullPath);
         const { size } = fs.statSync(mediaFileFullPath);
         const fileContentType = mime.getType(mediaFileFullPath);
