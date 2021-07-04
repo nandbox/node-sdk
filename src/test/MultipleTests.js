@@ -26,13 +26,13 @@ const BlackList = require('../inmessages/BlackList');
 
 
 
-let TOKEN = "90091783927225986:0:iqnW9n18atSQF1vsq8fIwYIyK6GrBz"; // you can put your own bot token
+let TOKEN = "90091905646805157:0:2LvO0hSLJrLkO3wLT3jaa50RmQts8Y"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
-    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
+    URI: "wss://w1.nandbox.net:5020/nandbox/api/",
+    DownloadServer: "https://w1.nandbox.net:5020/nandbox/download/",
+    UploadServer: "https://w1.nandbox.net:5020/nandbox/upload/"
 }
 var client = NandBoxClient.get(config);
 
@@ -789,7 +789,7 @@ let handleIncomingPhotoMsg = incomingMsg => {
 
     api.generatePermanentUrl(incomingMsg.photo.id, "Any Reference");
 
-    MediaTransfer.downloadFile(TOKEN, incomingMsg.photo.id, "./download", incomingMsg.photo.id + ".jpeg", config.DownloadServer);
+    MediaTransfer.downloadFile(TOKEN, incomingMsg.photo.id, "../../download", incomingMsg.photo.id + ".jpeg", config.DownloadServer);
 
     api.sendText(incomingMsg.chat.id,
         "Photo Size is : " + incomingMsg.photo.size
@@ -798,7 +798,7 @@ let handleIncomingPhotoMsg = incomingMsg => {
         + " and caption is : " + incomingMsg.caption
         + "\n\n Wait please sending you a photo ....");
 
-    MediaTransfer.uploadFile(TOKEN, "./upload/welcome.jpg", config.UploadServer)
+    MediaTransfer.uploadFile(TOKEN, "../../upload/welcome.jpg", config.UploadServer)
         .then(uploadedPhotoId => {
             let photoMsg = new PhotoOutMessage();
             photoMsg.chat_id = incomingMsg.chat.id;

@@ -10,9 +10,9 @@ const TOKEN = "90091783927225986:0:DVi21J0RFyVv0zZrDMxkYbmN1V74x1"; // replace i
 
 
 const config = {
-    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
+    URI: "wss://w1.nandbox.net:5020/nandbox/api/",
+    DownloadServer: "https://w1.nandbox.net:5020/nandbox/download/",
+    UploadServer: "https://w1.nandbox.net:5020/nandbox/upload/"
 }
 var client = NandBoxClient.get(config);
 

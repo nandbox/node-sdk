@@ -9,9 +9,9 @@ let TEXT = "text";
 let CONTACT = "Contact";
 
 const config = {
-    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
+    URI: "wss://w1.nandbox.net:5020/nandbox/api/",
+    DownloadServer: "https://w1.nandbox.net:5020/nandbox/download/",
+    UploadServer: "https://w1.nandbox.net:5020/nandbox/upload/"
 }
 var client = NandBoxClient.get(config);
 var nandbox = new NandBox();

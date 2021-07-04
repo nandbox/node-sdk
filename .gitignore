@@ -4,3 +4,6 @@
 /dist
 /src/test/test.json
 /Logs
+/download/*
+/src/test/Logs
+/target
