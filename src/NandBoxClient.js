@@ -185,7 +185,6 @@ class InternalWebSocket {
 
               this.callback.onConnect(api, obj);
 
-              closingCounter = 0;
 
               return;
             case "message":
