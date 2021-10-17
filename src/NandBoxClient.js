@@ -50,6 +50,7 @@ const MessageAck = require("./inmessages/MessageAck");
 require("@babel/polyfill");
 const WebSocket = require("ws");
 const Logger = require("./util/Logger");
+const process = require("process");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -61,7 +62,6 @@ class NandBoxClient {
   constructor(URI) {
     uri = URI;
     this.session = null;
-    // connection = new WebSocket.Server({ port: 8080 });
   }
 
   static get(config) {
@@ -88,7 +88,7 @@ class InternalWebSocket {
     this.authenticated = false;
     this.token = token;
     this.callback = callback;
-    this.NO_OF_RETRIES_IF_CONN_CLOSED = 20;
+    this.NO_OF_RETRIES_IF_CONN_CLOSED = 30;
     this.on = {
       close: async (status) => {
         Logger.logger.info("INTERNAL: ONCLOSE");
@@ -113,7 +113,7 @@ class InternalWebSocket {
 
         this.authenticated = false;
 
-        // TODO: pingpong here
+
         clearInterval(this.pingpong);
 
         this.callback.onClose();
@@ -141,8 +141,7 @@ class InternalWebSocket {
           }
         } else {
           Logger.logger.info("End nandbox client");
-          // TODO:
-          // System.exit(0)
+          process.exit(0)
         }
       },
       open: () => {
@@ -297,7 +296,6 @@ class InternalWebSocket {
     try {
       if (this.ws) {
         this.ws.send(s);
-        // clearInterval(this.pingpong);
       }
     } catch (e) {
       Logger.logger.error(new Error().stack);
@@ -691,8 +689,6 @@ function setApiMethods(internalWS, api) {
   api.getChatAdministrators = (chatId) => {
     let getChatAdministratorsOutMessage = new GetChatAdministratorsOutMessage();
     getChatAdministratorsOutMessage.chat_id = chatId;
-    /* api.sendText(getChatAdministratorsOutMessage.chat_id,
-            "Chat admins: " + getChatAdministratorsOutMessage); */
     api.send(JSON.stringify(getChatAdministratorsOutMessage));
   };
 
