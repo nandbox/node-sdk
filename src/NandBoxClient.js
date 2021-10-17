@@ -174,8 +174,8 @@ class InternalWebSocket {
           console.log("method: " + method);
           switch (method) {
             case "TOKEN_AUTH_OK":
-              Logger.logger.info("authentocated!");
-              console.log("authentocated!");
+              Logger.logger.info("authenticated!");
+              console.log("authenticated!");
               this.authenticated = true;
               BOT_ID = obj.ID;
               Logger.logger.info("====> Your Bot Id is : " + BOT_ID);
