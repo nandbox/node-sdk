@@ -151,8 +151,8 @@ nCallBack.onReceive = incomingMsg => {
         console.log("incomingMsg.date : " + incomingMsg.date);
         console.log("incomingMsg.reference : " + incomingMsg.reference);
         console.log("incomingMsg.caption: " + incomingMsg.caption);
-        if (incomingMsg.sentTo)
-            console.log("incomingMsg.sentTo.id : " + incomingMsg.sentTo.id);
+        if (incomingMsg.sent_to)
+            console.log("incomingMsg.sentTo.id : " + incomingMsg.sent_to.id);
         console.log("================start of Chat Object ===================");
         console.log("incomingMsg.chat.id : " + incomingMsg.chat.id);
         console.log("incomingMsg.chat.title :" + incomingMsg.chat.title);
