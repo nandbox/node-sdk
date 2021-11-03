@@ -20,6 +20,8 @@ module.exports = class User {
 
 
 		this.photo = jsonobj.photo != null ? new Photo(jsonobj.photo) : null;
+
+        this.shortName = jsonobj.short_name;
     }
 
     toJsonObject(){
@@ -35,6 +37,7 @@ module.exports = class User {
         if(this.status) obj.status = this.status;
         if(this.profile) obj.profile = this.profile;
         if(this.photo) obj.photo = this.photo;
+        if(this.shortName) obj.short_name = this.shortName;
 
         return obj;
         
