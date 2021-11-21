@@ -57,7 +57,7 @@ var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 var nandboxClient = null;
 var BOT_ID = null;
 let uri = null;
-let closingCounter = 0
+let closingCounter = 0;
 class NandBoxClient {
   constructor(URI) {
     uri = URI;
@@ -113,13 +113,15 @@ class InternalWebSocket {
 
         this.authenticated = false;
 
-
         clearInterval(this.pingpong);
 
         this.callback.onClose();
 
         if (
-          (status.code == 1000 || status.code == 1006 || status.code == 1001 || status.code == 1005) &&
+          (status.code == 1000 ||
+            status.code == 1006 ||
+            status.code == 1001 ||
+            status.code == 1005) &&
           closingCounter < this.NO_OF_RETRIES_IF_CONN_CLOSED
         ) {
           try {
@@ -128,7 +130,9 @@ class InternalWebSocket {
             await sleep(30000);
 
             closingCounter++;
-            Logger.logger.info("Conenction Closing counter is: " + closingCounter);
+            Logger.logger.info(
+              "Conenction Closing counter is: " + closingCounter
+            );
           } catch (e1) {
             Logger.logger.error(e1);
           }
@@ -141,7 +145,7 @@ class InternalWebSocket {
           }
         } else {
           Logger.logger.info("End nandbox client");
-          process.exit(0)
+          process.exit(0);
         }
       },
       open: () => {
@@ -184,7 +188,6 @@ class InternalWebSocket {
               console.log("====> Your Bot Name is : " + obj.name);
 
               this.callback.onConnect(api, obj);
-
 
               return;
             case "message":
@@ -340,20 +343,50 @@ function setApiMethods(internalWS, api) {
     internalWS.send(message);
   };
 
-  api.prepareOutMessage = (message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings) => {
+  api.prepareOutMessage = (
+    message,
+    chatId,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    caption,
+    chatSettings
+  ) => {
     message.chat_id = chatId;
     message.reference = reference;
 
-    if (toUserId) message.toUSerID = toUserId;
-    if (replyToMessageId) message.replyToMessageId = replyToMessageId;
-    if (webPagePreview) message.webPagePreview = webPagePreview;
-    if (disableNotification) message.disableNotification = disableNotification;
+    if (toUserId) message.to_user_id = toUserId;
+    if (replyToMessageId) message.reply_to_message_id = replyToMessageId;
+    if (webPagePreview) message.web_page_preview = webPagePreview;
+    if (disableNotification) message.disable_notification = disableNotification;
     if (caption) message.caption = caption;
-    if (chatSettings) message.chatSettings = chatSettings;
+    if (chatSettings) message.chat_settings = chatSettings;
   };
 
-  api.sendText = (chatId, text, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, chatSettings, bgColor) => {
-    if (chatId && text && !reference && !replyToMessageId && !toUserId && !webPagePreview && !disableNotification && !chatSettings && !bgColor) {
+  api.sendText = (
+    chatId,
+    text,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    chatSettings,
+    bgColor
+  ) => {
+    if (
+      chatId &&
+      text &&
+      !reference &&
+      !replyToMessageId &&
+      !toUserId &&
+      !webPagePreview &&
+      !disableNotification &&
+      !chatSettings &&
+      !bgColor
+    ) {
       const reference = Id();
 
       api.sendText(chatId, text, reference, null, null, null, null, null, null);
@@ -370,29 +403,67 @@ function setApiMethods(internalWS, api) {
       !chatSettings
     ) {
       let message = new TextOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, null, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        null,
+        chatSettings
+      );
       message.method = "sendMessage";
       message.text = text;
       message.reference = reference;
       api.send(JSON.stringify(message));
-    } else if (chatId && text && reference && bgColor && !replyToMessageId && !toUserId && !webPagePreview && !disableNotification && !chatSettings) {
-      let message = new TextOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, null, chatSettings);
+    } else {
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        null,
+        chatSettings
+      );
       message.method = "sendMessage";
       message.text = text;
-      message.reference = reference;
-      message.bgColor = bgColor;
+      message.bg_color = bgColor;
       api.send(JSON.stringify(message));
     }
   };
 
   api.sendTextWithBackground = (chatId, text, bgColor) => {
     const reference = Id();
-    api.sendText(chatId, text, reference, null, null, null, null, null, bgColor);
+    api.sendText(
+      chatId,
+      text,
+      reference,
+      null,
+      null,
+      null,
+      null,
+      null,
+      bgColor
+    );
     return reference;
   };
 
-  api.sendPhoto = (chatId, photoFileId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings) => {
+  api.sendPhoto = (
+    chatId,
+    photoFileId,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    caption,
+    chatSettings
+  ) => {
     if (
       chatId &&
       photoFileId &&
@@ -405,10 +476,30 @@ function setApiMethods(internalWS, api) {
       !chatSettings
     ) {
       const reference = Id();
-      api.sendPhoto(chatId, photoFileId, reference, null, null, null, null, caption, null);
+      api.sendPhoto(
+        chatId,
+        photoFileId,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null
+      );
     } else {
       let message = new PhotoOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendPhoto";
       message.photo = photoFileId;
       message.reference = reference;
@@ -416,10 +507,40 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.sendContact = (chatId, phoneNumber, name, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, chatSettings) => {
-    if (chatId && phoneNumber && name && !reference && !replyToMessageId && !toUserId && !webPagePreview && !disableNotification && !chatSettings) {
+  api.sendContact = (
+    chatId,
+    phoneNumber,
+    name,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    chatSettings
+  ) => {
+    if (
+      chatId &&
+      phoneNumber &&
+      name &&
+      !reference &&
+      !replyToMessageId &&
+      !toUserId &&
+      !webPagePreview &&
+      !disableNotification &&
+      !chatSettings
+    ) {
       const reference = Id();
-      api.sendContact(chatId, phoneNumber, name, reference, null, null, null, null, null);
+      api.sendContact(
+        chatId,
+        phoneNumber,
+        name,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        null
+      );
     } else {
       let contactOutMessage = new ContactOutMessage();
       api.prepareOutMessage(
@@ -442,7 +563,17 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.sendVideo = (chatId, videoFileId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings) => {
+  api.sendVideo = (
+    chatId,
+    videoFileId,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    caption,
+    chatSettings
+  ) => {
     if (
       chatId &&
       videoFileId &&
@@ -455,10 +586,30 @@ function setApiMethods(internalWS, api) {
       !chatSettings
     ) {
       const reference = Id();
-      api.sendVideo(chatId, videoFileId, reference, null, null, null, null, caption, null);
+      api.sendVideo(
+        chatId,
+        videoFileId,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null
+      );
     } else {
       let message = new VideoOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendVideo";
       message.video = videoFileId;
       message.reference = reference;
@@ -493,10 +644,32 @@ function setApiMethods(internalWS, api) {
       !chatSettings
     ) {
       const reference = Id();
-      api.sendAudio(chatId, audioFileId, reference, null, null, null, null, caption, null, null, null);
+      api.sendAudio(
+        chatId,
+        audioFileId,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null,
+        null,
+        null
+      );
     } else {
       let message = new AudioOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendAudio";
       message.performer = performer;
       message.title = title;
@@ -506,7 +679,18 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.sendVoice = (chatId, voiceFileId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, size, chatSettings) => {
+  api.sendVoice = (
+    chatId,
+    voiceFileId,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    caption,
+    size,
+    chatSettings
+  ) => {
     if (
       chatId &&
       voiceFileId &&
@@ -520,10 +704,31 @@ function setApiMethods(internalWS, api) {
       !chatSettings
     ) {
       const reference = Id();
-      api.sendVoice(chatId, voiceFileId, reference, null, null, null, null, caption, null, null);
+      api.sendVoice(
+        chatId,
+        voiceFileId,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null,
+        null
+      );
     } else {
       let message = new VoiceOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendVoice";
       message.size = size;
       message.voice = voiceFileId;
@@ -559,10 +764,32 @@ function setApiMethods(internalWS, api) {
       chatSettings
     ) {
       const reference = Id();
-      api.sendDocument(chatId, documentFileId, reference, null, null, null, null, caption, null, null, null);
+      api.sendDocument(
+        chatId,
+        documentFileId,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null,
+        null,
+        null
+      );
     } else {
       let message = new DocumentOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendDocument";
       message.document = documentFileId;
       message.name = name;
@@ -599,10 +826,32 @@ function setApiMethods(internalWS, api) {
       !chatSettings
     ) {
       const reference = Id();
-      api.sendlocation(chatId, latitude, longitude, reference, null, null, null, null, null, null, null);
+      api.sendlocation(
+        chatId,
+        latitude,
+        longitude,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      );
     } else {
       let message = new LocationOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, null, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        null,
+        chatSettings
+      );
       message.method = "sendLocation";
       message.name = name;
       message.details = details;
@@ -611,13 +860,53 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.sendGIF = (chatId, gif, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings) => {
-    if (chatId && gif && caption && !reference && !replyToMessageId && !toUserId && !webPagePreview && !disableNotification && !chatSettings) {
+  api.sendGIF = (
+    chatId,
+    gif,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    caption,
+    chatSettings
+  ) => {
+    if (
+      chatId &&
+      gif &&
+      caption &&
+      !reference &&
+      !replyToMessageId &&
+      !toUserId &&
+      !webPagePreview &&
+      !disableNotification &&
+      !chatSettings
+    ) {
       const reference = Id();
-      api.sendPhoto(chatId, gif, reference, null, null, null, null, caption, null);
+      api.sendPhoto(
+        chatId,
+        gif,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null
+      );
     } else {
       let message = new PhotoOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendPhoto";
       message.photo = gif;
       message.reference = reference;
@@ -625,12 +914,52 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.sendGIFVideo = (chatId, gif, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings) => {
-    if (chatId && gif && caption && !reference && !replyToMessageId && !toUserId && !webPagePreview && !disableNotification && !chatSettings) {
-      api.sendVideo(chatId, gif, reference, null, null, null, null, caption, null);
+  api.sendGIFVideo = (
+    chatId,
+    gif,
+    reference,
+    replyToMessageId,
+    toUserId,
+    webPagePreview,
+    disableNotification,
+    caption,
+    chatSettings
+  ) => {
+    if (
+      chatId &&
+      gif &&
+      caption &&
+      !reference &&
+      !replyToMessageId &&
+      !toUserId &&
+      !webPagePreview &&
+      !disableNotification &&
+      !chatSettings
+    ) {
+      api.sendVideo(
+        chatId,
+        gif,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        caption,
+        null
+      );
     } else {
       let message = new VideoOutMessage();
-      api.prepareOutMessage(message, chatId, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, caption, chatSettings);
+      api.prepareOutMessage(
+        message,
+        chatId,
+        reference,
+        replyToMessageId,
+        toUserId,
+        webPagePreview,
+        disableNotification,
+        caption,
+        chatSettings
+      );
       message.method = "sendVideo";
       message.video = gif;
       message.reference = reference;
