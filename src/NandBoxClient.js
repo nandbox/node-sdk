@@ -419,6 +419,7 @@ function setApiMethods(internalWS, api) {
       message.reference = reference;
       api.send(JSON.stringify(message));
     } else {
+      let message = new TextOutMessage();
       api.prepareOutMessage(
         message,
         chatId,
