@@ -26,7 +26,7 @@ const BlackList = require('../inmessages/BlackList');
 
 
 
-let TOKEN = "90091905646805157:0:2LvO0hSLJrLkO3wLT3jaa50RmQts8Y"; // you can put your own bot token
+let TOKEN = "90091783919738987:0:W8rMsaJX2lMiIj2jzB4Fk9EoyzN9sg"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
@@ -168,7 +168,13 @@ nCallBack.onReceive = incomingMsg => {
         console.log("================End of From User Object ===================");
 
         if (incomingMsg.isTextMsg()) {
-            if (incomingMsg.text.toLowerCase() == "getMyProfile".toLowerCase()) {
+            if(incomingMsg.text.startsWith("Tab")) {
+                const tabId = incomingMsg.text.split(" ")[1];
+                const reference = Id();
+                console.log("TabId is " + tabId);
+                api.sendText(incomingMsg.chat.id, "Your tab id is " + tabId, reference, null, null, null, null, null, null, tabId)
+            }
+            else if (incomingMsg.text.toLowerCase() == "getMyProfile".toLowerCase()) {
                 api.getMyProfiles();
             }
             else if (incomingMsg.text.toLowerCase() == "getChat".toLowerCase()) {
@@ -484,7 +490,7 @@ let handleIncomingDocumentMsg = incomingMsg => {
                 "Document Caption");
             api.sendDocument(incomingMsg.chat.id, uploadedDocumentId, Id(),
                 "Send doc with ref");
-            api.sendDocument(incomingMsg.chat.id, uploadedDocumentId, Id(), null, null, null, null, "from all option send", null, null, null);
+            api.sendDocument(incomingMsg.chat.id, uploadedDocumentId, Id(), null, null, null, null, "from all option send", null, null, null, null);
         })
 
     api.sendText(incomingMsg.chat.id,
@@ -535,7 +541,7 @@ let handleIncomingContactMsg = incomingMsg => {
         incomingMsg.contact.phoneNumber,
         incomingMsg.contact.name,
         Id(), null, null,
-        null, null, null);
+        null, null, null, null);
 
     api.sendText(incomingMsg.chat.id,
         " Contact Name  is : " + incomingMsg.contact.name
@@ -559,7 +565,7 @@ let handleIncomingTextFileMsg = incomingMsg => {
         .then(uploadedTextFileId => {
             api.sendDocument(incomingMsg.chat.id, uploadedTextFileId,
                 Id(), null, null, null,
-                null, "Text File Caption", null, null, null);
+                null, "Text File Caption", null, null, null, null);
         })
         .catch(e => console.log("Upload failed", e));
 
@@ -595,7 +601,7 @@ let handleIncomingLocationMsg = incomingMsg => {
         incomingMsg.location.latitude,
         incomingMsg.location.longitude,
         Id(), null, null,
-        null, null, null, null, null);
+        null, null, null, null, null, null);
 
     api.sendText(incomingMsg.chat.id,
         " Latitude is : " + incomingMsg.location.latitude
@@ -669,7 +675,7 @@ let handleIncomingGifMsg = incomingMsg => {
                     "with ref");
                 api.sendGIFVideo(incomingMsg.chat.id, uploadedGifVideoId,
                     Id(),
-                    null, null, null, null, "with option", null);
+                    null, null, null, null, "with option", null, null);
             })
             .catch(e => console.log("Upload failed", e));
     } else

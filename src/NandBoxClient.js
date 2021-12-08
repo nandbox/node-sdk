@@ -352,7 +352,8 @@ function setApiMethods(internalWS, api) {
     webPagePreview,
     disableNotification,
     caption,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     message.chat_id = chatId;
     message.reference = reference;
@@ -363,6 +364,7 @@ function setApiMethods(internalWS, api) {
     if (disableNotification) message.disable_notification = disableNotification;
     if (caption) message.caption = caption;
     if (chatSettings) message.chat_settings = chatSettings;
+    if (tab) message.tab = tab;
   };
 
   api.sendText = (
@@ -374,7 +376,8 @@ function setApiMethods(internalWS, api) {
     webPagePreview,
     disableNotification,
     chatSettings,
-    bgColor
+    bgColor,
+    tab
   ) => {
     if (
       chatId &&
@@ -385,11 +388,12 @@ function setApiMethods(internalWS, api) {
       !webPagePreview &&
       !disableNotification &&
       !chatSettings &&
-      !bgColor
+      !bgColor &&
+      !tab
     ) {
       const reference = Id();
 
-      api.sendText(chatId, text, reference, null, null, null, null, null, null);
+      api.sendText(chatId, text, reference, null, null, null, null, null, null, null);
       return reference;
     } else if (
       chatId &&
@@ -400,7 +404,8 @@ function setApiMethods(internalWS, api) {
       !toUserId &&
       !webPagePreview &&
       !disableNotification &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       let message = new TextOutMessage();
       api.prepareOutMessage(
@@ -412,7 +417,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         null,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendMessage";
       message.text = text;
@@ -429,7 +435,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         null,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendMessage";
       message.text = text;
@@ -449,7 +456,8 @@ function setApiMethods(internalWS, api) {
       null,
       null,
       null,
-      bgColor
+      bgColor,
+      null
     );
     return reference;
   };
@@ -463,7 +471,8 @@ function setApiMethods(internalWS, api) {
     webPagePreview,
     disableNotification,
     caption,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -474,7 +483,8 @@ function setApiMethods(internalWS, api) {
       !toUserId &&
       !webPagePreview &&
       !disableNotification &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       const reference = Id();
       api.sendPhoto(
@@ -486,6 +496,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null
       );
     } else {
@@ -499,7 +510,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendPhoto";
       message.photo = photoFileId;
@@ -517,7 +529,8 @@ function setApiMethods(internalWS, api) {
     toUserId,
     webPagePreview,
     disableNotification,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -528,7 +541,8 @@ function setApiMethods(internalWS, api) {
       !toUserId &&
       !webPagePreview &&
       !disableNotification &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       const reference = Id();
       api.sendContact(
@@ -536,6 +550,7 @@ function setApiMethods(internalWS, api) {
         phoneNumber,
         name,
         reference,
+        null,
         null,
         null,
         null,
@@ -553,7 +568,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         null,
-        chatSettings
+        chatSettings,
+        tab
       );
 
       contactOutMessage.method = "sendContact";
@@ -573,7 +589,8 @@ function setApiMethods(internalWS, api) {
     webPagePreview,
     disableNotification,
     caption,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -584,7 +601,8 @@ function setApiMethods(internalWS, api) {
       !toUserId &&
       !webPagePreview &&
       !disableNotification &&
-      !chatSettings
+      !chatSettings &&
+      tab
     ) {
       const reference = Id();
       api.sendVideo(
@@ -596,6 +614,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null
       );
     } else {
@@ -609,7 +628,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendVideo";
       message.video = videoFileId;
@@ -629,7 +649,8 @@ function setApiMethods(internalWS, api) {
     caption,
     performer,
     title,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -642,7 +663,8 @@ function setApiMethods(internalWS, api) {
       !disableNotification &&
       !performer &&
       !title &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       const reference = Id();
       api.sendAudio(
@@ -654,6 +676,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null,
         null,
         null
@@ -669,7 +692,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendAudio";
       message.performer = performer;
@@ -690,7 +714,8 @@ function setApiMethods(internalWS, api) {
     disableNotification,
     caption,
     size,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -702,7 +727,8 @@ function setApiMethods(internalWS, api) {
       !webPagePreview &&
       !disableNotification &&
       !size &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       const reference = Id();
       api.sendVoice(
@@ -714,6 +740,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null,
         null
       );
@@ -728,7 +755,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendVoice";
       message.size = size;
@@ -749,7 +777,8 @@ function setApiMethods(internalWS, api) {
     caption,
     name,
     size,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -762,7 +791,8 @@ function setApiMethods(internalWS, api) {
       !disableNotification &&
       !name &&
       !size &&
-      chatSettings
+      !chatSettings &&
+      ! tab
     ) {
       const reference = Id();
       api.sendDocument(
@@ -774,6 +804,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null,
         null,
         null
@@ -789,7 +820,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendDocument";
       message.document = documentFileId;
@@ -811,7 +843,8 @@ function setApiMethods(internalWS, api) {
     disableNotification,
     name,
     details,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -824,7 +857,8 @@ function setApiMethods(internalWS, api) {
       !disableNotification &&
       !name &&
       !details &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       const reference = Id();
       api.sendlocation(
@@ -832,6 +866,7 @@ function setApiMethods(internalWS, api) {
         latitude,
         longitude,
         reference,
+        null,
         null,
         null,
         null,
@@ -851,7 +886,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         null,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendLocation";
       message.name = name;
@@ -870,7 +906,8 @@ function setApiMethods(internalWS, api) {
     webPagePreview,
     disableNotification,
     caption,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -881,7 +918,8 @@ function setApiMethods(internalWS, api) {
       !toUserId &&
       !webPagePreview &&
       !disableNotification &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       const reference = Id();
       api.sendPhoto(
@@ -893,6 +931,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null
       );
     } else {
@@ -906,7 +945,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendPhoto";
       message.photo = gif;
@@ -924,7 +964,8 @@ function setApiMethods(internalWS, api) {
     webPagePreview,
     disableNotification,
     caption,
-    chatSettings
+    chatSettings,
+    tab
   ) => {
     if (
       chatId &&
@@ -935,7 +976,8 @@ function setApiMethods(internalWS, api) {
       !toUserId &&
       !webPagePreview &&
       !disableNotification &&
-      !chatSettings
+      !chatSettings &&
+      !tab
     ) {
       api.sendVideo(
         chatId,
@@ -946,6 +988,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         caption,
+        null,
         null
       );
     } else {
@@ -959,7 +1002,8 @@ function setApiMethods(internalWS, api) {
         webPagePreview,
         disableNotification,
         caption,
-        chatSettings
+        chatSettings,
+        tab
       );
       message.method = "sendVideo";
       message.video = gif;
@@ -968,7 +1012,7 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.updateMessage = (messageId, text, caption, toUserId, chatId) => {
+  api.updateMessage = (messageId, text, caption, toUserId, chatId, tab) => {
     let updateMessage = new UpdateOutMessage();
 
     updateMessage.message_id = messageId;
@@ -976,20 +1020,21 @@ function setApiMethods(internalWS, api) {
     updateMessage.caption = caption;
     updateMessage.toUser_id = toUserId;
     updateMessage.chat_id = chatId;
+    updateMessage.tab = tab;
 
     api.send(JSON.stringify(updateMessage));
   };
 
-  api.updateTextMsg = (messageId, text, toUserId) => {
-    updateMessage(messageId, text, null, toUserId, null);
+  api.updateTextMsg = (messageId, text, toUserId, tab) => {
+    updateMessage(messageId, text, null, toUserId, null, tab);
   };
 
-  api.updateMediaCaption = (messageId, caption, toUserId) => {
-    updateMessage(messageId, null, caption, toUserId, null);
+  api.updateMediaCaption = (messageId, caption, toUserId, tab) => {
+    updateMessage(messageId, null, caption, toUserId, null, tab);
   };
 
-  api.updateChatMsg = (messageId, text, chatId) => {
-    updateMessage(messageId, text, null, null, chatId);
+  api.updateChatMsg = (messageId, text, chatId, tab) => {
+    updateMessage(messageId, text, null, null, chatId, tab);
   };
 
   api.updateChatMediaCaption = (messageId, caption, chatId) => {

@@ -41,13 +41,13 @@ nCallBack.onReceive = incomingMsg => {
 
                     if ("larg" == format.toLowerCase()) {
                         for (let i = 0; i < msgsCount; i++) {
-                            api.sendText(chatId, i + 1, Id(), null, null, null, null, null, getRandomColorString());
+                            api.sendText(chatId, i + 1, Id(), null, null, null, null, null, getRandomColorString(), null);
                             //TODO: sleep
                         }
                     }
                     else {
                         for (let i = 0; i < msgsCount; i++) {
-                            api.sendText(chatId, i + 1, Id(), null, null, null, null, null, null);
+                            api.sendText(chatId, i + 1, Id(), null, null, null, null, null, null, null);
                         }
                     }
                 }

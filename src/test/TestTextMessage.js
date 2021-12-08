@@ -543,8 +543,8 @@ let handleIncomingTextMsg = incomingMsg => {
             console.log(new Error().stack);
             console.log(e);
         }
-        api.sendText(incomingMsg.chat.id, "Link without prview http://www.nandbox.com", Id(), null, null, OutMessage.WEB_PREVIEW_DISABLE, true, null, null);
-        api.sendText(incomingMsg.chat.id, "Link with prview http://www.nandbox.com", Id(), null, null, null, true, null, null);
+        api.sendText(incomingMsg.chat.id, "Link without prview http://www.nandbox.com", Id(), null, null, OutMessage.WEB_PREVIEW_DISABLE, true, null, null, null);
+        api.sendText(incomingMsg.chat.id, "Link with prview http://www.nandbox.com", Id(), null, null, null, true, null, null, null);
     } else if ("getChatAdmins" == incomingMsg.text.toLocaleLowerCase()) {
         api.getChatAdministrators(incomingMsg.getChat().getId());
     } else if ("getMyProfile" == incomingMsg.text.toLocaleLowerCase()) {
@@ -600,11 +600,11 @@ onInlineMessageCallback = (inlineMsgCallback) => {
     if (inlineMsgCallback.buttonCallback == "NarutoCB") api.sendText(chatId, "Rasengan !!!");
     if (inlineMsgCallback.buttonCallback == "SasukeCB") api.sendText(chatId, "Chidori z-z-z ");
     if (inlineMsgCallback.buttonCallback == "SakuraCB") api.sendText(chatId, "Shannaro (*_*)");
-    if (inlineMsgCallback.buttonCallback == "editCaptionCB") api.updateMediaCaption(msgId, "My New Caption ", userId);
-    if (inlineMsgCallback.buttonCallback == "editTextCB") api.updateTextMsg(msgId, "My New Text ", userId);
-    if (inlineMsgCallback.buttonCallback == "editTextChatCB") api.updateChatMsg(msgId, "My New Text in group ", chatId);
-    if (inlineMsgCallback.buttonCallback == "editCaptionChatCB") api.updateChatMsg(msgId, "My New Caption in group ", chatId);
-    if (inlineMsgCallback.buttonCallback == "editTextChatCBboth") api.updateMessage(msgId, "my new message", null, userId, chatId);
+    if (inlineMsgCallback.buttonCallback == "editCaptionCB") api.updateMediaCaption(msgId, "My New Caption ", userId, null);
+    if (inlineMsgCallback.buttonCallback == "editTextCB") api.updateTextMsg(msgId, "My New Text ", userId, null);
+    if (inlineMsgCallback.buttonCallback == "editTextChatCB") api.updateChatMsg(msgId, "My New Text in group ", chatId, null);
+    if (inlineMsgCallback.buttonCallback == "editCaptionChatCB") api.updateChatMsg(msgId, "My New Caption in group ", chatId, null);
+    if (inlineMsgCallback.buttonCallback == "editTextChatCBboth") api.updateMessage(msgId, "my new message", null, userId, chatId, null);
 }
 
 onMessagAckCallback = msgAck => {

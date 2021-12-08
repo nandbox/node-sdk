@@ -196,9 +196,11 @@ module.exports =  class NandBox {
          *            backText message Background color in hexadecimal format (Hex
          *            triplet ) or according to its common English name . Example : Red
          *            color can be set as #FF0000
+         * @param tab
+         *          tab ID to which you want to send the message
          *
          */
-        sendText = (chatId, text, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, chatSettings, bgColor) => { };
+        sendText = (chatId, text, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, chatSettings, bgColor, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -223,8 +225,10 @@ module.exports =  class NandBox {
          *            "Photo caption 0-256 characters "
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only .
+         * @param tab
+         *          tab ID to which you want to send the message
          */
-        sendPhoto = (chatId, photoFileID, caption, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, chatSettings) => { };
+        sendPhoto = (chatId, photoFileID, caption, reference, replyToMessageId, toUserId, webPagePreview, disableNotification, chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -249,10 +253,12 @@ module.exports =  class NandBox {
          *            "video caption 0-256 characters "
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendVideo = (chatId, videoFileId, reference, replyToMessageId,
             toUserId, webPagePreview, disableNotification, caption,
-            chatSettings) => { };
+            chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -284,10 +290,12 @@ module.exports =  class NandBox {
          *            title of the audio
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendAudio = (chatId, audioFileId, reference, replyToMessageId,
             toUserId, webPagePreview, disableNotification, caption, performer,
-            title, chatSettings) => { };
+            title, chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -342,10 +350,12 @@ module.exports =  class NandBox {
          *            size of the voice
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendVoice = (chatId, voiceFileId, reference, replyToMessageId,
             toUserId, webPagePreview, disableNotification, caption, size,
-            chatSettings) => { };
+            chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -374,10 +384,12 @@ module.exports =  class NandBox {
          *            size of document
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendDocument = (chatId, documentFileId, reference, replyToMessageId,
             toUserId, webPagePreview, disableNotification, caption, name,
-            size, chatSettings) => { };
+            size, chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -406,10 +418,12 @@ module.exports =  class NandBox {
          *            details of the location
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendlocation = (chatId, latitude, longitude, reference,
             replyToMessageId, toUserId, webPagePreview, disableNotification,
-            name, details, chatSettings) => { };
+            name, details, chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -434,9 +448,11 @@ module.exports =  class NandBox {
          *            caption 0-256 characters "
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendGIF = (chatId, gifFileId, reference, replyToMessageId, toUserId,
-            webPagePreview, disableNotification, caption, chatSettings) => { };
+            webPagePreview, disableNotification, caption, chatSettings, tab) => { };
         /**
          * @param chatId
          *            Unique identifier for the target chat or User_id and can not set
@@ -461,10 +477,12 @@ module.exports =  class NandBox {
          *            caption 0-256 characters "
          * @param chatSettings
          *            <B>1</B> to send to Chat(i.e. group/Channel)super admins only
+         * @param tab
+         *          tab ID to which you want to send the message
          */
         sendGIFVideo = (chatId, gifFileId, reference, replyToMessageId,
             toUserId, webPagePreview, disableNotification, caption,
-            chatSettings) => { };
+            chatSettings, tab) => { };
         /**
 		 * Use this message to update existing Message sent
 		 * 
@@ -478,8 +496,10 @@ module.exports =  class NandBox {
 		 *            Id of Target user to receive updated message
 		 * @param chatId
 		 *            Id of Target Group or Channel id
+         * @param tab
+         *          tab ID to which you want to send the message
 		 */
-        updateMessage = (messageId, text, caption, toUserId, chatId) => { };
+        updateMessage = (messageId, text, caption, toUserId, chatId, tab) => { };
 
         /**
          * @param messageId
@@ -489,9 +509,10 @@ module.exports =  class NandBox {
          * @param toUserId
          *            Id of Target user to receive updated message
          * 
-         * 
+         * @param tab
+         *          tab ID to which you want to send the message
          */
-        updateTextMsg = (messageId, text, toUserId) => { };
+        updateTextMsg = (messageId, text, toUserId, tab) => { };
         /**
 		 * @param messageId
 		 *            Unique identifier for the message and can not set to null
@@ -500,7 +521,7 @@ module.exports =  class NandBox {
 		 * @param toUserId
 		 *            Id of Target user to receive updated message
 		 */
-        updateMediaCaption = (messageId, caption, toUserId) => { };
+        updateMediaCaption = (messageId, caption, toUserId, tab) => { };
 
         /**
          * @param messageId
@@ -510,7 +531,7 @@ module.exports =  class NandBox {
          * @param chatId
          *            Id of Target Group or Channel id
          */
-        updateChatMsg = (messageId, text, chatId) => { };
+        updateChatMsg = (messageId, text, chatId, tab) => { };
         /**
 		 * @param messageId
 		 *            Unique identifier for the message and can not set to null
@@ -519,7 +540,7 @@ module.exports =  class NandBox {
 		 * @param chatId
 		 *            Id of Target Group or Channel id
 		 */
-        updateChatMediaCaption = (messageId, caption, chatId) => { };
+        updateChatMediaCaption = (messageId, caption, chatId, tab) => { };
 
         /**
          * Use this method to get profile for a user
