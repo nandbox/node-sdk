@@ -602,7 +602,7 @@ function setApiMethods(internalWS, api) {
       !webPagePreview &&
       !disableNotification &&
       !chatSettings &&
-      tab
+      !tab
     ) {
       const reference = Id();
       api.sendVideo(
