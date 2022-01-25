@@ -6,7 +6,7 @@ const NandBox = require("../NandBox");
 
 const WhiteList = require("../inmessages/WhiteList");
 
-const TOKEN = "90091783927225986:0:DVi21J0RFyVv0zZrDMxkYbmN1V74x1"; // replace it with your token
+const TOKEN = "90091783919738987:0:d8OEltE0N59rnRfM5KvAdhCtg6qyAE"; // replace it with your token
 
 
 const config = {
