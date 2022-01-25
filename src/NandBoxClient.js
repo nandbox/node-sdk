@@ -94,6 +94,7 @@ class InternalWebSocket {
         Logger.logger.info("INTERNAL: ONCLOSE");
         Logger.logger.info("StatusCode = " + status.code);
         Logger.logger.info("Reason : " + status.reason);
+        Logger.logger.info("Status: " + JSON.stringify(status));
 
         let current_datetime = new Date();
         let formatted_date =
@@ -113,7 +114,7 @@ class InternalWebSocket {
 
         this.authenticated = false;
 
-        clearInterval(this.pingpong);
+        clearInterval(this.pingpongvar);
 
         this.callback.onClose();
 
@@ -156,6 +157,8 @@ class InternalWebSocket {
         authObject.token = this.token;
         authObject.rem = true;
         let strAuthObj = JSON.stringify(authObject);
+
+        this.pingpong();
 
         Logger.logger.info(strAuthObj);
         this.send(strAuthObj);
@@ -271,10 +274,13 @@ class InternalWebSocket {
   }
 
   pingpong() {
-    this.pingpong = setInterval(() => {
+    this.pingpongvar = setInterval(() => {
       let obj = {};
       obj.method = "PING";
-      this.send(JSON.stringify(obj));
+      let ping = JSON.stringify(obj);
+      Logger.logger.info(ping);
+      console.log(ping);
+      this.send(ping);
     }, 30000);
   }
 
@@ -282,6 +288,7 @@ class InternalWebSocket {
     Logger.logger.info("Creating new webSocketClient");
     this.ws = new WebSocket(this.uri);
     this.setWSCallbacks();
+    this.pingpong();
     Logger.logger.info("webSocketClient started");
   }
 
