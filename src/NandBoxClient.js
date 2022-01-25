@@ -168,6 +168,11 @@ class InternalWebSocket {
         Logger.logger.error("ONERROR: " + JSON.stringify(error));
       },
       message: (msg) => {
+
+        //reset pinging
+        clearInterval(this.pingpongvar);
+        this.pingpong();
+
         let user;
         this.lastMessage = new Date().getUTCMilliseconds();
         Logger.logger.info("INTERNAL: ONMESSAGE");
