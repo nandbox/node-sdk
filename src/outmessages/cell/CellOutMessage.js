@@ -1,6 +1,6 @@
 "use strict";
 
-const OutMessage = require("./OutMessage");
+const OutMessage = require("../OutMessage");
 
 /**
  * This class represents Cell Output Message .
