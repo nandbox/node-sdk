@@ -14,6 +14,9 @@ const ContactOutMessage = require("./outmessages/ContactOutMessage");
 const AudioOutMessage = require("./outmessages/AudioOutMessage");
 const VoiceOutMessage = require("./outmessages/VoiceOutMessage");
 const VideoOutMessage = require("./outmessages/VideoOutMessage");
+const TextCellOutMessage = require("./outmessages/cell/TextCellOutMessage");
+const PhotoCellOutMessage = require("./outmessages/cell/PhotoCellOutMessage");
+const VideoCellOutMessage = require("./outmessages/cell/VideoCellOutMessage");
 const DocumentOutMessage = require("./outmessages/DocumentOutMessage");
 const LocationOutMessage = require("./outmessages/LocationOutMessage");
 const UpdateOutMessage = require("./outmessages/UpdateOutMessage");
@@ -168,7 +171,6 @@ class InternalWebSocket {
         Logger.logger.error("ONERROR: " + JSON.stringify(error));
       },
       message: (msg) => {
-
         //reset pinging
         clearInterval(this.pingpongvar);
         this.pingpong();
@@ -405,7 +407,18 @@ function setApiMethods(internalWS, api) {
     ) {
       const reference = Id();
 
-      api.sendText(chatId, text, reference, null, null, null, null, null, null, null);
+      api.sendText(
+        chatId,
+        text,
+        reference,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      );
       return reference;
     } else if (
       chatId &&
@@ -804,7 +817,7 @@ function setApiMethods(internalWS, api) {
       !name &&
       !size &&
       !chatSettings &&
-      ! tab
+      !tab
     ) {
       const reference = Id();
       api.sendDocument(
@@ -1207,6 +1220,36 @@ function setApiMethods(internalWS, api) {
     getWhiteListOutMessage.chat_id = chatId;
 
     api.send(JSON.stringify(getWhiteListOutMessage));
+  };
+
+  api.sendCellText = (userId, screenId, cellId, text, reference) => {
+    let textMsg = new TextCellOutMessage();
+    textMsg.user_id = userId;
+    textMsg.screen_id = screenId;
+    textMsg.cell_id = cellId;
+    textMsg.text = text;
+    textMsg.reference = reference;
+    api.send(JSON.stringify(textMsg));
+  };
+
+  api.sendCellPhoto = (userId, screenId, cellId, photoFileId, reference) => {
+    let photoMsg = new PhotoCellOutMessage();
+    photoMsg.user_id = userId;
+    photoMsg.screen_id = screenId;
+    photoMsg.cell_id = cellId;
+    photoMsg.photo = photoFileId;
+    photoMsg.reference = reference;
+    api.send(JSON.stringify(photoMsg));
+  };
+
+  api.sendCellVideo = (userId, screenId, cellId, videoFileId, reference) => {
+    let videoMsg = new VideoCellOutMessage();
+    videoMsg.user_id = userId;
+    videoMsg.screen_id = screenId;
+    videoMsg.cell_id = cellId;
+    videoMsg.video = videoFileId;
+    videoMsg.reference = reference;
+    api.send(JSON.stringify(videoMsg));
   };
 }
 
