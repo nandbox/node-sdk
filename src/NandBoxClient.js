@@ -1223,33 +1223,33 @@ function setApiMethods(internalWS, api) {
   };
 
   api.sendCellText = (userId, screenId, cellId, text, reference) => {
-    textMsg = new TextCellOutMessage();
-    textMsg.userId = userId;
-    textMsg.screenId = screenId;
-    textMsg.cellId = cellId;
+    let textMsg = new TextCellOutMessage();
+    textMsg.user_id = userId;
+    textMsg.screen_id = screenId;
+    textMsg.cell_id = cellId;
     textMsg.text = text;
     textMsg.reference = reference;
-    api.send(textMsg);
+    api.send(JSON.stringify(textMsg));
   };
 
   api.sendCellPhoto = (userId, screenId, cellId, photoFileId, reference) => {
-    textMsg = new PhotoCellOutMessage();
-    textMsg.userId = userId;
-    textMsg.screenId = screenId;
-    textMsg.cellId = cellId;
-    textMsg.photo = photo;
-    textMsg.reference = reference;
-    api.send(textMsg);
+    let photoMsg = new PhotoCellOutMessage();
+    photoMsg.user_id = userId;
+    photoMsg.screen_id = screenId;
+    photoMsg.cell_id = cellId;
+    photoMsg.photo = photoFileId;
+    photoMsg.reference = reference;
+    api.send(JSON.stringify(photoMsg));
   };
 
   api.sendCellVideo = (userId, screenId, cellId, videoFileId, reference) => {
-    textMsg = new VideoCellOutMessage();
-    textMsg.userId = userId;
-    textMsg.screenId = screenId;
-    textMsg.cellId = cellId;
-    textMsg.video = videoFileId;
-    textMsg.reference = reference;
-    api.send(textMsg);
+    let videoMsg = new VideoCellOutMessage();
+    videoMsg.user_id = userId;
+    videoMsg.screen_id = screenId;
+    videoMsg.cell_id = cellId;
+    videoMsg.video = videoFileId;
+    videoMsg.reference = reference;
+    api.send(JSON.stringify(videoMsg));
   };
 }
 
