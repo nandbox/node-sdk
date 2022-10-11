@@ -44,7 +44,32 @@ nCallBack.onError = () => {
 };
 nCallBack.onChatMenuCallBack = (chatMenuCallback) => {
   console.log("Inside onChatMenuCallBack");
-  console.log("chatMenuCallback: ", chatMenuCallback);
+  //   console.log("chatMenuCallback: ", chatMenuCallback);
+  const userId = chatMenuCallback.chat.id;
+  console.log("userId: ", userId);
+  const screenId = chatMenuCallback.menu_ref;
+  console.log("screenId: ", screenId);
+  const cellId = chatMenuCallback.button_callback;
+  console.log("cellId: ", cellId);
+  var buttons_data = chatMenuCallback.button_data;
+  console.log("chatMenuCallback values: ", buttons_data);
+  console.log(" type button_data: ", typeof buttons_data);
+  let obj = {};
+  obj.button_callback = "button20";
+  obj.button_id = "";
+  let random = Math.floor(Math.random() * (1000 - 0 + 1)) + 0;
+  obj.button_value = random + "testing JS implementation";
+  obj.button_description = "testing JS implementation description";
+  obj.button_db = 1;
+  buttons_data.push(obj);
+  console.log("buttons data values: ", buttons_data);
+  api.sendCellText(
+    userId,
+    screenId,
+    cellId,
+    JSON.stringify(buttons_data),
+    99555555220
+  );
 };
 nCallBack.onInlineMessageCallback = (inlineMsgCallback) => {};
 nCallBack.onMessagAckCallback = (msgAck) => {};
