@@ -32,6 +32,7 @@ const SetMyProfileOutMessage = require("./outmessages/SetMyProfileOutMessage");
 const SetChatOutMessage = require("./outmessages/SetChatOutMessage");
 const GetMyProfiles = require("./outmessages/GetMyProfiles");
 const GeneratePermanentUrl = require("./outmessages/GeneratePermanentUrl");
+const SetWorkflowOutMessage = require("./outmessages/SetWorkflowOutMessage");
 const Utils = require("./util/Utility");
 const Id = Utils.Id;
 const Data = require("./data/Data");
@@ -54,6 +55,7 @@ require("@babel/polyfill");
 const WebSocket = require("ws");
 const Logger = require("./util/Logger");
 const process = require("process");
+const WorkflowDetails = require("./inmessages/workflowDetails");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -268,6 +270,10 @@ class InternalWebSocket {
               let whiteList = new WhiteList(obj);
               this.callback.onWhiteList(whiteList);
               return;
+              case "workflowDetails":
+                let workflowDetails = new WorkflowDetails(obj);
+                this.callback.onWorkflowDetails(workflowDetails);
+                return;              
             default:
               this.callback.onReceiveObj(obj);
               return;
@@ -1251,6 +1257,18 @@ function setApiMethods(internalWS, api) {
     videoMsg.reference = reference;
     api.send(JSON.stringify(videoMsg));
   };
+
+  api.setWorkflow = (userId,screenId,appId,workflowCells,reference,disableNotification) => {
+    let workflowMsg = new SetWorkflowOutMessage();
+    workflowMsg.user_id = userId;
+    workflowMsg.screen_id = screenId;
+    workflowMsg.app_id = appId;
+    workflowMsg.workflow_cell = workflowCells;
+    workflowMsg.reference = reference;
+    workflowMsg.disable_notification = disableNotification;
+    api.send(JSON.stringify(workflowMsg));
+  };
+  
 }
 
 module.exports = {

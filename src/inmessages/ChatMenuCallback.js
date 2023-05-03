@@ -21,6 +21,7 @@ module.exports = class ChatMenuCallback {
     this.button_data = obj.button_data;
     this.next_menu = obj.next_menu;
     this.date = obj.date;
+    this.app_id = obj.app_id;
   }
 
   toJsonObject() {
@@ -36,6 +37,7 @@ module.exports = class ChatMenuCallback {
       obj.button_query_result = this.button_query_result;
     if (this.nextMenu) obj.next_menu = this.next_menu;
     if (this.button_data) obj.button_data = this.button_data;
+    if (this.app_id) obj.app_id = this.app_id;
 
     console.log("to " + JSON.stringify(obj));
     return obj;

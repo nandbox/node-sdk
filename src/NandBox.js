@@ -153,6 +153,8 @@ module.exports = class NandBox {
      *           incoming Schedule message from server
      */
     onScheduleMessage = (incomingScheduleMsg) => {};
+
+    onWorkflowDetails = (workflowDetails) => {};
   }
   /**
    * @author Ahmed A. El-Malatawy @author Amir
@@ -808,5 +810,6 @@ module.exports = class NandBox {
     deleteBlackListPatterns = (chatId, pattern) => {};
     deleteWhiteListPatterns = (chatId, pattern) => {};
     addWhiteList = (chatId, whiteListUsers) => {};
+    setWorkflow = (userId,screenId,appId,workflowCells,reference,disableNotification) => {};
   }
 };
