@@ -1,6 +1,6 @@
 {
   "name": "nandbox-bot-api",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A Node.js library for creating bots in nandbox",
   "main": "index.js",
   "scripts": {
