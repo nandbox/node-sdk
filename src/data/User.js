@@ -17,7 +17,8 @@ module.exports = class User {
 		this.lastSeen =  jsonobj.last_seen;
 		this.status =  jsonobj.status;
 		this.profile =  jsonobj.profile;
-
+		this.login_id =  jsonobj.login_id;
+        
 
 		this.photo = jsonobj.photo != null ? new Photo(jsonobj.photo) : null;
 
@@ -38,6 +39,7 @@ module.exports = class User {
         if(this.profile) obj.profile = this.profile;
         if(this.photo) obj.photo = this.photo;
         if(this.shortName) obj.short_name = this.shortName;
+        if(this.login_id) obj.login_id = this.login_id;
 
         return obj;
         
