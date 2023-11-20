@@ -23,6 +23,7 @@ const LocationOutMessage = require("./outmessages/LocationOutMessage");
 const UpdateOutMessage = require("./outmessages/UpdateOutMessage");
 const GetChatMemberOutMessage = require("./outmessages/GetChatMemberOutMessage");
 const AddChatMemberOutMessage = require("./outmessages/AddChatMemberOutMessage");
+const AddChatAdminMemberOutMessage = require("./outmessages/AddChatAdminMemberOutMessage");
 const GetUserOutMessage = require("./outmessages/GetUserOutMessage");
 const GetChatOutMessage = require("./outmessages/GetChatOutMessage");
 const GetChatAdministratorsOutMessage = require("./outmessages/GetChatAdministratorsOutMessage");
@@ -1090,6 +1091,13 @@ function setApiMethods(internalWS, api) {
     addChatMemberOutMessage.chat_id = chatId;
     addChatMemberOutMessage.user_id = userId;
     api.send(JSON.stringify(addChatMemberOutMessage));
+  };
+
+  api.addChatAdminMember = (chatId,userId) => {
+    let addChatAdminMemberOutMessage = new AddChatAdminMemberOutMessage();
+    addChatAdminMemberOutMessage.chat_id = chatId;
+    addChatAdminMemberOutMessage.user_id = userId;
+    api.send(JSON.stringify(addChatAdminMemberOutMessage));
   };
 
   api.getUser = (userId) => {
