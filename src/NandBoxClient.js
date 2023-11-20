@@ -1,4 +1,5 @@
 "use strict";
+require("@babel/polyfill");
 const NandBox = require("./NandBox");
 const User = require("./data/User");
 const Chat = require("./data/Chat");
@@ -21,6 +22,7 @@ const DocumentOutMessage = require("./outmessages/DocumentOutMessage");
 const LocationOutMessage = require("./outmessages/LocationOutMessage");
 const UpdateOutMessage = require("./outmessages/UpdateOutMessage");
 const GetChatMemberOutMessage = require("./outmessages/GetChatMemberOutMessage");
+const AddChatMemberOutMessage = require("./outmessages/AddChatMemberOutMessage");
 const GetUserOutMessage = require("./outmessages/GetUserOutMessage");
 const GetChatOutMessage = require("./outmessages/GetChatOutMessage");
 const GetChatAdministratorsOutMessage = require("./outmessages/GetChatAdministratorsOutMessage");
@@ -51,11 +53,11 @@ const GetBlackListOutMessage = require("./outmessages/GetBlackListOutMessage");
 const GetWhiteListOutMessage = require("./outmessages/GetWhiteListOutMessage");
 const IncomingMessage = require("./inmessages/IncomingMessage");
 const MessageAck = require("./inmessages/MessageAck");
-require("@babel/polyfill");
 const WebSocket = require("ws");
 const Logger = require("./util/Logger");
 const process = require("process");
 const WorkflowDetails = require("./inmessages/workflowDetails");
+const CreateChatOutMessage = require("./outmessages/CreateChatOutMessage");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -230,6 +232,10 @@ class InternalWebSocket {
               let chatMember = new ChatMember(obj);
               this.callback.onChatMember(chatMember);
               return;
+            case "createChatAck":
+              let chatObject = new Chat(obj.chat);
+              this.callback.onCreateChat(chatObject);
+              return;
             case "myProfile":
               user = new User(obj.user);
               this.callback.onMyProfile(user);
@@ -270,12 +276,12 @@ class InternalWebSocket {
               let whiteList = new WhiteList(obj);
               this.callback.onWhiteList(whiteList);
               return;
-              case "workflowDetails":
+              case "workflowCell":
                 let workflowDetails = new WorkflowDetails(obj);
                 this.callback.onWorkflowDetails(workflowDetails);
                 return;              
             default:
-              this.callback.onReceiveObj(obj);
+              this.callback.onReceiveObj(JSON.stringify(obj));
               return;
           }
         } else {
@@ -1079,6 +1085,13 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(getChatMemberOutMessage));
   };
 
+  api.addChatMember = (chatId,userId) => {
+    let addChatMemberOutMessage = new AddChatMemberOutMessage();
+    addChatMemberOutMessage.chat_id = chatId;
+    addChatMemberOutMessage.user_id = userId;
+    api.send(JSON.stringify(addChatMemberOutMessage));
+  };
+
   api.getUser = (userId) => {
     let getUserOutMessage = new GetUserOutMessage();
     getUserOutMessage.user_id = userId;
@@ -1269,6 +1282,12 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(workflowMsg));
   };
   
+  api.createChat = (type,isPublic) => {
+    let createChatOutMessage = new CreateChatOutMessage();
+    createChatOutMessage.type = type;
+    createChatOutMessage.isPublic = isPublic;
+    api.send(JSON.stringify(createChatOutMessage.toJsonObject()));
+  };
 }
 
 module.exports = {

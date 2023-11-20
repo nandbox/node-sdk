@@ -20,7 +20,7 @@ nCallBack.onConnect = (_api) => {
 };
 
 nCallBack.onReceive = (incomingMsg) => {
-  console.log("Message Received");
+  console.log("Message Received", JSON.stringify(incomingMsg));
   Logger.logger.info("Message Received");
 
   if (incomingMsg.isTextMsg()) {
@@ -84,5 +84,7 @@ nCallBack.userLeftBot = (user) => {};
 nCallBack.permanentUrl = (permenantUrl) => {};
 nCallBack.onChatDetails = (chat) => {};
 nCallBack.onInlineSearh = (inlineSearch) => {};
+nCallBack.onCreateChat = (chat) => {};
+nCallBack.onWorkflowDetails = (workflowCellDetails) => {};
 
 client.connect(config.Token, nCallBack);
