@@ -87,5 +87,4 @@ nCallBack.onChatDetails = (chat) => {};
 nCallBack.onInlineSearh = (inlineSearch) => {};
 nCallBack.onCreateChat = (chat) => {};
 nCallBack.onWorkflowDetails = (workflowCellDetails) => {};
-
 client.connect(config.Token, nCallBack);

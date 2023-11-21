@@ -13,6 +13,12 @@ module.exports = class WorkflowDetails {
 
       this.workflowCell = workflowCells;
     }
+
+    this.screen_id = obj.screen_id;
+    this.vapp_id = obj.vapp_id; 
+    this.reference = obj.reference; 
+    this.user_id = obj.user_id;
+
   }
 
   toJsonObject() {
@@ -23,6 +29,11 @@ module.exports = class WorkflowDetails {
         workflowCellArrayObjnew.push(workflowCell[i].toJsonObject());
       obj.workflowCell = workflowCellArrayObjnew;
     }
+
+    if(this.screen_id) obj.screen_id = this.screen_id;
+    if(this.vapp_id) obj.vapp_id = this.vapp_id;
+    if(this.reference) obj.reference = this.reference;
+    if(this.user_id) obj.user_id = this.user_id;
 
     return obj;
   }
