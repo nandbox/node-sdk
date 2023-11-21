@@ -1291,11 +1291,12 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(workflowMsg));
   };
 
-  api.setWorkflowAction = (userId,screenId,nextScreen,reference) => {
+  api.setWorkflowAction = (userId,screenId,nextScreen,vappId,reference) => {
     let workflowActionMsg = new SetWorkflowActionOutMessage();
     workflowActionMsg.user_id = userId;
     workflowActionMsg.screen_id = screenId;
     workflowActionMsg.next_screen = nextScreen;
+    workflowActionMsg.vapp_id = vappId;
     workflowActionMsg.reference = reference;
     api.send(JSON.stringify(workflowActionMsg));
   };
