@@ -36,6 +36,7 @@ const SetChatOutMessage = require("./outmessages/SetChatOutMessage");
 const GetMyProfiles = require("./outmessages/GetMyProfiles");
 const GeneratePermanentUrl = require("./outmessages/GeneratePermanentUrl");
 const SetWorkflowOutMessage = require("./outmessages/SetWorkflowOutMessage");
+const SetWorkflowActionOutMessage = require("./outmessages/SetWorkflowActionOutMessage");
 const Utils = require("./util/Utility");
 const Id = Utils.Id;
 const Data = require("./data/Data");
@@ -1288,6 +1289,15 @@ function setApiMethods(internalWS, api) {
     workflowMsg.reference = reference;
     workflowMsg.disable_notification = disableNotification;
     api.send(JSON.stringify(workflowMsg));
+  };
+
+  api.setWorkflowAction = (userId,screenId,nextScreen,reference) => {
+    let workflowActionMsg = new SetWorkflowActionOutMessage();
+    workflowActionMsg.user_id = userId;
+    workflowActionMsg.screen_id = screenId;
+    workflowActionMsg.next_screen = nextScreen;
+    workflowActionMsg.reference = reference;
+    api.send(JSON.stringify(workflowActionMsg));
   };
   
   api.createChat = (type,isPublic) => {

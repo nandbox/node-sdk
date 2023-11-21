@@ -17,6 +17,7 @@ nCallBack.onConnect = (_api) => {
   api = _api;
   console.log("Authenticated");
   Logger.logger.info("Authenticated");
+  api.setWorkflowAction("90089585528697919","scrn#1","scrn#2",Math.floor(Math.random()*10000000000000));
 };
 
 nCallBack.onReceive = (incomingMsg) => {
