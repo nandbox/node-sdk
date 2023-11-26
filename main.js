@@ -17,7 +17,10 @@ nCallBack.onConnect = (_api) => {
   api = _api;
   console.log("Authenticated");
   Logger.logger.info("Authenticated");
-  api.setWorkflowAction("90089585528697919","scrn#1","scrn#2",Math.floor(Math.random()*10000000000000));
+  const ref = Math.floor(Math.random() * 10000000000000);
+  console.log("ref: ", ref);
+  api.createChat("Group",0,"test");
+  // api.setWorkflowAction("90089585528697919","scrn#1","scrn#2",Math.floor(Math.random()*10000000000000));
 };
 
 nCallBack.onReceive = (incomingMsg) => {
@@ -85,6 +88,28 @@ nCallBack.userLeftBot = (user) => {};
 nCallBack.permanentUrl = (permenantUrl) => {};
 nCallBack.onChatDetails = (chat) => {};
 nCallBack.onInlineSearh = (inlineSearch) => {};
-nCallBack.onCreateChat = (chat) => {};
-nCallBack.onWorkflowDetails = (workflowCellDetails) => {};
+nCallBack.onCreateChat = (chat) => {
+  
+};
+nCallBack.onWorkflowDetails = (workflowCellDetails) => {
+  console.log("workflowCellDetails: ", JSON.stringify(workflowCellDetails));
+  const workflowCellObj = JSON.parse(JSON.stringify(workflowCellDetails));
+  const workflowCell = workflowCellObj.workflowCell;
+  const userId = workflowCellObj.user_id;
+  const screenId = workflowCellObj.screen_id;
+  const vappId = workflowCellObj.vapp_id;
+  workflowCell.forEach((element) => {
+    const value = JSON.parse(JSON.stringify(element.value));
+    const v = value[0].option_id;
+    if (v === "ID - 6mse3q6jd") {
+      api.setWorkflowAction(
+        userId,
+        screenId,
+        "menu3",
+        vappId,
+        Math.floor(Math.random() * 1000000000)
+      );
+    }
+  });
+};
 client.connect(config.Token, nCallBack);

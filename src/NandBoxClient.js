@@ -1301,11 +1301,12 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(workflowActionMsg));
   };
   
-  api.createChat = (chatType,isPublic,title) => {
+  api.createChat = (chatType,isPublic,title,reference) => {
     let createChatOutMessage = new CreateChatOutMessage();
     createChatOutMessage.type = chatType;
     createChatOutMessage.isPublic = isPublic;
     createChatOutMessage.title = title;
+    createChatOutMessage.reference = reference;
     api.send(JSON.stringify(createChatOutMessage.toJsonObject()));
   };
 }
