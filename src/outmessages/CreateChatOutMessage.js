@@ -17,6 +17,7 @@ module.exports = class CreateChatOutMessage extends OutMessage {
                 chat.reference = "CreateGroupRef";
                 chat.isPublic = this.isPublic;
                 chat.timezone = "Africa/Cairo";
+                chat.title = this.title;
                 break;
         }
         return obj;
