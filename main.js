@@ -17,9 +17,8 @@ nCallBack.onConnect = (_api) => {
   api = _api;
   console.log("Authenticated");
   Logger.logger.info("Authenticated");
-  const ref = Math.floor(Math.random() * 10000000000000);
-  console.log("ref: ", ref);
-  api.createChat("Group",0,"test");
+  // const ref = Math.floor(Math.random() * 10000000000000);
+  // api.createChat("Group",0,"test",ref.toString());
   // api.setWorkflowAction("90089585528697919","scrn#1","scrn#2",Math.floor(Math.random()*10000000000000));
 };
 
@@ -88,9 +87,7 @@ nCallBack.userLeftBot = (user) => {};
 nCallBack.permanentUrl = (permenantUrl) => {};
 nCallBack.onChatDetails = (chat) => {};
 nCallBack.onInlineSearh = (inlineSearch) => {};
-nCallBack.onCreateChat = (chat) => {
-  
-};
+nCallBack.onCreateChat = (chat) => {};
 nCallBack.onWorkflowDetails = (workflowCellDetails) => {
   console.log("workflowCellDetails: ", JSON.stringify(workflowCellDetails));
   const workflowCellObj = JSON.parse(JSON.stringify(workflowCellDetails));

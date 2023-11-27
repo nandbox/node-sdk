@@ -236,6 +236,7 @@ class InternalWebSocket {
               return;
             case "createChatAck":
               let chatObject = new Chat(obj.chat);
+              chatObject.reference = obj.reference;
               this.callback.onCreateChat(chatObject);
               return;
             case "myProfile":

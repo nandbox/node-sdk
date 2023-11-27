@@ -14,12 +14,12 @@ module.exports = class CreateChatOutMessage extends OutMessage {
         switch (this.type){
             case "Group":
                 chat.type = "Group";
-                chat.reference = this.reference;
                 chat.isPublic = this.isPublic;
                 chat.timezone = "Africa/Cairo";
                 chat.title = this.title;
                 break;
-        }
+            }
+        obj.reference = this.reference;
         return obj;
     }
 
