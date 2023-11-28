@@ -1,4 +1,4 @@
-const OutMessage = require("../outmessages/OutMessage");
+const OutMessage = require("./OutMessage");
 
 module.exports = class SetWorkflowActionOutMessage extends OutMessage {
   constructor() {
