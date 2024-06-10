@@ -22,11 +22,11 @@ module.exports = class Article {
 	toJsonObject() {
 		let obj = {};
 
-		if (this.id) obj.put(KEY_ID, id);
-		if (this.width) obj.put(KEY_WIDTH, width);
-		if (this.height) obj.put(KEY_HEIGHT, height);
-		if (this.size) obj.put(KEY_SIZE, size);
-		if (this.thumbnail) obj.put(KEY_THUMBNAIL, thumbnail);
+		if (this.id) obj.KEY_ID=this.id;
+		if (this.width) obj.KEY_WIDT= this.width;
+		if (this.height) obj.KEY_HEIGHT=this.height;
+		if (this.size) obj.KEY_SIZE= this.size;
+		if (this.thumbnail) obj.KEY_THUMBNAIL= this.thumbnail;
 
 		return obj;
 
