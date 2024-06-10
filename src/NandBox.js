@@ -16,7 +16,7 @@ module.exports = class NandBox {
    * {@link Nandbox.Callback#onReceive onReceive} which
    * indicates that the bot received a message
    *
-   * @author Ahmed A. El-Malatawy @author Amir
+   *
    *
    */
   Callback() {
@@ -157,7 +157,7 @@ module.exports = class NandBox {
     onWorkflowDetails = (workflowDetails) => {};
   }
   /**
-   * @author Ahmed A. El-Malatawy @author Amir
+   * 
    *
    */
   Api() {

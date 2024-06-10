@@ -1,9 +1,4 @@
-/**
- * This class represents incoming Message used to get Document Message .
- *
- * @author Hossam @author Amir
- *
- */
+
 module.exports = class Doc {
 
     constructor(obj) {

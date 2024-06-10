@@ -2,12 +2,7 @@
 
 const cellOutMessage = require("./CellOutMessage");
 
-/**
- * This class represents Cell Output Message used to send cell video.
- *
- * @author Samy
- *
- */
+
 
 module.exports = class VideoCellOutMessage extends cellOutMessage {
   constructor() {

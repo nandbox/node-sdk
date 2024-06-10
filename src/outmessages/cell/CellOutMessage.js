@@ -2,12 +2,7 @@
 
 const OutMessage = require("../OutMessage");
 
-/**
- * This class represents Cell Output Message .
- *
- * @author Samy
- *
- */
+
 
 module.exports = class CellOutMessage extends OutMessage {
   constructor() {

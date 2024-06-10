@@ -1,11 +1,5 @@
 const OutMessage = require("./OutMessage");
-/**
- * This class represents Output Message used to send this.Gif file either its in this.Gif
- * image format or this.Gif video format .
- *
- * @author Ahmed A. El-Malatawy, Amir
- *
- */
+
 module.exports = class GifOutMessage extends OutMessage {
 
 

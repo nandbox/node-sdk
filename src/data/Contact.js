@@ -1,9 +1,4 @@
-/**
- * This class represents incoming Message used to get Contact Message .
- *
- * @author Hossam @author Amir
- * 
- */
+
 module.exports = class Contact {
 
     constructor(obj) {

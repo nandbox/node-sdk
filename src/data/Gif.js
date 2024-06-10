@@ -1,10 +1,5 @@
 const Thumbnail = require("../data/Thumbnail");
-/**
- * This class represents incoming Message used to get Gif Message .
- *
- * @author Ahmed A. El-Malatawy @Amir
- *
- */
+
 module.exports = class Gif {
 
     constructor(obj) {

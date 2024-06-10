@@ -1,9 +1,4 @@
-/**
- * This class represents incoming Message used to get Location Message .
- *
- * @author Hossam @author Amir
- *
- */
+
 module.exports = class Location {
 
     constructor(obj) {

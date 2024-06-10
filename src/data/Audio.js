@@ -1,9 +1,4 @@
-/**
- * This class represents incoming Message used to get Audio Message .
- *
- * @author Ahmed A. El-Malatawy @author Amir
- *
- */
+
 module.exports = class Audio {
    
     constructor(obj) {

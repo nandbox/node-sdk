@@ -1,11 +1,6 @@
 const Thumbnail = require("./Thumbnail");
 
-/**
- * This class represents incoming Message used to get Article Message .
- * 
- * @author Hossam Mohamed
- *
- */
+
 module.exports = class Article {
 
 

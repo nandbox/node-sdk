@@ -1,8 +1,5 @@
 const Thumbnail = require("../data/Thumbnail");
-/**
- * @author Hossam @author Amir
- *
- */
+
 module.exports = class Sticker {
     constructor(obj) {
         this.id = obj.id;

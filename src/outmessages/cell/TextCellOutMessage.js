@@ -2,12 +2,6 @@
 
 const cellOutMessage = require("./CellOutMessage");
 
-/**
- * This class represents Cell Output Message used to send cell message .
- *
- * @author Samy
- *
- */
 
 module.exports = class TextCellOutMessage extends cellOutMessage {
   constructor() {
