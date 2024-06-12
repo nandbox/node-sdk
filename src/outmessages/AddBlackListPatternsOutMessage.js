@@ -3,6 +3,7 @@ const OutMessage = require('../outmessages/OutMessage');
 module.exports = class AddBlacklistPatternsOutMessage extends OutMessage {
 
 	constructor() {
+		super();
 		this.method = 'addBlacklistPatterns';
 	}
 

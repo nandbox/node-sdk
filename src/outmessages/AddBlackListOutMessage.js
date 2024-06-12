@@ -2,6 +2,7 @@ const OutMessage = require('./OutMessage');
 module.exports =  class AddBlackListOutMessage extends OutMessage {
 
 	constructor() {
+		super();
 		this.method = 'addBlacklist';
 	}
 

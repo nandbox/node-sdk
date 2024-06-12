@@ -3,6 +3,7 @@ const OutMessage = require('../outmessages/OutMessage');
 module.exports = class SetAdminNavigationButtonOutMessage extends OutMessage {
 
 	constructor() {
+		super();
 		this.method = 'setAdminNavigationButton';
 	}
 	

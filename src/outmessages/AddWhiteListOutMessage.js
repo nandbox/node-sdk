@@ -4,6 +4,7 @@ module.exports = class AddWhiteListOutMessage extends OutMessage {
 
 	// private WhiteListUser whiteListUser;
 	constructor() {
+		super();
 		this.method = 'addWhitelist';
 	}
 

@@ -5,6 +5,7 @@ module.exports = class ArticleOutMessage extends OutMessage {
 
 
 	constructor() {
+		super();
 		this.method = "sendArticle";
 	}
 
