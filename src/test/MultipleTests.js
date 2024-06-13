@@ -801,7 +801,7 @@ let handleIncomingPhotoMsg = incomingMsg => {
 
     api.generatePermanentUrl(incomingMsg.photo.id, "Any Reference");
 
-    MediaTransfer.downloadFile(TOKEN, incomingMsg.photo.id, "../../download", incomingMsg.photo.id + ".jpeg", config.DownloadServer);
+    MediaTransfer.downloadFile(TOKEN, incomingMsg.photo.id, "./download", incomingMsg.photo.id + ".jpeg", config.DownloadServer);
 
     api.sendText(incomingMsg.chat.id,
         "Photo Size is : " + incomingMsg.photo.size
