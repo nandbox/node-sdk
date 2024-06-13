@@ -23,6 +23,7 @@ const Button = require("../data/Button");
 const Data = require('../data/Data');
 const WhiteListUser = require('../data/WhiteListUser');
 const BlackList = require('../inmessages/BlackList');
+const fs = require('fs');
 
 
 
@@ -337,6 +338,11 @@ nCallBack.onReceive = incomingMsg => {
                 api.sendText(incomingMsg.chat.id, incomingMsg.text);
             }
         }
+        const path = './downloads';
+
+        if (!fs.existsSync(path)) {
+            fs.mkdirSync(path, { recursive: true });
+        }
         // Incoming Text File Message
         if (incomingMsg.isTextFileMsg()) handleIncomingTextFileMsg(incomingMsg);
 
@@ -558,10 +564,10 @@ let handleIncomingTextFileMsg = incomingMsg => {
     console.log("incomingMsg.textFile.id : " + textFileId);
     console.log("incomingMsg.textFile.size: "
         + incomingMsg.textFile.size);
-
+    
     MediaTransfer.downloadFile(TOKEN, textFileId, "./download", null, config.DownloadServer);
 
-    MediaTransfer.uploadFile(TOKEN, "./download/" + textFileId, config.UploadServer)
+    MediaTransfer.uploadFile(TOKEN, "./upload/" + textFileId, config.UploadServer)
         .then(uploadedTextFileId => {
             api.sendDocument(incomingMsg.chat.id, uploadedTextFileId,
                 Id(), null, null, null,
