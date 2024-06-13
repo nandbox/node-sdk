@@ -86,7 +86,7 @@ nCallBack.userStoppedBot = (user) => {};
 nCallBack.userLeftBot = (user) => {};
 nCallBack.permanentUrl = (permenantUrl) => {};
 nCallBack.onChatDetails = (chat) => {};
-nCallBack.onInlineSearh = (inlineSearch) => {};
+nCallBack.onInlineSearch = (inlineSearch) => {};
 nCallBack.onCreateChat = (chat) => {};
 nCallBack.onWorkflowDetails = (workflowCellDetails) => {
   console.log("workflowCellDetails: ", JSON.stringify(workflowCellDetails));

@@ -141,7 +141,7 @@ module.exports = class NandBox {
     /**
      * @param inlineSearch inline search object that contain inline search info
      */
-    onInlineSearh = (inlineSearch) => {};
+    onInlineSearch = (inlineSearch) => {};
     onBlackList = (blackList) => {};
 
     onWhiteList = (whiteList) => {};

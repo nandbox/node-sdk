@@ -220,7 +220,7 @@ class InternalWebSocket {
               return;
             case "inlineSearch":
               let inlineSearch = new InlineSearch(obj);
-              this.callback.onInlineSearh(inlineSearch);
+              this.callback.onInlineSearch(inlineSearch);
               return;
             case "messageAck":
               let msgAck = new MessageAck(obj);
