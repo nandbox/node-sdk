@@ -1,9 +1,9 @@
 const OutMessage = require("./OutMessage");
 
-module.exports = class GetProductItemOutMessage extends OutMessage{
+module.exports = class GetCollectionProductOutMessage extends OutMessage{
     constructor() {
         super();
-        this.method = "getProductItem";
+        this.method = "getCollectionProduct";
     }
     toJsonObject(){
         let obj = super.toJsonObject();

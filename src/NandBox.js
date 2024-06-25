@@ -1,4 +1,7 @@
 "use strict";
+
+const GetCollectionProductOutMessage = require("./outmessages/GetCollectionProductOutMessage");
+
 module.exports = class NandBox {
   constructor() {
     if (new.target !== NandBox)
@@ -153,7 +156,7 @@ module.exports = class NandBox {
      *           incoming Schedule message from server
      */
     onScheduleMessage = (incomingScheduleMsg) => {};
-      
+    onCollectionProduct  = (collectionProduct)=>{};
     onWorkflowDetails = (workflowDetails) => {};
     onProductItem = (productItem)=>{};
 
@@ -801,6 +804,7 @@ module.exports = class NandBox {
      * @param file  unique file Id for the file
      * @param param1 Generic parameter to set any local reference for the permanent  file
      */
+    getCollectionProduct = (collectionId)=>{};
     generatePermanentUrl = (file, param1) => {};
     getBlackList = (chatId) => {};
     getWhiteList = (chatId) => {};

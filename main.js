@@ -27,7 +27,7 @@ const BlackList = require('./src/inmessages/BlackList');
 const fs = require('fs');
 
 const channelAppId = "90090684288020977"; // add channel app id if working with channel app
-let TOKEN = "90091785371560007:0:cfVQTNRgB5G21liL9ltzP8RzuTR5Yx"; // you can put your own bot token
+let TOKEN = "90091785371560007:0:jHNdTUtysSickXth5IjsBASAJaTlZ9"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
@@ -442,6 +442,9 @@ nCallBack.onChatMenuCallBack = chatMenuCallback => {
             })
     }
 }
+nCallBack.onCollectionProduct = collectionProduct=>{
+    
+}
 nCallBack.onMyProfile = user => {
 
     console.log("user.name : " + user.name);
@@ -790,7 +793,7 @@ let handleIncomingVideoMsg = incomingMsg => {
         + Utility.formatDurationInMinsAndSeconds(incomingMsg.video.duration)
         + " and caption is : " + incomingMsg.caption);
 
-}
+}           
 
 let handleIncomingPhotoMsg = incomingMsg => {
    

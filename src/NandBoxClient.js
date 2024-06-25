@@ -63,6 +63,7 @@ const CreateChatOutMessage = require("./outmessages/CreateChatOutMessage");
 const ProductItem = require("./data/ProductItem");
 const GetProductItemOutMessage = require("./outmessages/GetProductItemOutMessage");
 const GetProductItemResponse = require("./inmessages/GetProductItemResponse");
+const CollectionProduct = require("./data/CollectionProduct");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -259,6 +260,10 @@ class InternalWebSocket {
               let productItem = new ProductItem(obj.productItem);
               this.callback.onProductItem(productItem);
               return;
+            case 'getCollectionProductResponse':
+              let collectionProduct = new CollectionProduct(obj.collectionProduct);
+              this.callback.onCollectionProduct(collectionProduct);
+                return;
             case "chatAdministrators":
               let chatAdministrators = new ChatAdministrators(obj);
               this.callback.onChatAdministrators(chatAdministrators);
