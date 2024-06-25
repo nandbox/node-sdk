@@ -60,6 +60,9 @@ const Logger = require("./util/Logger");
 const process = require("process");
 const WorkflowDetails = require("./inmessages/workflowDetails");
 const CreateChatOutMessage = require("./outmessages/CreateChatOutMessage");
+const ProductItem = require("./data/ProductItem");
+const GetProductItemOutMessage = require("./outmessages/GetProductItemOutMessage");
+const GetProductItemResponse = require("./inmessages/GetProductItemResponse");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -219,6 +222,7 @@ class InternalWebSocket {
               this.callback.onInlineMessageCallback(inlineMsgCallback);
               return;
             case "inlineSearch":
+              console.log(this.callback);
               let inlineSearch = new InlineSearch(obj);
               this.callback.onInlineSearch(inlineSearch);
               return;
@@ -250,6 +254,10 @@ class InternalWebSocket {
             case "chatDetails":
               let chat = new Chat(obj.chat);
               this.callback.onChatDetails(chat);
+              return;
+            case 'getProductItemResponse':
+              let productItem = new ProductItem(obj.productItem);
+              this.callback.onProductItem(productItem);
               return;
             case "chatAdministrators":
               let chatAdministrators = new ChatAdministrators(obj);
@@ -1142,7 +1150,7 @@ function setApiMethods(internalWS, api) {
 
     api.send(JSON.stringify(addWhiteistOutMessage));
   };
-
+  
   api.deleteBlackList = (chatId, users) => {
     let deleteBlackListOutMessage = new DeleteBlackListOutMessage();
     deleteBlackListOutMessage.chat_id = chatId;
@@ -1236,11 +1244,17 @@ function setApiMethods(internalWS, api) {
     generatePermanentUrl.param1 = param1;
     api.send(JSON.stringify(generatePermanentUrl));
   };
-
+  api.getProductItem = (productId)=>{
+      let getProductItem = new GetProductItemOutMessage();
+      getProductItem.id = productId;
+      console.log(getProductItem);
+      api.send(JSON.stringify(getProductItem));
+  }
   api.getBlackList = (chatId) => {
     let getBlackListOutMessage = new GetBlackListOutMessage();
     getBlackListOutMessage.chat_id = chatId;
-
+    console.log(getBlackListOutMessage);
+    console.log(chatId);
     api.send(JSON.stringify(getBlackListOutMessage));
   };
 
