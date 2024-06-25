@@ -26,14 +26,14 @@ const BlackList = require('./src/inmessages/BlackList');
 
 const fs = require('fs');
 
-const channelAppId = "90090684288020977";
-let TOKEN = "90091787142397498:0:DH6fJ1qFOFXvv5bHmWRbWsYSo6Od25"; // you can put your own bot token
+const channelAppId = "90090684288020977"; // add channel app id if working with channel app
+let TOKEN = "90091785371560007:0:cfVQTNRgB5G21liL9ltzP8RzuTR5Yx"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
-    URI: "wss://w1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://w1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://w1.nandbox.net:5020/nandbox/upload/"
+    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
+    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
+    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
 }
 var client = NandBoxClient.get(config);
 

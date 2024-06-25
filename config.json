@@ -1,6 +1,6 @@
 {
-    "Token": "90091783782743336:0:ZYheiTuVoJrKORYBCQmNj2s6X1HrSh",
-    "URI": "wss://d1.nandbox.net:5020/nandbox/api/",
-    "DownloadServer": "https://d1.nandbox.net:5020/nandbox/download/",  
-    "UploadServer": "https://d1.nandbox.net:5020/nandbox/upload/"
+    "Token": "90091787142397498:0:DH6fJ1qFOFXvv5bHmWRbWsYSo6Od25",
+    "URI": "wss://w1.nandbox.net:5020/nandbox/api/",
+    "DownloadServer": "https://w1.nandbox.net:5020/nandbox/download/",  
+    "UploadServer": "https://w1.nandbox.net:5020/nandbox/upload/"
 }

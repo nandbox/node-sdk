@@ -155,6 +155,8 @@ module.exports = class NandBox {
     onScheduleMessage = (incomingScheduleMsg) => {};
       
     onWorkflowDetails = (workflowDetails) => {};
+    onProductItem = (productItem)=>{};
+
   }
   /**
    * 
@@ -654,7 +656,6 @@ module.exports = class NandBox {
      */
     getUser = (userId) => {};
     getProductItem= (productId) =>{};
-    onProductItem = (productItem)=>{};
     /**
      * Use this method to get Group or Channel information.
      *
