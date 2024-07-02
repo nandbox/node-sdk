@@ -380,13 +380,74 @@ nCallBack.onReceive = incomingMsg => {
 
 }
 
-nCallBack.onInlineSearch = (obj) => {
-    let reference=Id();
-    console.log(obj);
-    api.sendText(obj.chat.id, `${obj.from.id} is searching for me`, reference, null, null, null, null, null, null, null)
+nCallBack.onInlineSearch = (inlineSearch) => {
+    console.log("inline search id: " + inlineSearch.search_id);
+    console.log("inline search offset: " + inlineSearch.offset);
+    console.log("inline search chat id: " + inlineSearch.chat.id);
+    console.log("inline search from id: " + inlineSearch.from.id);
+    console.log("inline search keywords: " + inlineSearch.keywords);
 
-};
+   
 
+    if (!inlineSearch.keywords.empty && inlineSearch.keywords.trim() != "") {
+        let inlineSearchAnswer = new InlineSearchAnswer();
+        let results;
+        let pageSize = 30;
+        let maxOffset = "200";
+
+        if (
+            typeof inlineSearch.offset === "undefined" ||
+            inlineSearch.offset == null ||
+            inlineSearch.offset == "" ||
+            inlineSearch.offset == maxOffset
+        ) {
+            let res = [];
+            for (let index = 0; index < 10; index++) {
+                let result =  new Result();
+                result.title = "new";
+                result.caption="caption";
+                result.description="desc";
+                result.height=50;
+                result.width=50;
+                res.push(result);
+                
+            }
+
+            inlineSearchAnswer.next_offset = "1";
+            inlineSearchAnswer.results = res;
+            inlineSearchAnswer.chat = new Chat(inlineSearch.chat);
+            inlineSearchAnswer.chat.id = inlineSearch.chat.id;
+            inlineSearchAnswer.to_user_id = inlineSearch.from.id;
+            inlineSearchAnswer.search_id = inlineSearch.search_id;
+
+            api.send(JSON.stringify(inlineSearchAnswer));
+        }else {
+            let offset = parseInt(inlineSearch.offset);
+            let res = [];
+            for (let index = 0; index < 10; index++) {
+                let result =  new Result();
+                result.title = "new";
+                result.caption="caption";
+                result.description="desc";
+                result.height=50;
+                result.width=50;
+                res.push(result);
+                
+            }
+
+    
+            inlineSearchAnswer.next_offset = "" + (offset + 1);
+            inlineSearchAnswer.results = res;
+            inlineSearchAnswer.chat = new Chat(inlineSearch.chat);
+            inlineSearchAnswer.chat.id = inlineSearch.chat.id;
+            inlineSearchAnswer.to_user_id = inlineSearch.from.id;
+            inlineSearchAnswer.search_id = inlineSearch.search_id;
+    
+            api.send(JSON.stringify(inlineSearchAnswer));
+        }
+    } 
+
+}
 nCallBack.onClose = () => console.log("ONCLOSE");
 nCallBack.onError = () => console.log("ONERROR");
 nCallBack.onInlineMessageCallback = inlineMsgCallback => console.log(inlineMsgCallback.toJsonObject());
