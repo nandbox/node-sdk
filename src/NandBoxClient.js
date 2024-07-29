@@ -257,7 +257,7 @@ class InternalWebSocket {
               this.callback.onChatDetails(chat);
               return;
             case 'getProductItemResponse':
-              let productItem = new ProductItem(obj.productItem);
+              let productItem = new ProductItem(obj.data);
               this.callback.onProductItem(productItem);
               return;
             case 'getCollectionProductResponse':

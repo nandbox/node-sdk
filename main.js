@@ -26,8 +26,8 @@ const BlackList = require('./src/inmessages/BlackList');
 
 const fs = require('fs');
 
-const channelAppId = "90090684288020977"; // add channel app id if working with channel app
-let TOKEN = "90091785371560007:0:jHNdTUtysSickXth5IjsBASAJaTlZ9"; // you can put your own bot token
+const channelAppId = "90090684291377082"; // add channel app id if working with channel app
+let TOKEN = "90091783776537554:90090684291377082:NiaGViIdXHfRVZBAHViUfmUqt4fo6Q"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
@@ -51,7 +51,7 @@ nCallBack.onProductItem = product =>{
     console.log(product);
 }
 nCallBack.onReceive = incomingMsg => {
-    api.getProductItem("5121105821126175");
+    api.getProductItem("5121406605126307");
 
     if (incomingMsg.reply_to_message_id) {
         if (incomingMsg.isTextMsg()) {
