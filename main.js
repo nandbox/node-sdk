@@ -51,7 +51,7 @@ nCallBack.onProductItem = product =>{
     console.log(product);
 }
 nCallBack.onReceive = incomingMsg => {
-    api.getProductItem("5121406605126307");
+    api.getProductItem("5121841914126291");
 
     if (incomingMsg.reply_to_message_id) {
         if (incomingMsg.isTextMsg()) {

@@ -8,23 +8,27 @@ module.exports = class ProductItem {
 		this.vendor = obj.vendor;
 		this.variant = obj.variant;
 		this.id = obj.id;
-		this.attribute = {
-			cost: obj.attribute.cost,
-			quantity: obj.attribute.quantity,
-			hasSkuOrBarcode: obj.attribute.hasSkuOrBarcode,
-			tax: obj.attribute.tax,
-			message: obj.attribute.message,
-			barcode: obj.attribute.barcode
-		};
+		if (obj.attribute) {
+			this.attribute = {
+				cost: obj.attribute.cost,
+				quantity: obj.attribute.quantity,
+				hasSkuOrBarcode: obj.attribute.hasSkuOrBarcode,
+				tax: obj.attribute.tax,
+				message: obj.attribute.message,
+				barcode: obj.attribute.barcode
+			};
+		}
 		this.tag = obj.tag;
 		this.sku = obj.sku;
 		this.keyword = obj.keyword;
 		this.bundle = obj.bundle;
-		this.image = obj.image.map(img => ({
-			width: img.width,
-			url: img.url,
-			height: img.height
-		}));
+		if (obj.image){
+			this.image = obj.image.map(img => ({
+				width: img.width,
+				url: img.url,
+				height: img.height
+			}));
+		}
 		this.assign_collection = obj.assign_collection;
 		this.compare_at_price = obj.compare_at_price;
 		this.main_group_id = obj.main_group_id;
