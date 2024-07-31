@@ -661,6 +661,7 @@ module.exports = class NandBox {
     getUser = (userId) => {};
     getProductItem= (productId) =>{};
     listCollectionItem = ()=>{}
+    getCollectionProduct = (collectionId) =>{}
     /**
      * Use this method to get Group or Channel information.
      *

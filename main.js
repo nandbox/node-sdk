@@ -53,8 +53,8 @@ nCallBack.onProductItem = product =>{
     console.log(product);
 }
 nCallBack.onReceive = incomingMsg => {
-    api.getProductItem("5121841914126291");
-    api.listCollectionItem();
+    api.getCollectionProduct("5121605136126295");
+    
     if (incomingMsg.reply_to_message_id) {
         if (incomingMsg.isTextMsg()) {
             if (incomingMsg.text.toLowerCase() == "getChatMember".toLowerCase()) {
@@ -506,7 +506,7 @@ nCallBack.onChatMenuCallBack = chatMenuCallback => {
     }
 }
 nCallBack.onCollectionProduct = collectionProduct=>{
-    
+    console.log(collectionProduct);
 }
 nCallBack.onMyProfile = user => {
 

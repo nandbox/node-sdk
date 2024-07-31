@@ -67,6 +67,7 @@ const CollectionProduct = require("./data/CollectionProduct");
 const ListCollectionItemOutMessage = require("./outmessages/ListCollectionItemOutMessage");
 const ListCollectionItemResponse = require("./inmessages/ListCollectionItemResponse");
 const GetCollectionProductResponse = require("./inmessages/GetCollectionProductResponse");
+const GetCollectionProductOutMessage = require("./outmessages/GetCollectionProductOutMessage");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1268,10 +1269,9 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(listCollectionItem));
   }
   api.getCollectionProduct = (collectionId)=>{
-    let getProductItem = new GetProductItemOutMessage();
-      getProductItem.id = productId;
-      console.log(getProductItem);
-      api.send(JSON.stringify(getProductItem));
+    let getCollectionProduct = new GetCollectionProductOutMessage();
+    getCollectionProduct.id = collectionId;
+      api.send(JSON.stringify(getCollectionProduct));
   }
   api.getBlackList = (chatId) => {
     let getBlackListOutMessage = new GetBlackListOutMessage();
