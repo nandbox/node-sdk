@@ -45,14 +45,16 @@ nCallBack.onConnect = (_api) => {
     api = _api;
     console.log("ONCONNECT");
 }
-
+nCallBack.listCollectionItemResponse = (categories)=>{
+    console.log(categories);
+}
 
 nCallBack.onProductItem = product =>{
     console.log(product);
 }
 nCallBack.onReceive = incomingMsg => {
     api.getProductItem("5121841914126291");
-
+    api.listCollectionItem();
     if (incomingMsg.reply_to_message_id) {
         if (incomingMsg.isTextMsg()) {
             if (incomingMsg.text.toLowerCase() == "getChatMember".toLowerCase()) {

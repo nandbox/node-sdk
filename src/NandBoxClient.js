@@ -64,6 +64,9 @@ const ProductItem = require("./data/ProductItem");
 const GetProductItemOutMessage = require("./outmessages/GetProductItemOutMessage");
 const GetProductItemResponse = require("./inmessages/GetProductItemResponse");
 const CollectionProduct = require("./data/CollectionProduct");
+const ListCollectionItemOutMessage = require("./outmessages/ListCollectionItemOutMessage");
+const ListCollectionItemResponse = require("./inmessages/ListCollectionItemResponse");
+const GetCollectionProductResponse = require("./inmessages/GetCollectionProductResponse");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -260,9 +263,14 @@ class InternalWebSocket {
               let productItem = new ProductItem(obj.data);
               this.callback.onProductItem(productItem);
               return;
+              case "listCollectionItemResponse":
+               
+                let listProductItemResponse = new ListCollectionItemResponse(obj);
+        
+                this.callback.listCollectionItemResponse(listProductItemResponse.Categories);
             case 'getCollectionProductResponse':
-              let collectionProduct = new CollectionProduct(obj.collectionProduct);
-              this.callback.onCollectionProduct(collectionProduct);
+              let collectionProduct = new GetCollectionProductResponse(obj.data);
+              this.callback.onCollectionProduct(collectionProduct.collectionProducts);
                 return;
             case "chatAdministrators":
               let chatAdministrators = new ChatAdministrators(obj);
@@ -1251,6 +1259,16 @@ function setApiMethods(internalWS, api) {
   };
   api.getProductItem = (productId)=>{
       let getProductItem = new GetProductItemOutMessage();
+      getProductItem.id = productId;
+      console.log(getProductItem);
+      api.send(JSON.stringify(getProductItem));
+  }
+  api.listCollectionItem = ()=>{
+    let listCollectionItem = new ListCollectionItemOutMessage();
+    api.send(JSON.stringify(listCollectionItem));
+  }
+  api.getCollectionProduct = (collectionId)=>{
+    let getProductItem = new GetProductItemOutMessage();
       getProductItem.id = productId;
       console.log(getProductItem);
       api.send(JSON.stringify(getProductItem));
