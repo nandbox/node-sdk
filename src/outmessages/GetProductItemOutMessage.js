@@ -3,7 +3,7 @@ const OutMessage = require("./OutMessage");
 module.exports = class GetProductItemOutMessage extends OutMessage{
     constructor() {
         super();
-        this.method = "getProductItem";
+        this.method = "getProductDetail";
     }
     toJsonObject(){
         let obj = super.toJsonObject();

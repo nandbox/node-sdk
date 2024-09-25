@@ -158,7 +158,7 @@ module.exports = class NandBox {
     onScheduleMessage = (incomingScheduleMsg) => {};
     onCollectionProduct  = (collectionProduct)=>{};
     onWorkflowDetails = (workflowDetails) => {};
-    onProductItem = (productItem)=>{};
+    onProductDetail = (productDetail)=>{};
     listCollectionItemResponse = (collections)=>{};
 
   }
@@ -659,7 +659,7 @@ module.exports = class NandBox {
      *            Id of Target user to receive updated message
      */
     getUser = (userId) => {};
-    getProductItem= (productId) =>{};
+    getProductDetail= (productId) =>{};
     listCollectionItem = ()=>{}
     getCollectionProduct = (collectionId) =>{}
     /**

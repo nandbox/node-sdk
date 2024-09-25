@@ -252,17 +252,19 @@ class InternalWebSocket {
               user = new User(obj.user);
               this.callback.onMyProfile(user);
               return;
-            case "userDetails":
+            case "getUserDetail":
               user = new User(obj.user);
               this.callback.onUserDetails(user);
               return;
-            case "chatDetails":
+            case "getChatDetail":
               let chat = new Chat(obj.chat);
               this.callback.onChatDetails(chat);
               return;
-            case 'getProductItemResponse':
+            case 'getProductDetailResponse':
               let productItem = new ProductItem(obj.data);
-              this.callback.onProductItem(productItem);
+              console.log(callback);
+              
+              this.callback.onProductDetail(productItem);
               return;
               case "listCollectionItemResponse":
                
@@ -1258,7 +1260,7 @@ function setApiMethods(internalWS, api) {
     generatePermanentUrl.param1 = param1;
     api.send(JSON.stringify(generatePermanentUrl));
   };
-  api.getProductItem = (productId)=>{
+  api.getProductDetail = (productId)=>{
       let getProductItem = new GetProductItemOutMessage();
       getProductItem.id = productId;
       console.log(getProductItem);

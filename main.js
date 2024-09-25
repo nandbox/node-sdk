@@ -27,7 +27,7 @@ const BlackList = require('./src/inmessages/BlackList');
 const fs = require('fs');
 
 const channelAppId = "90090684291377082"; // add channel app id if working with channel app
-let TOKEN = "90091783776537554:90090684291377082:NiaGViIdXHfRVZBAHViUfmUqt4fo6Q"; // you can put your own bot token
+let TOKEN = "90091783781508815:90090684288020977:O5xSu8TMl2kM2SutEl1T6YezXAEGDO"; // you can put your own bot token
 let MAIN_MENU_001 = "MAIN_MENU_001";
 let outMsgsListener = new Map();
 const config = {
@@ -49,12 +49,10 @@ nCallBack.listCollectionItemResponse = (categories)=>{
     console.log(categories);
 }
 
-nCallBack.onProductItem = product =>{
+nCallBack.onProductDetail = product =>{
     console.log(product);
 }
-nCallBack.onReceive = incomingMsg => {
-    api.getCollectionProduct("5121605136126295");
-    
+nCallBack.onReceive = incomingMsg => {   
     if (incomingMsg.reply_to_message_id) {
         if (incomingMsg.isTextMsg()) {
             if (incomingMsg.text.toLowerCase() == "getChatMember".toLowerCase()) {
