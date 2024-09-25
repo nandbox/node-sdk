@@ -44,12 +44,15 @@ var api = null;
 nCallBack.onConnect = (_api) => {
     api = _api;
     console.log("ONCONNECT");
+    api.getProductDetail("5121691410126519");
 }
 nCallBack.listCollectionItemResponse = (categories)=>{
     console.log(categories);
 }
 
 nCallBack.onProductDetail = product =>{
+    console.log("HERE");
+    
     console.log(product);
 }
 nCallBack.onReceive = incomingMsg => {   

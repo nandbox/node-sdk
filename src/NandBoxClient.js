@@ -252,11 +252,11 @@ class InternalWebSocket {
               user = new User(obj.user);
               this.callback.onMyProfile(user);
               return;
-            case "getUserDetail":
+            case "userDetails":
               user = new User(obj.user);
               this.callback.onUserDetails(user);
               return;
-            case "getChatDetail":
+            case "chatDetails":
               let chat = new Chat(obj.chat);
               this.callback.onChatDetails(chat);
               return;
