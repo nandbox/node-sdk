@@ -6,7 +6,7 @@ module.exports = class GetChatOutMessage extends OutMessage {
 
     constructor() {
         super();
-        this.method = "getChatDetail";
+        this.method = "getChat";
     }
 
     toJsonObject(){

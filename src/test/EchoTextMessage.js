@@ -6,13 +6,13 @@ const NandBox = require("../NandBox");
 
 const WhiteList = require("../inmessages/WhiteList");
 
-const TOKEN = "90091783919738987:0:d8OEltE0N59rnRfM5KvAdhCtg6qyAE"; // replace it with your token
+const TOKEN = "90091783779467293:0:1szFDHGvpDwv4zyLXD3HP6XUBAII22"; // replace it with your token
 
 
 const config = {
-    URI: "wss://w1.nandbox.net:5020/nandbox/api/",
-    DownloadServer: "https://w1.nandbox.net:5020/nandbox/download/",
-    UploadServer: "https://w1.nandbox.net:5020/nandbox/upload/"
+    URI: "wss://d1.nandbox.net:5020/nandbox/api/",
+    DownloadServer: "https://d1.nandbox.net:5020/nandbox/download/",
+    UploadServer: "https://d1.nandbox.net:5020/nandbox/upload/"
 }
 var client = NandBoxClient.get(config);
 
@@ -38,7 +38,7 @@ nCallBack.onReceive = incomingMsg => {
     if (incomingMsg.isTextMsg()) {
         let chatId = incomingMsg.chat.id; // get your chat Id
         let text = incomingMsg.text; // get your text message
-        api.sendText(chatId, text); // Sending message back as an Echo
+        api.getChat("90090684298937728", "90090684298937728"); // Sending message back as an Echo
     }
 
 }
@@ -62,7 +62,10 @@ nCallBack.onUserDetails = user => { }
 nCallBack.userStoppedBot = user => { }
 nCallBack.userLeftBot = user => { }
 nCallBack.permanentUrl = permenantUrl => { }
-nCallBack.onChatDetails = chat => { }
+nCallBack.onChatDetails = chat => { 
+    console.log("here");
+    
+}
 nCallBack.onInlineSearh = inlineSearch => { }
 nCallBack.onBlackList = blackList => { }
 nCallBack.onWhiteList = whiteList => { }

@@ -15,6 +15,8 @@ module.exports = class InlineSearch {
         this.search_id = obj.search_id;
         this.offset = obj.offset;
         this.keywords = obj.keywords;		
+        this.app_id = obj.app_id;
+
     }
 
     toJsonObject(){
@@ -28,6 +30,7 @@ module.exports = class InlineSearch {
         if (this.search_id) obj.search_id =  this.search_id;
         if (this.offset) obj.offset =  this.offset;
         if (this.keywords) obj.keywords =  this.keywords;
+        if (this.app_id) obj.app_id = this.app_id;
 
         console.log("to " + obj)
         return obj;

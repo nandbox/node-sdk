@@ -5,7 +5,7 @@ module.exports = class GetUserOutMessage extends OutMessage {
 
     constructor() {
         super();
-        this.method = "getUserDetail";
+        this.method = "getUser";
     }
 
     toJsonObject(){

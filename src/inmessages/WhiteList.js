@@ -10,7 +10,8 @@ module.exports = class WhiteList {
 		this.eop = obj.eop;
 
 		this.chat = obj.chat == null ? null : new Chat(obj.chat);
-		
+		this.app_id = obj.app_id;
+
 		let usersArrayObj = obj.users;
 		this.users = [];
 		for (let i = 0; i < usersArrayObj.length(); i++) {
@@ -31,6 +32,7 @@ module.exports = class WhiteList {
 			}
 			obj.users = usersArrayObjnew;
 		}
+		if (this.app_id) obj.app_id = this.app_id;
 
 		if (this.chat) obj.chat = this.chat.toJsonObject();
 		if (this.eop) obj.eop = this.eop;

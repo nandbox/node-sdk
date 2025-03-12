@@ -48,6 +48,7 @@ module.exports = class IncomingMessage {
     this.article = obj.article ? new Article(obj.article) : null;
     this.url = obj.url;
     this.users = obj.users ? new WhiteListUser(obj.users) : null;
+    this.appId = obj.app_id?obj.app_id:null;
     this.tagsDefinition = obj.tagsDefinition
       ? new TagDefinition(obj.tagsDefinition)
       : null;
@@ -80,6 +81,7 @@ module.exports = class IncomingMessage {
     if (this.sticker) obj.sticker = this.sticker.toJsonObject();
     if (this.text_file) obj.text_file = text_file.toJsonObject();
     if (this.bg_color) obj.bg_color = this.bg_color;
+    if (this.appId) obj.app_id = this.appId;
     if (this.article) obj.article = this.article.toJsonObject();
     if (this.url) obj.url = this.url;
     if (this.users) obj.users = this.users;

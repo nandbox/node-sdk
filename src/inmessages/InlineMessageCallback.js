@@ -18,6 +18,9 @@ module.exports = class InlineMessageCallback {
         this.button_query_result = btnqueryResults;
         this.button_callback = obj.button_callback;
         this.date = obj.date;
+
+        this.app_id = obj.app_id;
+
     }
 
     toJsonObject(){
@@ -31,6 +34,7 @@ module.exports = class InlineMessageCallback {
         if (this.reference) obj.reference = this.reference;
         if (this.button_callback) obj.button_callback =  this.button_callback;
         if (this.button_query_result) obj.button_query_result = this.button_query_result;
+        if (this.app_id) obj.app_id = this.app_id;
 
         return obj;
 

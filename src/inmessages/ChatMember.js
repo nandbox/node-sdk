@@ -13,6 +13,8 @@ module.exports = class ChatMember {
     this.tags = obj.tags;
     this.account_type = obj.account_type;
     this.login_id = obj.login_id;
+    this.app_id = obj.app_id;
+
   }
 
   toJsonObject() {
@@ -26,6 +28,8 @@ module.exports = class ChatMember {
     if (this.tags) obj.tags = this.tags;
     if (this.account_type) obj.account_type = this.account_type;
     if (this.login_id) obj.login_id = this.login_id;
+    if (this.app_id) obj.app_id = this.app_id;
+
     return obj;
   }
 };

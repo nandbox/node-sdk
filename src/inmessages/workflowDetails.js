@@ -18,6 +18,7 @@ module.exports = class WorkflowDetails {
     this.vapp_id = obj.vapp_id; 
     this.reference = obj.reference; 
     this.user_id = obj.user_id;
+    this.app_id = obj.app_id;
 
   }
 
@@ -29,6 +30,7 @@ module.exports = class WorkflowDetails {
         workflowCellArrayObjnew.push(workflowCell[i].toJsonObject());
       obj.workflowCell = workflowCellArrayObjnew;
     }
+    if (this.app_id) obj.app_id = this.app_id;
 
     if(this.screen_id) obj.screen_id = this.screen_id;
     if(this.vapp_id) obj.vapp_id = this.vapp_id;

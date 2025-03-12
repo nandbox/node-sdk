@@ -9,6 +9,8 @@ module.exports = class ChatAdministrators {
         this.chat = obj.chat == null ? null : new Chat( obj.chat);
 
          let adminArrayObj = obj.administrators;
+         this.app_id = obj.app_id;
+
         if (adminArrayObj != null) {
 
             let admin = [];
@@ -29,6 +31,8 @@ module.exports = class ChatAdministrators {
                 adminsArrayObjnew.push(administrators[i].toJsonObject());
             obj.administrators = adminsArrayObjnew;
         }
+        if (this.app_id) obj.app_id = this.app_id;
+
 
         if (this.chat) {
             obj.chat =  chat.toJsonObject();

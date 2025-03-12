@@ -118,7 +118,7 @@ module.exports = class NandBox {
     /**
      * @param user user object contain user details
      */
-    onUserDetails = (user) => {};
+    onUserDetails = (user,appId) => {};
 
     /**
      * @param user details of the usee who stopped the bot
@@ -139,7 +139,7 @@ module.exports = class NandBox {
     /**
      * @param chat chat object contain details of specific chat
      */
-    onChatDetails = (chat) => {};
+    onChatDetails = (chat,appId) => {};
 
     /**
      * @param inlineSearch inline search object that contain inline search info
@@ -179,7 +179,7 @@ module.exports = class NandBox {
      * @param bgColor text message background color Hex code in format : #HHHHHH
      * @return reference the sent message reference
      */
-    sendTextWithBackground = (chatId, text, bgColor) => {};
+    sendTextWithBackground = (chatId, text, bgColor,appId) => {};
     /**
      * @param chatId
      *            Unique identifier for the target chat or User_id
@@ -218,7 +218,8 @@ module.exports = class NandBox {
       disableNotification,
       chatSettings,
       bgColor,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -257,7 +258,8 @@ module.exports = class NandBox {
       webPagePreview,
       disableNotification,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -296,7 +298,8 @@ module.exports = class NandBox {
       disableNotification,
       caption,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -344,7 +347,8 @@ module.exports = class NandBox {
       performer,
       title,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -380,7 +384,8 @@ module.exports = class NandBox {
       toUserId,
       webPagePreview,
       disableNotification,
-      chatSettings
+      chatSettings,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -423,7 +428,8 @@ module.exports = class NandBox {
       caption,
       size,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -468,7 +474,8 @@ module.exports = class NandBox {
       name,
       size,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -513,7 +520,8 @@ module.exports = class NandBox {
       name,
       details,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -552,7 +560,8 @@ module.exports = class NandBox {
       disableNotification,
       caption,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * @param chatId
@@ -591,7 +600,8 @@ module.exports = class NandBox {
       disableNotification,
       caption,
       chatSettings,
-      tab
+      tab,
+      appId
     ) => {};
     /**
      * Use this message to update existing Message sent
@@ -609,7 +619,7 @@ module.exports = class NandBox {
      * @param tab
      *          tab ID to which you want to send the message
      */
-    updateMessage = (messageId, text, caption, toUserId, chatId, tab) => {};
+    updateMessage = (messageId, text, caption, toUserId, chatId, tab,appId) => {};
 
     /**
      * @param messageId
@@ -622,7 +632,7 @@ module.exports = class NandBox {
      * @param tab
      *          tab ID to which you want to send the message
      */
-    updateTextMsg = (messageId, text, toUserId, tab) => {};
+    updateTextMsg = (messageId, text, toUserId, tab,appId) => {};
     /**
      * @param messageId
      *            Unique identifier for the message and can not set to null
@@ -631,7 +641,7 @@ module.exports = class NandBox {
      * @param toUserId
      *            Id of Target user to receive updated message
      */
-    updateMediaCaption = (messageId, caption, toUserId, tab) => {};
+    updateMediaCaption = (messageId, caption, toUserId, tab,appId) => {};
 
     /**
      * @param messageId
@@ -641,7 +651,7 @@ module.exports = class NandBox {
      * @param chatId
      *            Id of Target Group or Channel id
      */
-    updateChatMsg = (messageId, text, chatId, tab) => {};
+    updateChatMsg = (messageId, text, chatId, tab,appId) => {};
     /**
      * @param messageId
      *            Unique identifier for the message and can not set to null
@@ -650,7 +660,7 @@ module.exports = class NandBox {
      * @param chatId
      *            Id of Target Group or Channel id
      */
-    updateChatMediaCaption = (messageId, caption, chatId, tab) => {};
+    updateChatMediaCaption = (messageId, caption, chatId, tab,appId) => {};
 
     /**
      * Use this method to get profile for a user
@@ -658,17 +668,17 @@ module.exports = class NandBox {
      * @param userId
      *            Id of Target user to receive updated message
      */
-    getUser = (userId) => {};
-    getProductDetail= (productId) =>{};
-    listCollectionItem = ()=>{}
-    getCollectionProduct = (collectionId) =>{}
+    getUser = (userId,appId) => {};
+    getProductDetail= (productId,appId) =>{};
+    listCollectionItem = (appId)=>{}
+    getCollectionProduct = (collectionId,appId) =>{}
     /**
      * Use this method to get Group or Channel information.
      *
      * @param chatId
      *            Id of Target Group or Channel id
      */
-    getChat = (chatId) => {};
+    getChat = (chatId,appId) => {};
     /**
      * Use this method to get Chat Member user public profile.
      *
@@ -678,7 +688,7 @@ module.exports = class NandBox {
      *            Id of Target user to receive updated message
      */
 
-    getChatMember = (chatId, userId) => {};
+    getChatMember = (chatId, userId,appId) => {};
 
     /**
      * Use this method to get Chat Administrators
@@ -686,7 +696,7 @@ module.exports = class NandBox {
      * @param chatId
      *            Id of Target Group or Channel id
      */
-    getChatAdministrators = (chatId) => {};
+    getChatAdministrators = (chatId,appId) => {};
 
     /**
      * Use this method to ban a Chat Member from accessing Chat
@@ -697,7 +707,7 @@ module.exports = class NandBox {
      *            Id of Target user to receive updated message
      */
 
-    banChatMember = (chatId, userId) => {};
+    banChatMember = (chatId, userId,appId) => {};
     /**
      * Use this method to unban a Chat Member from accessing Chat.
      *
@@ -707,7 +717,7 @@ module.exports = class NandBox {
      *            Id of Target user to receive updated message
      */
 
-    unbanChatMember = (chatId, userId) => {};
+    unbanChatMember = (chatId, userId,appId) => {};
 
     /**
      * Use this method to remove a Chat Member from Chat.
@@ -718,7 +728,7 @@ module.exports = class NandBox {
      *            Id of Target user to receive updated message
      */
 
-    removeChatMember = (chatId, userId) => {};
+    removeChatMember = (chatId, userId,appId) => {};
     /**
      * Use this message to recall existing Message sent .
      *
@@ -732,7 +742,7 @@ module.exports = class NandBox {
      * @param reference
      *            Unique local identifier for the target chat/user
      */
-    recallMessage = (chatId, messageId, toUserId, reference) => {};
+    recallMessage = (chatId, messageId, toUserId, reference,appId) => {};
 
     /**
      * Use this method to set Bot Profile
@@ -747,14 +757,14 @@ module.exports = class NandBox {
      * @param chat
      *            Chat object with unique chat Id used to update chat information
      */
-    setChat = (chat) => {};
+    setChat = (chat,appId) => {};
 
     /**
      * Use this method to get Bot Profile
      */
     getMyProfiles = () => {};
 
-    sendCellText = (userId, screenId, cellId, text, reference) => {};
+    sendCellText = (userId, screenId, cellId, text, reference,appId) => {};
     /**
      * Use this method to send a text message in cell to a user
      *
@@ -770,7 +780,7 @@ module.exports = class NandBox {
      *          Unique local identifier for the target chat/user
      */
 
-    sendCellPhoto = (userId, screenId, cellId, photoFileId, reference) => {};
+    sendCellPhoto = (userId, screenId, cellId, photoFileId, reference,appId) => {};
     /**
      * Use this method to send a photo in cell to a user
      *
@@ -786,7 +796,7 @@ module.exports = class NandBox {
      *        Unique local identifier for the target chat/user
      */
 
-    sendCellVideo = (userId, screenId, cellId, videoFileId, reference) => {};
+    sendCellVideo = (userId, screenId, cellId, videoFileId, reference,appId) => {};
     /**
      * Use this method to send a video in cell to a user
      *
@@ -807,20 +817,20 @@ module.exports = class NandBox {
      * @param file  unique file Id for the file
      * @param param1 Generic parameter to set any local reference for the permanent  file
      */
-    getCollectionProduct = (collectionId)=>{};
+    getCollectionProduct = (collectionId,appId)=>{};
     generatePermanentUrl = (file, param1) => {};
-    getBlackList = (chatId) => {};
-    getWhiteList = (chatId) => {};
-    addBlackList = (chatId, users) => {};
-    deleteBlackList = (chatId, users) => {};
-    deleteWhiteList = (chatId, users) => {};
-    addBlacklistPatterns = (chatId, data) => {};
-    addWhitelistPatterns = (chatId, data) => {};
-    deleteBlackListPatterns = (chatId, pattern) => {};
-    deleteWhiteListPatterns = (chatId, pattern) => {};
-    addWhiteList = (chatId, whiteListUsers) => {};
+    getBlackList = (chatId,appId) => {};
+    getWhiteList = (chatId,appId) => {};
+    addBlackList = (chatId, users,appId) => {};
+    deleteBlackList = (chatId, users,appId) => {};
+    deleteWhiteList = (chatId, users,appId) => {};
+    addBlacklistPatterns = (chatId, data,appId) => {};
+    addWhitelistPatterns = (chatId, data,appId) => {};
+    deleteBlackListPatterns = (chatId, pattern,appId) => {};
+    deleteWhiteListPatterns = (chatId, pattern,appId) => {};
+    addWhiteList = (chatId, whiteListUsers,appId) => {};
     setWorkflow = (userId,screenId,appId,workflowCells,reference,disableNotification) => {};
-    setWorkflowAction = (userId,screenId,nextScreen,vappId,reference) => {};
-    createChat = (chatType,isPublic,title,reference) => {};
+    setWorkflowAction = (userId,screenId,nextScreen,vappId,reference,appId) => {};
+    createChat = (chatType,isPublic,title,reference,appId) => {};
   }
 };
