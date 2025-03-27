@@ -148,7 +148,10 @@ module.exports = class NandBox {
     onBlackList = (blackList) => {};
 
     onWhiteList = (whiteList) => {};
-
+    onDeleteWhiteList = (whiteList)=>{};
+    onDeleteBlackList= (blackList)=>{};
+    onBlackListPattern=(blackListPattern)=>{};
+    onWhiteListPattern = (whiteListPattern)=>{};
     /**
      * This event should be used to handle incoming schedule message from server
      *

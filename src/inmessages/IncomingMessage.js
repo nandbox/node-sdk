@@ -48,7 +48,7 @@ module.exports = class IncomingMessage {
     this.article = obj.article ? new Article(obj.article) : null;
     this.url = obj.url;
     this.users = obj.users ? new WhiteListUser(obj.users) : null;
-    this.appId = obj.app_id?obj.app_id:null;
+    this.appId = obj.app_id?obj.app_id:0;
     this.tagsDefinition = obj.tagsDefinition
       ? new TagDefinition(obj.tagsDefinition)
       : null;
@@ -88,7 +88,6 @@ module.exports = class IncomingMessage {
     if (this.tagsDefinition) obj.tagsDefinition = this.tagsDefinition;
     if (this.schedule_date) obj.schedule_date = this.schedule_date;
 
-    console.log("to " + JSON.stringify(obj));
     return obj;
   }
 

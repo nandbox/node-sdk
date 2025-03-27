@@ -6,8 +6,11 @@ module.exports = class User {
 
     constructor(jsonobj){
 
-        if(!jsonobj)
+        if(!jsonobj){
+            this.profile ="other";
             return;
+        }
+            
         this.id =  jsonobj.id;
 		this.name =  jsonobj.name;
 		this.version =  jsonobj.version;
@@ -16,7 +19,7 @@ module.exports = class User {
 		this.is_bot =  jsonobj.is_bot;
 		this.lastSeen =  jsonobj.last_seen;
 		this.status =  jsonobj.status;
-		this.profile =  jsonobj.profile;
+		this.profile =  jsonobj.profile!=null?jsonobj.profile : "other";
 		this.login_id =  jsonobj.login_id;
         
 

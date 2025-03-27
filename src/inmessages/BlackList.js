@@ -1,21 +1,19 @@
-const Chat = require('../data/Chat');
 const SignupUser = require('../data/SignupUser');
 
 module.exports =  class BlackList {
 
 
-	constructor(jsonObj) {
+	constructor(obj) {
 
-        let obj = jsonObj.blacklist;
         
 		this.eop = obj.eop;
 
-		this.chat = obj.chat == null ? null : new Chat(obj.chat);
-		let usersArrayObj = obj.users;
-		this.users = new SignupUser[usersArrayObj.length()];
-		for (let i = 0; i < usersArrayObj.size(); i++) {
-			users[i] = new SignupUser(usersArrayObj[i]);
+		let usersArrayObj = obj.signups;
+		this.users =[];
+		for (let i = 0; i < usersArrayObj.length; i++) {
+			this.users[i] = new SignupUser(usersArrayObj[i]);
 		}
+		this.reference=obj.reference;
 
 	}
 
@@ -30,9 +28,8 @@ module.exports =  class BlackList {
 			}
 			obj.users = usersArrayObjnew;
 		}
-		if (this.chat) obj.chat = this.chat.toJsonObject();
 		if (this.eop) obj.eop = this.eop;
-		
+		if (this.reference) obj.reference=this.reference;
 
 		return obj;
 

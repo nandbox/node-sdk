@@ -5,7 +5,7 @@ module.exports = class GetWhiteListOutMessage extends OutMessage {
 
 	constructor() {
 		super();
-		this.method = 'getWhitelist';
+		this.method = 'getWhitelistUsers';
 	}
 
 	toJsonObject() {

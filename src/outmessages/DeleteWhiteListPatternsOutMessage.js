@@ -4,13 +4,13 @@ module.exports = class DeleteWhiteListPatternsOutMessage extends OutMessage {
 
 	constructor() {
 		super();
-		this.method = 'deleteWhitelistPatterns';
+		this.method = 'removeWhitelistPatterns';
 	}
 
 	toJsonObject() {
 		let obj = super.toJsonObject();
         
-        if (this.pattern) obj.pattern = this.pattern;
+        if (this.pattern) obj.patterns = this.pattern;
 		
 		return obj;
 	}

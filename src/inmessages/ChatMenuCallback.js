@@ -4,7 +4,6 @@ const Chat = require("../data/Chat");
 
 module.exports = class ChatMenuCallback {
   constructor(jsonObj) {
-    console.log("json " + JSON.stringify(jsonObj));
     let obj = jsonObj.chatMenuCallback;
 
     let fromUser = new User(obj.from);
@@ -39,7 +38,6 @@ module.exports = class ChatMenuCallback {
     if (this.button_data) obj.button_data = this.button_data;
     if (this.app_id) obj.app_id = this.app_id;
 
-    console.log("to " + JSON.stringify(obj));
     return obj;
   }
 };

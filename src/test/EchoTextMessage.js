@@ -5,8 +5,11 @@ const NandBox = require("../NandBox");
 
 
 const WhiteList = require("../inmessages/WhiteList");
+const Chat = require("../data/Chat");
+const User = require("../data/User");
+const Data = require("../data/Data");
 
-const TOKEN = "90091783779467293:0:1szFDHGvpDwv4zyLXD3HP6XUBAII22"; // replace it with your token
+const TOKEN = "90091783822039252:0:DMDzxIveNFaGbI48D4I14NqGdx5WcH"; // replace it with your token
 
 
 const config = {
@@ -27,7 +30,9 @@ nCallBack.onConnect = (_api) => {
 
     api = _api;
     console.log("Authenticated");
-
+    let data= new Data({pattern : ".*@gmail.com",example:"aa@gmail.com"});
+    let dataList = [data] ;
+	api.getProductDetail("5121228327126172","90090684293000559",213123);
 }
 
 
@@ -38,11 +43,26 @@ nCallBack.onReceive = incomingMsg => {
     if (incomingMsg.isTextMsg()) {
         let chatId = incomingMsg.chat.id; // get your chat Id
         let text = incomingMsg.text; // get your text message
-        api.getChat("90090684298937728", "90090684298937728"); // Sending message back as an Echo
+        
     }
 
 }
-
+nCallBack.onWhiteListPattern = obj=>{
+    console.log(obj);
+    
+}
+nCallBack.onDeleteBlackList = obj =>{
+    console.log(obj);
+    
+}
+nCallBack.onProductDetail = obj =>{
+    console.log(obj);
+    
+}
+nCallBack.onDeleteWhiteList = obj =>{
+    console.log(obj);
+    
+}
 // implement other nandbox.Callback() as per your bot need
 nCallBack.onReceiveObj = obj => {
     console.log("received object: ", obj);
@@ -54,20 +74,28 @@ nCallBack.onChatMenuCallBack = chatMenuCallback => { }
 nCallBack.onInlineMessageCallback = inlineMsgCallback => { }
 nCallBack.onMessagAckCallback = msgAck => { }
 nCallBack.onUserJoinedBot = user => { }
-nCallBack.onChatMember = chatMember => { }
-nCallBack.onChatAdministrators = chatAdministrators => { }
+nCallBack.onChatMember = chatMember => { console.log(chatMember);
+}
+nCallBack.onBlackListPattern = obj => { console.log(obj);
+}
+nCallBack.onChatAdministrators = chatAdministrators => { console.log(chatAdministrators);
+}
 nCallBack.userStartedBot = user => { }
-nCallBack.onMyProfile = user => { }
-nCallBack.onUserDetails = user => { }
+nCallBack.onMyProfile = user => {console.log(user);
+ }
+nCallBack.onUserDetails = user => {console.log(user);
+ }
 nCallBack.userStoppedBot = user => { }
 nCallBack.userLeftBot = user => { }
 nCallBack.permanentUrl = permenantUrl => { }
 nCallBack.onChatDetails = chat => { 
-    console.log("here");
+    console.log(chat);
     
 }
 nCallBack.onInlineSearh = inlineSearch => { }
-nCallBack.onBlackList = blackList => { }
-nCallBack.onWhiteList = whiteList => { }
+nCallBack.onBlackList = blackList => { console.log(blackList);
+}
+nCallBack.onWhiteList = whiteList => { console.log("hr"); console.log(whiteList);
+}
 
 client.connect(TOKEN, nCallBack);

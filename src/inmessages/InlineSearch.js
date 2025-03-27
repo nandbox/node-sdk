@@ -4,7 +4,6 @@ const Chat = require("../data/Chat");
 module.exports = class InlineSearch {
 
     constructor(jsonObj) {
-        console.log("json " + jsonObj);
         let obj = jsonObj.inlineSearch;
 
         let fromUser = new User(obj.from);
@@ -32,7 +31,6 @@ module.exports = class InlineSearch {
         if (this.keywords) obj.keywords =  this.keywords;
         if (this.app_id) obj.app_id = this.app_id;
 
-        console.log("to " + obj)
         return obj;
     }
 

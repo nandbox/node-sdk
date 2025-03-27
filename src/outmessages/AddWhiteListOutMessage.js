@@ -5,17 +5,14 @@ module.exports = class AddWhiteListOutMessage extends OutMessage {
 	// private WhiteListUser whiteListUser;
 	constructor() {
 		super();
-		this.method = 'addWhitelist';
+		this.method = 'addToWhitelist';
 	}
 
 	toJsonObject() {
 		let obj = super.toJsonObject();
-		let menusArrayObj = [];
-		for (let i = 0; i < this.users.length(); i++) {
-			menusArrayObj.push(this.users[i].toJsonObject());
-		}
+		
 
-		obj.users = menusArrayObj;
+		obj.signups = this.users;
 
 		return obj;
 	}

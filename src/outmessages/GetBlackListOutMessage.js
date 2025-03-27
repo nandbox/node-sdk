@@ -5,7 +5,7 @@ module.exports = class GetBlackListOutMessage extends OutMessage {
 
 	constructor() {
 		super();
-		this.method = 'getBlacklist';
+		this.method = 'getBlacklistUsers';
 	}
 
 	toJsonObject() {

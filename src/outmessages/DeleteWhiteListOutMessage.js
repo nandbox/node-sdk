@@ -5,13 +5,13 @@ module.exports = class DeleteWhiteListOutMessage extends OutMessage {
 
 	constructor() {
 		super();
-		this.method = 'deleteWhitelist';
+		this.method = 'removeFromWhitelist';
 	}
 
 	toJsonObject() {
 		let obj = super.toJsonObject();
         
-        if (this.users) obj.users = this.users;
+        if (this.users) obj.signups = this.users;
 		
 		return obj;
 	}

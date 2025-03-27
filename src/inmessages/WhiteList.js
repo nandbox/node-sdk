@@ -3,20 +3,18 @@ const SignupUser = require('../data/SignupUser');
 
 module.exports = class WhiteList {
 
-	constructor(jsonObj) {
+	constructor(obj) {
 
-		let obj = jsonObj.whitelist;
 
 		this.eop = obj.eop;
-
-		this.chat = obj.chat == null ? null : new Chat(obj.chat);
 		this.app_id = obj.app_id;
 
-		let usersArrayObj = obj.users;
-		this.users = [];
-		for (let i = 0; i < usersArrayObj.length(); i++) {
-			users[i] = new SignupUser(usersArrayObj[i]);
+		let usersArrayObj = obj.signups;
+		this.signups = [];
+		for (let i = 0; i < usersArrayObj.length; i++) {
+			this.signups[i] = new SignupUser(usersArrayObj[i]);
 		}
+		this.reference=obj.reference;
 
 	}
 
@@ -34,9 +32,9 @@ module.exports = class WhiteList {
 		}
 		if (this.app_id) obj.app_id = this.app_id;
 
-		if (this.chat) obj.chat = this.chat.toJsonObject();
 		if (this.eop) obj.eop = this.eop;
-		
+		if (this.reference) obj.reference=this.reference;
+
 		return obj;
 
 	}

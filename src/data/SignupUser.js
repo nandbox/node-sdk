@@ -3,7 +3,7 @@ module.exports = class SignupUser {
 
 	constructor(obj) {
 		this.id = obj.id;
-		this.signup_user = obj.signup_user;
+		this.signup_id = obj.signup_id;
 
 	}
 
@@ -11,7 +11,7 @@ module.exports = class SignupUser {
 		let obj = {};
 
 		if (this.id) obj.id = this.id;
-		if (this.signup_user) obj.signup_user = this.signup_user;
+		if (this.signup_id) obj.signup_id = this.signup_id;
 
 		return obj;
 

@@ -10,7 +10,7 @@ module.exports = class AddWhitelistPatternsOutMessage extends OutMessage {
 	toJsonObject() {
         let obj = super.toJsonObject();
         
-		if (this.data) obj.data = this.data;
+		if (this.data) obj.patterns = this.data;
 
 		return obj;
 	}

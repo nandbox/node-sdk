@@ -4,13 +4,13 @@ module.exports = class DeleteBlackListOutMessage extends OutMessage {
 
 	constructor() {
 		super();
-		this.method = 'deleteBlacklist';
+		this.method = 'removeFromBlacklist';
 	}
 
 	toJsonObject() {
 		let obj = super.toJsonObject();
         
-        if (this.users) obj.users = this.users;
+        if (this.users) obj.signups = this.users;
 		
 		return obj;
 	}

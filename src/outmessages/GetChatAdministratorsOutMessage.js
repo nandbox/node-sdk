@@ -11,7 +11,7 @@ module.exports = class GetChatAdministratorsOutMessage extends OutMessage {
     toJsonObject() {
 		let obj = super.toJsonObject();
         
-        if (this.chat_id) obj.chat_id = this,chat_id;
+        if (this.chat_id) obj.chat_id = this.chat_id;
 		
 		return obj;
 	}

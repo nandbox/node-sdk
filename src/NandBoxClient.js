@@ -70,6 +70,9 @@ const GetCollectionProductResponse = require("./inmessages/GetCollectionProductR
 const GetCollectionProductOutMessage = require("./outmessages/GetCollectionProductOutMessage");
 const AddWhitelistPatternsOutMessage = require("./outmessages/AddWhiteListPatternsOutMessage");
 const AddBlacklistPatternsOutMessage = require("./outmessages/AddBlackListPatternsOutMessage");
+const WhiteList_ak = require("./inmessages/WhiteList_ak");
+const BlackListPattern = require("./inmessages/Pattern");
+const Pattern = require("./inmessages/Pattern");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -185,6 +188,8 @@ class InternalWebSocket {
       },
       error: (error) => {
         Logger.logger.error("ONERROR: " + JSON.stringify(error));
+        console.log("ONERROR: " + JSON.stringify(error));
+
       },
       message: (msg) => {
         //reset pinging
@@ -229,7 +234,6 @@ class InternalWebSocket {
               this.callback.onInlineMessageCallback(inlineMsgCallback);
               return;
             case "inlineSearch":
-              console.log(this.callback);
               let inlineSearch = new InlineSearch(obj);
               this.callback.onInlineSearch(inlineSearch);
               return;
@@ -260,25 +264,21 @@ class InternalWebSocket {
               return;
             case "chatDetails":
               let chat = new Chat(obj.chat);
-              console.log(obj);
-              
               this.callback.onChatDetails(chat);
               return;
             case 'getProductItemResponse':
-              let productItem = new ProductItem(obj.data);
-              console.log(callback);
-              
+              let productItem = new ProductItem(obj);
               this.callback.onProductDetail(productItem);
               return;
-              case "listCollectionItemResponse":
-               
-                let listProductItemResponse = new ListCollectionItemResponse(obj);
-        
-                this.callback.listCollectionItemResponse(listProductItemResponse.Categories);
+            case "listCollectionItemResponse":
+
+              let listProductItemResponse = new ListCollectionItemResponse(obj);
+
+              this.callback.listCollectionItemResponse(listProductItemResponse.Categories);
             case 'getCollectionProductResponse':
               let collectionProduct = new GetCollectionProductResponse(obj.data);
               this.callback.onCollectionProduct(collectionProduct.collectionProducts);
-                return;
+              return;
             case "chatAdministrators":
               let chatAdministrators = new ChatAdministrators(obj);
               this.callback.onChatAdministrators(chatAdministrators);
@@ -299,18 +299,38 @@ class InternalWebSocket {
               let permenantURL = new PermanentUrl(obj);
               this.callback.permanentUrl(permenantURL);
               return;
+            case "addBlacklistPatterns_ack":
+              let blackListPattern = new Pattern(obj);
+              this.callback.onBlackListPattern(blackListPattern);
+              return;
+            case "addWhitelistPatterns_ack":
+              let whiteListPattern = new Pattern(obj);
+              this.callback.onWhiteListPattern(whiteListPattern);
+              return;
+            case "removeFromBlacklist_ack":
+              let BlackListAk = new WhiteList_ak(obj);
+              this.callback.onDeleteBlackList(BlackListAk);
+              return;
+            case "addToBlacklist_ack":
+            case "getBlacklistUsersResponse":
             case "blacklist":
               let blackList = new BlackList(obj);
               this.callback.onBlackList(blackList);
               return;
+            case "removeFromWhitelist_ack":
+              let whiteListAk = new WhiteList_ak(obj);
+              this.callback.onDeleteWhiteList(whiteListAk);
+              return;
+            case "addToWhitelist_ack":
             case "whitelist":
+            case "getWhitelistUsersResponse":
               let whiteList = new WhiteList(obj);
               this.callback.onWhiteList(whiteList);
               return;
-              case "workflowCell":
-                let workflowDetails = new WorkflowDetails(obj);
-                this.callback.onWorkflowDetails(workflowDetails);
-                return;              
+            case "workflowCell":
+              let workflowDetails = new WorkflowDetails(obj);
+              this.callback.onWorkflowDetails(workflowDetails);
+              return;
             default:
               this.callback.onReceiveObj(JSON.stringify(obj));
               return;
@@ -318,6 +338,8 @@ class InternalWebSocket {
         } else {
           let error = obj.error;
           Logger.logger.error("Error: " + error);
+          console.log("Error: " + error);
+
         }
       },
     };
@@ -355,7 +377,7 @@ class InternalWebSocket {
     try {
       if (this.ws) {
         console.log(s);
-        
+
         this.ws.send(s);
       }
     } catch (e) {
@@ -521,7 +543,7 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.sendTextWithBackground = (chatId, text, bgColor,appId) => {
+  api.sendTextWithBackground = (chatId, text, bgColor, appId) => {
     const reference = Id();
     api.sendText(
       chatId,
@@ -1116,7 +1138,7 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.updateMessage = (messageId, text, caption, toUserId, chatId, tab,appId) => {
+  api.updateMessage = (messageId, text, caption, toUserId, chatId, tab, appId) => {
     let updateMessage = new UpdateOutMessage();
 
     updateMessage.message_id = messageId;
@@ -1130,31 +1152,32 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(updateMessage.toJsonObject()));
   };
 
-  api.updateTextMsg = (messageId, text, toUserId, tab,appId) => {
-    updateMessage(messageId, text, null, toUserId, null, tab,appId);
+  api.updateTextMsg = (messageId, text, toUserId, tab, appId) => {
+    updateMessage(messageId, text, null, toUserId, null, tab, appId);
   };
 
-  api.updateMediaCaption = (messageId, caption, toUserId, tab,appId) => {
-    updateMessage(messageId, null, caption, toUserId, null, tab,appId);
+  api.updateMediaCaption = (messageId, caption, toUserId, tab, appId) => {
+    updateMessage(messageId, null, caption, toUserId, null, tab, appId);
   };
 
-  api.updateChatMsg = (messageId, text, chatId, tab,appId) => {
-    updateMessage(messageId, text, null, null, chatId, tab,appId);
+  api.updateChatMsg = (messageId, text, chatId, tab, appId) => {
+    updateMessage(messageId, text, null, null, chatId, tab, appId);
   };
 
-  api.updateChatMediaCaption = (messageId, caption, chatId,appId) => {
-    updateMessage(messageId, null, caption, null, chatId,appId);
+  api.updateChatMediaCaption = (messageId, caption, chatId, appId) => {
+    updateMessage(messageId, null, caption, null, chatId, appId);
   };
 
-  api.getChatMember = (chatId, userId,appId) => {
+  api.getChatMember = (chatId, userId, appId, reference) => {
     let getChatMemberOutMessage = new GetChatMemberOutMessage();
     getChatMemberOutMessage.chat_id = chatId;
     getChatMemberOutMessage.user_id = userId;
     getChatMemberOutMessage.appId = appId
+    getChatMemberOutMessage.reference = reference;
     api.send(JSON.stringify(getChatMemberOutMessage.toJsonObject()));
   };
 
-  api.addChatMember = (chatId,userId,appId) => {
+  api.addChatMember = (chatId, userId, appId) => {
     let addChatMemberOutMessage = new AddChatMemberOutMessage();
     addChatMemberOutMessage.chat_id = chatId;
     addChatMemberOutMessage.user_id = userId;
@@ -1162,84 +1185,87 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(addChatMemberOutMessage.toJsonObject()));
   };
 
-  api.addChatAdminMember = (chatId,userId,appId) => {
+  api.addChatAdminMember = (chatId, userId, appId) => {
     let addChatAdminMemberOutMessage = new AddChatAdminMemberOutMessage();
     addChatAdminMemberOutMessage.chat_id = chatId;
     addChatAdminMemberOutMessage.user_id = userId;
-    addChatAdminMemberOutMessage.appId = appId
+    addChatAdminMemberOutMessage.appId = appId;
     api.send(JSON.stringify(addChatAdminMemberOutMessage.toJsonObject()));
   };
 
-  api.getUser = (userId,appId) => {
+  api.getUser = (userId, appId, reference) => {
     let getUserOutMessage = new GetUserOutMessage();
     getUserOutMessage.user_id = userId;
-    getUserOutMessage.appId = appId
+    getUserOutMessage.appId = appId;
+    getUserOutMessage.reference = reference;
     api.send(JSON.stringify(getUserOutMessage.toJsonObject()));
   };
 
-  api.getChat = (chatId,appId) => {
+  api.getChat = (chatId, appId, reference) => {
     let chatOutMessage = new GetChatOutMessage();
     chatOutMessage.chat_id = chatId;
-    chatOutMessage.appId = appId    
+    chatOutMessage.appId = appId;
+    chatOutMessage.reference = reference;
     api.send(JSON.stringify(chatOutMessage.toJsonObject()));
   };
 
-  api.getChatAdministrators = (chatId,appId) => {
+  api.getChatAdministrators = (chatId, appId, reference) => {
     let getChatAdministratorsOutMessage = new GetChatAdministratorsOutMessage();
     getChatAdministratorsOutMessage.chat_id = chatId;
     getChatAdministratorsOutMessage.appId = appId
+    getChatAdministratorsOutMessage.reference = reference;
     api.send(JSON.stringify(getChatAdministratorsOutMessage.toJsonObject()));
   };
 
-  api.banChatMember = (chatId, userId,appId) => {
+  api.banChatMember = (chatId, userId, appId, reference) => {
     let banChatMemberOutMessage = new BanChatMemberOutMessage();
     banChatMemberOutMessage.chat_id = chatId;
     banChatMemberOutMessage.user_id = userId;
     banChatMemberOutMessage.appId = appId
+    banChatMemberOutMessage.reference = reference;
     api.send(JSON.stringify(banChatMemberOutMessage.toJsonObject()));
   };
-  api.addBlackList = (chatId, users,appId) => {
+  api.addBlackList = (users, appId, reference) => {
     let addBlackListOutMessage = new AddBlackListOutMessage();
-    addBlackListOutMessage.chat_id = chatId;
     addBlackListOutMessage.users = users;
-addBlackListOutMessage.appId = appId
+    addBlackListOutMessage.appId = appId
+    addBlackListOutMessage.reference = reference;
     api.send(JSON.stringify(addBlackListOutMessage.toJsonObject()));
   };
 
-  api.addWhiteList = (chatId, whiteListUsers,appId) => {
+  api.addWhiteList = (users, appId, reference) => {
     let addWhiteistOutMessage = new AddWhiteListOutMessage();
-
-    addWhiteistOutMessage.chat_id = chatId;
-    addWhiteistOutMessage.users = whiteListUsers;
-addWhiteistOutMessage.appId = appId
+    addWhiteistOutMessage.reference = reference;
+    addWhiteistOutMessage.users = users;
+    addWhiteistOutMessage.appId = appId
     api.send(JSON.stringify(addWhiteistOutMessage.toJsonObject()));
   };
-  
-  api.deleteBlackList = (chatId, users,appId) => {
+
+  api.deleteBlackList = (users, appId, reference) => {
     let deleteBlackListOutMessage = new DeleteBlackListOutMessage();
-    deleteBlackListOutMessage.chat_id = chatId;
+    deleteBlackListOutMessage.reference = reference;
     deleteBlackListOutMessage.users = users;
-deleteBlackListOutMessage.appId = appId
+    deleteBlackListOutMessage.appId = appId
     api.send(JSON.stringify(deleteBlackListOutMessage.toJsonObject()));
   };
 
-  api.deleteWhiteList = (chatId, users,appId) => {
+  api.deleteWhiteList = (users, appId, reference) => {
     let deleteWhiteListOutMessage = new DeleteWhiteListOutMessage();
-    deleteWhiteListOutMessage.chat_id = chatId;
+    deleteWhiteListOutMessage.reference = reference;
     deleteWhiteListOutMessage.users = users;
-deleteWhiteListOutMessage.appId = appId
+    deleteWhiteListOutMessage.appId = appId
     api.send(JSON.stringify(deleteWhiteListOutMessage.toJsonObject()));
   };
 
-  api.deleteBlackListPatterns = (chatId, pattern,appId) => {
+  api.deleteBlackListPatterns = (chatId, pattern, appId) => {
     let deleteBlackListPatterns = new DeleteBlackListPatternsOutMessage();
     deleteBlackListPatterns.chat_id = chatId;
     deleteBlackListPatterns.pattern = pattern;
-deleteBlackListPatterns.appId = appId
+    deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(deleteBlackListPatterns.toJsonObject()));
   };
 
-  api.deleteWhiteListPatterns = (chatId, pattern,appId) => {
+  api.deleteWhiteListPatterns = (chatId, pattern, appId) => {
     let deleteWhiteListPatterns = new DeleteWhiteListPatternsOutMessage();
     deleteWhiteListPatterns.chat_id = chatId;
     deleteWhiteListPatterns.pattern = pattern;
@@ -1247,38 +1273,42 @@ deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(deleteWhiteListPatterns.toJsonObject()));
   };
 
-  api.addBlacklistPatterns = (chatId, data,appId) => {
+  api.addBlacklistPatterns = (chatId, data, appId, reference) => {
     let addBlacklistPatternsOutMessage = new AddBlacklistPatternsOutMessage();
     addBlacklistPatternsOutMessage.chat_id = chatId;
+    addBlacklistPatternsOutMessage.reference = reference;
     addBlacklistPatternsOutMessage.data = data;
     addBlacklistPatternsOutMessage.appId = appId
     api.send(JSON.stringify(addBlacklistPatternsOutMessage.toJsonObject()));
   };
-  api.addWhitelistPatterns = (chatId, data,appId) => {
+  api.addWhitelistPatterns = (chatId, data, appId, reference) => {
     let addWhitelistPatternsOutMessage = new AddWhitelistPatternsOutMessage();
     addWhitelistPatternsOutMessage.chat_id = chatId;
     addWhitelistPatternsOutMessage.data = data;
     addWhitelistPatternsOutMessage.appId = appId
+    addWhitelistPatternsOutMessage.reference = reference
     api.send(JSON.stringify(addWhitelistPatternsOutMessage.toJsonObject()));
   };
 
-  api.unbanChatMember = (chatId, userId,appId) => {
+  api.unbanChatMember = (chatId, userId, appId, reference) => {
     let unbanChatMember = new UnbanChatMember();
     unbanChatMember.chat_id = chatId;
     unbanChatMember.user_id = userId;
     unbanChatMember.appId = appId
+    unbanChatMember.reference = reference;
     api.send(JSON.stringify(unbanChatMember.toJsonObject()));
   };
 
-  api.removeChatMember = (chatId, userId,appId) => {
+  api.removeChatMember = (chatId, userId, appId, reference) => {
     let removeChatMemberOutMessage = new RemoveChatMemberOutMessage();
     removeChatMemberOutMessage.chat_id = chatId;
     removeChatMemberOutMessage.user_id = userId;
     removeChatMemberOutMessage.appId = appId
+    removeChatMemberOutMessage.reference = reference;
     api.send(JSON.stringify(removeChatMemberOutMessage.toJsonObject()));
   };
 
-  api.recallMessage = (chatId, messageId, toUserId, reference,appId) => {
+  api.recallMessage = (chatId, messageId, toUserId, reference, appId) => {
     let recallOutMessage = new RecallOutMessage();
     recallOutMessage.chat_id = chatId;
     recallOutMessage.message_id = messageId;
@@ -1288,21 +1318,24 @@ deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(recallOutMessage.toJsonObject()));
   };
 
-  api.setMyProifle = (user) => {
+  api.setMyProfile = (user, reference) => {
     let setMyProfileOutMessage = new SetMyProfileOutMessage();
     setMyProfileOutMessage.user = user;
+    setMyProfileOutMessage.reference = reference;
     api.send(JSON.stringify(setMyProfileOutMessage.toJsonObject()));
   };
 
-  api.setChat = (chat,appId) => {
+  api.setChat = (chat, appId, reference) => {
     let setChatOutMessage = new SetChatOutMessage();
     setChatOutMessage.chat = chat;
     setChatOutMessage.appId = appId
+    setChatOutMessage.reference = reference;
     api.send(JSON.stringify(setChatOutMessage.toJsonObject()));
   };
 
-  api.getMyProfiles = () => {
+  api.getMyProfiles = (reference) => {
     let getMyProfiles = new GetMyProfiles();
+    getMyProfiles.reference = reference;
     api.send(JSON.stringify(getMyProfiles));
   };
 
@@ -1312,41 +1345,39 @@ deleteBlackListPatterns.appId = appId
     generatePermanentUrl.param1 = param1;
     api.send(JSON.stringify(generatePermanentUrl));
   };
-  api.getProductDetail = (productId,appId)=>{
-      let getProductItem = new GetProductItemOutMessage();
-      getProductItem.id = productId;
-      console.log(getProductItem);
-      getProductItem.appId = appId
-      api.send(JSON.stringify(getProductItem.toJsonObject()));
+  api.getProductDetail = (productId, appId,reference) => {
+    let getProductItem = new GetProductItemOutMessage();
+    getProductItem.id = productId;
+    getProductItem.reference=reference;
+    getProductItem.appId = appId
+    api.send(JSON.stringify(getProductItem.toJsonObject()));
   }
-  api.listCollectionItem = (appId)=>{
+  api.listCollectionItem = (appId) => {
     let listCollectionItem = new ListCollectionItemOutMessage();
     listCollectionItem.appId = appId
     api.send(JSON.stringify(listCollectionItem.toJsonObject()));
   }
-  api.getCollectionProduct = (collectionId,appId)=>{
+  api.getCollectionProduct = (collectionId, appId) => {
     let getCollectionProduct = new GetCollectionProductOutMessage();
     getCollectionProduct.id = collectionId;
     getCollectionProduct.appId = appId
-      api.send(JSON.stringify(getCollectionProduct.toJsonObject()));
+    api.send(JSON.stringify(getCollectionProduct.toJsonObject()));
   }
-  api.getBlackList = (chatId,appId) => {
+  api.getBlackList = (appId, reference) => {
     let getBlackListOutMessage = new GetBlackListOutMessage();
-    getBlackListOutMessage.chat_id = chatId;
-    console.log(getBlackListOutMessage.toJsonObject());
-    console.log(chatId);
+    getBlackListOutMessage.reference = reference;
     getBlackListOutMessage.appId = appId
     api.send(JSON.stringify(getBlackListOutMessage.toJsonObject()));
   };
 
-  api.getWhiteList = (chatId,appId) => {
+  api.getWhiteList = (appId, reference) => {
     let getWhiteListOutMessage = new GetWhiteListOutMessage();
-    getWhiteListOutMessage.chat_id = chatId;
     getWhiteListOutMessage.appId = appId
+    getWhiteListOutMessage.reference = reference;
     api.send(JSON.stringify(getWhiteListOutMessage.toJsonObject()));
   };
 
-  api.sendCellText = (userId, screenId, cellId, text, reference,appId) => {
+  api.sendCellText = (userId, screenId, cellId, text, reference, appId) => {
     let textMsg = new TextCellOutMessage();
     textMsg.user_id = userId;
     textMsg.screen_id = screenId;
@@ -1357,7 +1388,7 @@ deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(textMsg.toJsonObject()));
   };
 
-  api.sendCellPhoto = (userId, screenId, cellId, photoFileId, reference,appId) => {
+  api.sendCellPhoto = (userId, screenId, cellId, photoFileId, reference, appId) => {
     let photoMsg = new PhotoCellOutMessage();
     photoMsg.user_id = userId;
     photoMsg.screen_id = screenId;
@@ -1368,7 +1399,7 @@ deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(photoMsg.toJsonObject()));
   };
 
-  api.sendCellVideo = (userId, screenId, cellId, videoFileId, reference,appId) => {
+  api.sendCellVideo = (userId, screenId, cellId, videoFileId, reference, appId) => {
     let videoMsg = new VideoCellOutMessage();
     videoMsg.user_id = userId;
     videoMsg.screen_id = screenId;
@@ -1379,7 +1410,7 @@ deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(videoMsg.toJsonObject()));
   };
 
-  api.setWorkflow = (userId,screenId,appId,workflowCells,reference,disableNotification) => {
+  api.setWorkflow = (userId, screenId, appId, workflowCells, reference, disableNotification) => {
     let workflowMsg = new SetWorkflowOutMessage();
     workflowMsg.user_id = userId;
     workflowMsg.screen_id = screenId;
@@ -1391,7 +1422,7 @@ deleteBlackListPatterns.appId = appId
     api.send(JSON.stringify(workflowMsg.toJsonObject()));
   };
 
-  api.setWorkflowAction = (userId,screenId,nextScreen,vappId,reference,appId) => {
+  api.setWorkflowAction = (userId, screenId, nextScreen, vappId, reference, appId) => {
     let workflowActionMsg = new SetWorkflowActionOutMessage();
     workflowActionMsg.user_id = userId;
     workflowActionMsg.screen_id = screenId;
@@ -1401,8 +1432,8 @@ deleteBlackListPatterns.appId = appId
     workflowActionMsg.appId = appId
     api.send(JSON.stringify(workflowActionMsg.toJsonObject()));
   };
-  
-  api.createChat = (chatType,isPublic,title,reference,appId) => {
+
+  api.createChat = (chatType, isPublic, title, reference, appId) => {
     let createChatOutMessage = new CreateChatOutMessage();
     createChatOutMessage.type = chatType;
     createChatOutMessage.isPublic = isPublic;
