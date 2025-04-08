@@ -260,24 +260,24 @@ class InternalWebSocket {
               return;
             case "userDetails":
               user = new User(obj.user);
-              this.callback.onUserDetails(user);
+              this.callback.onUserDetails(user,obj.app_id);
               return;
             case "chatDetails":
               let chat = new Chat(obj.chat);
-              this.callback.onChatDetails(chat);
+              this.callback.onChatDetails(chat,obj.app_id);
               return;
             case 'getProductItemResponse':
-              let productItem = new ProductItem(obj);
+              let productItem = new GetProductItemResponse(obj);
               this.callback.onProductDetail(productItem);
               return;
-            case "listCollectionItemResponse":
+            case "listCollectionsResponse":
 
               let listProductItemResponse = new ListCollectionItemResponse(obj);
 
-              this.callback.listCollectionItemResponse(listProductItemResponse.Categories);
+              this.callback.listCollectionItemResponse(listProductItemResponse);
             case 'getCollectionProductResponse':
-              let collectionProduct = new GetCollectionProductResponse(obj.data);
-              this.callback.onCollectionProduct(collectionProduct.collectionProducts);
+              let collectionProduct = new GetCollectionProductResponse(obj);
+              this.callback.onCollectionProduct(collectionProduct);
               return;
             case "chatAdministrators":
               let chatAdministrators = new ChatAdministrators(obj);
@@ -1138,7 +1138,7 @@ function setApiMethods(internalWS, api) {
     }
   };
 
-  api.updateMessage = (messageId, text, caption, toUserId, chatId, tab, appId) => {
+  api.updateMessage = (messageId, text, caption, toUserId, chatId, appId) => {
     let updateMessage = new UpdateOutMessage();
 
     updateMessage.message_id = messageId;
@@ -1152,16 +1152,16 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(updateMessage.toJsonObject()));
   };
 
-  api.updateTextMsg = (messageId, text, toUserId, tab, appId) => {
-    updateMessage(messageId, text, null, toUserId, null, tab, appId);
+  api.updateTextMsg = (messageId, text, toUserId, appId) => {
+    updateMessage(messageId, text, null, toUserId, null, appId);
   };
 
-  api.updateMediaCaption = (messageId, caption, toUserId, tab, appId) => {
-    updateMessage(messageId, null, caption, toUserId, null, tab, appId);
+  api.updateMediaCaption = (messageId, caption, toUserId, appId) => {
+    updateMessage(messageId, null, caption, toUserId, null, appId);
   };
 
-  api.updateChatMsg = (messageId, text, chatId, tab, appId) => {
-    updateMessage(messageId, text, null, null, chatId, tab, appId);
+  api.updateChatMsg = (messageId, text, chatId, appId) => {
+    updateMessage(messageId, text, null, null, chatId, appId);
   };
 
   api.updateChatMediaCaption = (messageId, caption, chatId, appId) => {
@@ -1352,15 +1352,17 @@ function setApiMethods(internalWS, api) {
     getProductItem.appId = appId
     api.send(JSON.stringify(getProductItem.toJsonObject()));
   }
-  api.listCollectionItem = (appId) => {
+  api.listCollectionItem = (appId,reference) => {
     let listCollectionItem = new ListCollectionItemOutMessage();
     listCollectionItem.appId = appId
+    listCollectionItem.reference=reference;
     api.send(JSON.stringify(listCollectionItem.toJsonObject()));
   }
-  api.getCollectionProduct = (collectionId, appId) => {
+  api.getCollectionProduct = (collectionId, appId,reference) => {
     let getCollectionProduct = new GetCollectionProductOutMessage();
     getCollectionProduct.id = collectionId;
     getCollectionProduct.appId = appId
+    getCollectionProduct.reference=reference;
     api.send(JSON.stringify(getCollectionProduct.toJsonObject()));
   }
   api.getBlackList = (appId, reference) => {

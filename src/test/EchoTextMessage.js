@@ -32,7 +32,7 @@ nCallBack.onConnect = (_api) => {
     console.log("Authenticated");
     let data= new Data({pattern : ".*@gmail.com",example:"aa@gmail.com"});
     let dataList = [data] ;
-	api.getProductDetail("5121228327126172","90090684293000559",213123);
+	api.getCollectionProduct("90091783822039252","900917838432534534","123456789");
 }
 
 

@@ -9,6 +9,9 @@ module.exports = class CollectionProduct {
             url: img.url,
             height: img.height
         }));
+        this.appId = obj.app_id;
+        this.businessChannelId = obj.business_channel_id;
+        this.category = obj.category;
     }
 
     toJsonObject() {
@@ -23,6 +26,9 @@ module.exports = class CollectionProduct {
             url: img.url,
             height: img.height
         }));
+        if (this.appId) obj.app_id = this.appId;
+        if (this.businessChannelId) obj.business_channel_id = this.businessChannelId;
+        if (this.category) obj.category = this.category;
 
         return obj;
     }

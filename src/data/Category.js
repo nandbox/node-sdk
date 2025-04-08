@@ -8,8 +8,8 @@ module.exports = class Category {
         this.id = jsonobj.id;
         this.name = jsonobj.name;
         this.description = jsonobj.description;
-        this.softId = jsonobj.soft_id;
-        this.createdDate = jsonobj.created_date;
+        this.category = jsonobj.category;
+        this.date = jsonobj.date;
         this.version = jsonobj.version;
         this.status = jsonobj.status;
 
@@ -22,8 +22,8 @@ module.exports = class Category {
         if (this.id) obj.id = this.id;
         if (this.name) obj.name = this.name;
         if (this.description) obj.description = this.description;
-        if (this.softId) obj.soft_id = this.softId;
-        if (this.createdDate) obj.created_date = this.createdDate;
+        if (this.category) obj.category = this.category;
+        if (this.date) obj.date = this.date;
         if (this.version) obj.version = this.version;
         if (this.status) obj.status = this.status;
 

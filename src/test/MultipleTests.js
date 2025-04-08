@@ -212,7 +212,7 @@ nCallBack.onReceive = incomingMsg => {
 
                 outmsg.menu_ref = menuRef;
                 outmsg.inline_menu = inlineMenu;
-
+                outmsg.appId = incomingMsg.app_id;
                 api.send(JSON.stringify(outmsg));
 
             } else if ("3bc" == incomingMsg.text.toLowerCase()) {
@@ -331,11 +331,12 @@ nCallBack.onReceive = incomingMsg => {
 
                 outmsg.chat_id = incomingMsg.chat.id;
                 outmsg.menus = menus;
+                outmsg.appId=incomingMsg.appId;
 
                 api.send(JSON.stringify(outmsg));
 
             } else {
-                api.sendText(incomingMsg.chat.id, incomingMsg.text);
+                api.sendText(incomingMsg.chat.id, incomingMsg.text,appId,reference);
             }
         }
         const path = './downloads';

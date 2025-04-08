@@ -622,7 +622,7 @@ module.exports = class NandBox {
      * @param tab
      *          tab ID to which you want to send the message
      */
-    updateMessage = (messageId, text, caption, toUserId, chatId, tab,appId) => {};
+    updateMessage = (messageId, text, caption, toUserId, chatId,appId) => {};
 
     /**
      * @param messageId
@@ -635,7 +635,7 @@ module.exports = class NandBox {
      * @param tab
      *          tab ID to which you want to send the message
      */
-    updateTextMsg = (messageId, text, toUserId, tab,appId) => {};
+    updateTextMsg = (messageId, text, toUserId,appId) => {};
     /**
      * @param messageId
      *            Unique identifier for the message and can not set to null
@@ -644,7 +644,7 @@ module.exports = class NandBox {
      * @param toUserId
      *            Id of Target user to receive updated message
      */
-    updateMediaCaption = (messageId, caption, toUserId, tab,appId) => {};
+    updateMediaCaption = (messageId, caption, toUserId,appId) => {};
 
     /**
      * @param messageId
@@ -654,7 +654,7 @@ module.exports = class NandBox {
      * @param chatId
      *            Id of Target Group or Channel id
      */
-    updateChatMsg = (messageId, text, chatId, tab,appId) => {};
+    updateChatMsg = (messageId, text, chatId,appId) => {};
     /**
      * @param messageId
      *            Unique identifier for the message and can not set to null
@@ -663,7 +663,7 @@ module.exports = class NandBox {
      * @param chatId
      *            Id of Target Group or Channel id
      */
-    updateChatMediaCaption = (messageId, caption, chatId, tab,appId) => {};
+    updateChatMediaCaption = (messageId, caption, chatId,appId) => {};
 
     /**
      * Use this method to get profile for a user
@@ -673,8 +673,8 @@ module.exports = class NandBox {
      */
     getUser = (userId,appId) => {};
     getProductDetail= (productId,appId) =>{};
-    listCollectionItem = (appId)=>{}
-    getCollectionProduct = (collectionId,appId) =>{}
+    listCollectionItem = (appId,reference)=>{}
+    getCollectionProduct = (collectionId,appId,reference) =>{}
     /**
      * Use this method to get Group or Channel information.
      *
@@ -753,7 +753,7 @@ module.exports = class NandBox {
      * @param user
      *            User object with unique user Id used to update User information
      */
-    setMyProifle = (user) => {};
+    setMyProfile = (user) => {};
     /**
      * Use this method to set Chat Group or Channel information
      *

@@ -1,8 +1,7 @@
 module.exports = class ProductItem {
-    constructor(object){
-		let obj = object.data;
-		this.appId = object.app_id!=null?object.app_id:obj.main_group_id;
-		this.reference =object.ref;
+    constructor(obj){
+		this.appId = obj.app_id!=null?obj.app_id:obj.main_group_id;
+		this.reference =obj.reference;
 		this.addons = obj.addons;
 		this.description = obj.description;
 		this.type = obj.type;
