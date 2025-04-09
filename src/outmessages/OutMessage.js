@@ -1,5 +1,4 @@
 "use strict";
-const Menu = require("../data/Menu");
 
 module.exports = class OutMessage {
 
@@ -23,11 +22,6 @@ module.exports = class OutMessage {
         if (this.echo) obj.echo = this.echo;
         if (this.menu_ref) obj.menu_ref = this.menu_ref;
         if (this.inline_menu) {
-            let inlineMenusArrayObj = [];
-            for (let i = 0; i < inline_menu.length; i++) {
-                this.inline_menu[i] = new Menu();
-                inlineMenusArrayObj[i] = inline_menu[i].toJsonObject();
-            }
             obj.inline_menu = this.inline_menu;
         }
         if (this.chat_settings) obj.chat_settings = this.chat_settings;

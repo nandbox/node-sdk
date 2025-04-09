@@ -18,7 +18,7 @@ class Utils {
     }
 
     static setNavigationButton(chatId, nextMenu, api){
-        let fb = new Button();
+        let fb = {};
         fb.next_menu = nextMenu;
         let navMsg = new SetNavigationButtonOutMessage();
         navMsg.chat_id = chatId;
@@ -41,7 +41,7 @@ class Utils {
     
     static setAdminNavigationButton(chatId, nextMenu, api) {
 
-		let fb = new Button();
+		let fb = {};
 		fb.next_menu = nextMenu;
 		let navMsg = new SetAdminNavigationButtonOutMessage();
 		navMsg.chat_id = chatId;

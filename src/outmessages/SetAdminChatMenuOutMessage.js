@@ -10,12 +10,7 @@ module.exports = class SetAdminChatMenuOutMessage extends OutMessage {
 	toJsonObject() {
 		let obj = super.toJsonObject();
 		if (this.menus) {
-			let menusArrayObj = [];
-			for (let i = 0; i < menus.length(); i++) {
-				menusArrayObj.push(menus[i].toJsonObject());
-			}
-
-			obj.menus = menusArrayObj;
+			obj.menus = this.menus;
 		}
 		return obj;
 	}

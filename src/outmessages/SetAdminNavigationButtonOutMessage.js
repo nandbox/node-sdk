@@ -9,7 +9,7 @@ module.exports = class SetAdminNavigationButtonOutMessage extends OutMessage {
 	
 	toJsonObject() {
 		let obj = super.toJsonObject();
-		if (this.navigation_button)  obj.navigation_button = this.navigation_button.toJsonObject();
+		if (this.navigation_button)  obj.navigation_button = this.navigation_button;
 		
 		return obj;
 	}
