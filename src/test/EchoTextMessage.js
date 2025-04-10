@@ -8,6 +8,7 @@ const WhiteList = require("../inmessages/WhiteList");
 const Chat = require("../data/Chat");
 const User = require("../data/User");
 const Data = require("../data/Data");
+const SetNavigationButtonOutMessage = require("../outmessages/SetNavigationButtonOutMessage");
 
 const TOKEN = "90091783822039252:0:DMDzxIveNFaGbI48D4I14NqGdx5WcH"; // replace it with your token
 
@@ -30,9 +31,10 @@ nCallBack.onConnect = (_api) => {
 
     api = _api;
     console.log("Authenticated");
-    let data= new Data({pattern : ".*@gmail.com",example:"aa@gmail.com"});
-    let dataList = [data] ;
-	api.getCollectionProduct("90091783822039252","900917838432534534","123456789");
+    let nv = new SetNavigationButtonOutMessage();
+    nv.chat_id= chat_id;
+    nv.appId =appId
+    nv.navigation_button="Menu ID"
 }
 
 
@@ -42,7 +44,7 @@ nCallBack.onReceive = incomingMsg => {
 
     if (incomingMsg.isTextMsg()) {
         let chatId = incomingMsg.chat.id; // get your chat Id
-        let text = incomingMsg.text; // get your text message
+        let text = incomingMsg.text; // get your text s
         
     }
 

@@ -13,7 +13,7 @@ module.exports = class SetChatMenuOutMessage extends OutMessage {
         let obj = super.toJsonObject();
         if (this.menus) {
         
-            obj.menus = menus;
+            obj.menus = this.menus;
         }
         return obj;
     }
