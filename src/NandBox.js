@@ -832,7 +832,7 @@ module.exports = class NandBox {
     deleteBlackListPatterns = (chatId, pattern,appId) => {};
     deleteWhiteListPatterns = (chatId, pattern,appId) => {};
     addWhiteList = (chatId, whiteListUsers,appId) => {};
-    setWorkflow = (userId,screenId,appId,workflowCells,reference,disableNotification) => {};
+    updateMenuCell = (userId,menuId,appId,cells,reference,disableNotification) => {};
     setWorkflowAction = (userId,screenId,nextScreen,vappId,reference,appId) => {};
     createChat = (chatType,isPublic,title,reference,appId) => {};
   }

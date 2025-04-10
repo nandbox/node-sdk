@@ -35,7 +35,6 @@ const SetMyProfileOutMessage = require("./outmessages/SetMyProfileOutMessage");
 const SetChatOutMessage = require("./outmessages/SetChatOutMessage");
 const GetMyProfiles = require("./outmessages/GetMyProfiles");
 const GeneratePermanentUrl = require("./outmessages/GeneratePermanentUrl");
-const SetWorkflowOutMessage = require("./outmessages/SetWorkflowOutMessage");
 const SetWorkflowActionOutMessage = require("./outmessages/SetWorkflowActionOutMessage");
 const Utils = require("./util/Utility");
 const Id = Utils.Id;
@@ -73,6 +72,7 @@ const AddBlacklistPatternsOutMessage = require("./outmessages/AddBlackListPatter
 const WhiteList_ak = require("./inmessages/WhiteList_ak");
 const BlackListPattern = require("./inmessages/Pattern");
 const Pattern = require("./inmessages/Pattern");
+const UpdateMenuCell = require("./outmessages/SetWorkflowOutMessage");
 
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -1412,16 +1412,15 @@ function setApiMethods(internalWS, api) {
     api.send(JSON.stringify(videoMsg.toJsonObject()));
   };
 
-  api.setWorkflow = (userId, screenId, appId, workflowCells, reference, disableNotification) => {
-    let workflowMsg = new SetWorkflowOutMessage();
-    workflowMsg.user_id = userId;
-    workflowMsg.screen_id = screenId;
-    workflowMsg.app_id = appId;
-    workflowMsg.workflow_cell = workflowCells;
-    workflowMsg.reference = reference;
-    workflowMsg.disable_notification = disableNotification;
-    workflowMsg.appId = appId
-    api.send(JSON.stringify(workflowMsg.toJsonObject()));
+  api.updateMenuCell = (userId, menuId, appId, cells, reference, disableNotification) => {
+    let updateMenuCell = new UpdateMenuCell();
+    updateMenuCell.user_id = userId;
+    updateMenuCell.menu_id = menuId;
+    updateMenuCell.app_id = appId;
+    updateMenuCell.cells = cells;
+    updateMenuCell.reference = reference;
+    updateMenuCell.disable_notification = disableNotification;
+    api.send(JSON.stringify(updateMenuCell.toJsonObject()));
   };
 
   api.setWorkflowAction = (userId, screenId, nextScreen, vappId, reference, appId) => {

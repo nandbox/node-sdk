@@ -66,7 +66,7 @@ nCallBack.onChatMenuCallBack = chatMenuCallback => {
     });
 
     var cells = [cell];
-    api.setWorkflow(userId, screenId, appId, cells,123456789,false);
+    api.updateMenuCell(userId, screenId, appId, cells,123456789,false);
 
 }
 nCallBack.onInlineMessageCallback = inlineMsgCallback => { }
