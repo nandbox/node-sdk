@@ -28,6 +28,7 @@ module.exports = class OutMessage {
         if (this.schedule_date) obj.schedule_date = this.schedule_date;
         if (this.tab) obj.tab = this.tab;
         if (this.appId) obj.app_id = this.appId;
+        if (this.tags) obj.tags = this.tags;
 
         return obj;     
     }

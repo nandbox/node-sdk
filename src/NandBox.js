@@ -222,6 +222,7 @@ module.exports = class NandBox {
       chatSettings,
       bgColor,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -262,6 +263,7 @@ module.exports = class NandBox {
       disableNotification,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -302,6 +304,7 @@ module.exports = class NandBox {
       caption,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -351,6 +354,7 @@ module.exports = class NandBox {
       title,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -388,6 +392,7 @@ module.exports = class NandBox {
       webPagePreview,
       disableNotification,
       chatSettings,
+      tags,
       appId
     ) => {};
     /**
@@ -432,6 +437,7 @@ module.exports = class NandBox {
       size,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -478,6 +484,7 @@ module.exports = class NandBox {
       size,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -524,6 +531,7 @@ module.exports = class NandBox {
       details,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -564,6 +572,7 @@ module.exports = class NandBox {
       caption,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**
@@ -604,6 +613,7 @@ module.exports = class NandBox {
       caption,
       chatSettings,
       tab,
+      tags,
       appId
     ) => {};
     /**

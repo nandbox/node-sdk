@@ -52,6 +52,7 @@ module.exports = class IncomingMessage {
     this.tagsDefinition = obj.tagsDefinition
       ? new TagDefinition(obj.tagsDefinition)
       : null;
+    this.tab = obj.tab ? obj.tab : null;
   }
 
   toJsonObject() {
@@ -87,6 +88,7 @@ module.exports = class IncomingMessage {
     if (this.users) obj.users = this.users;
     if (this.tagsDefinition) obj.tagsDefinition = this.tagsDefinition;
     if (this.schedule_date) obj.schedule_date = this.schedule_date;
+    if (this.tab) obj.tab = this.tab;
 
     return obj;
   }
