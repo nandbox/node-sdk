@@ -494,7 +494,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         null,
-        null,
+        tags,
         appId
       )
       return reference
@@ -552,7 +552,7 @@ function setApiMethods(internalWS, api) {
     }
   }
 
-  api.sendTextWithBackground = (chatId, text, bgColor, appId) => {
+  api.sendTextWithBackground = (chatId, text, bgColor,tags, appId) => {
     const reference = Id()
     api.sendText(
       chatId,
@@ -565,7 +565,7 @@ function setApiMethods(internalWS, api) {
       null,
       bgColor,
       null,
-      null,
+      tags,
       appId
     )
     return reference
@@ -609,7 +609,7 @@ function setApiMethods(internalWS, api) {
         caption,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -673,7 +673,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -739,7 +739,7 @@ function setApiMethods(internalWS, api) {
         caption,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -809,7 +809,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -878,7 +878,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -949,7 +949,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -1021,7 +1021,7 @@ function setApiMethods(internalWS, api) {
         null,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -1086,7 +1086,7 @@ function setApiMethods(internalWS, api) {
         caption,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
@@ -1149,7 +1149,7 @@ function setApiMethods(internalWS, api) {
         caption,
         null,
         null,
-        null,
+        tags,
         appId
       )
     } else {
