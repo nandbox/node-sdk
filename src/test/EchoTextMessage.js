@@ -4,13 +4,7 @@ const NandBoxClient = Nand.NandBoxClient;
 const NandBox = require("../NandBox");
 
 
-const WhiteList = require("../inmessages/WhiteList");
-const Chat = require("../data/Chat");
-const User = require("../data/User");
-const Data = require("../data/Data");
-const SetNavigationButtonOutMessage = require("../outmessages/SetNavigationButtonOutMessage");
-
-const TOKEN = "90091783822039252:0:DMDzxIveNFaGbI48D4I14NqGdx5WcH"; // replace it with your token
+const TOKEN = "90091783968456064:0:6V7Tqy34IFv5ms0WHyHnzan83Hrsmn"; // replace it with your token
 
 
 const config = {
@@ -30,11 +24,9 @@ nCallBack.onConnect = (_api) => {
     // it will go here if the bot connected to the server successfuly 
 
     api = _api;
+
     console.log("Authenticated");
-    let nv = new SetNavigationButtonOutMessage();
-    nv.chat_id= chat_id;
-    nv.appId =appId
-    nv.navigation_button="Menu ID"
+   
 }
 
 
@@ -44,8 +36,8 @@ nCallBack.onReceive = incomingMsg => {
 
     if (incomingMsg.isTextMsg()) {
         let chatId = incomingMsg.chat.id; // get your chat Id
-        let text = incomingMsg.text; // get your text s
-        
+        let text = incomingMsg.text; // get your text message
+        api.sendText(chatId,text,incomingMsg.appId);
     }
 
 }

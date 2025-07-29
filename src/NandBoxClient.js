@@ -73,6 +73,7 @@ const WhiteList_ak = require('./inmessages/WhiteList_ak')
 const BlackListPattern = require('./inmessages/Pattern')
 const Pattern = require('./inmessages/Pattern')
 const UpdateMenuCell = require('./outmessages/SetWorkflowOutMessage')
+const { Worker } = require('worker_threads');
 
 var sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -194,14 +195,19 @@ class InternalWebSocket {
         //reset pinging
         clearInterval(this.pingpongvar)
         this.pingpong()
+        const worker = new Worker('./src/util/messageWorker.js');
+        worker.postMessage({ msg: msg.data });
+        worker.on("message", result=>{
+          let obj = result.obj;
+          let method = result.method;
 
+      
+        
         let user
         this.lastMessage = new Date().getUTCMilliseconds()
         Logger.logger.info('INTERNAL: ONMESSAGE')
-        let obj = msg.data
         Logger.logger.info(new Date() + ' >>>>>>>>> Update Obj : ' + obj)
-        obj = JSON.parse(obj)
-        let method = obj.method
+      
         Logger.logger.info(JSON.stringify(obj))
         if (method) {
           Logger.logger.info('method: ' + method)
@@ -338,7 +344,13 @@ class InternalWebSocket {
           Logger.logger.error('Error: ' + error)
           console.log('Error: ' + error)
         }
-      }
+        worker.terminate();
+      });
+      worker.on("error", error => {
+        Logger.logger.error('Worker Error: ' + error);
+        console.error('Worker Error: ' + error);
+      });
+    }
     }
   }
 
