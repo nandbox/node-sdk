@@ -69,6 +69,7 @@ const GetCollectionProductResponse = require('./inmessages/GetCollectionProductR
 const GetCollectionProductOutMessage = require('./outmessages/GetCollectionProductOutMessage')
 const AddWhitelistPatternsOutMessage = require('./outmessages/AddWhiteListPatternsOutMessage')
 const AddBlacklistPatternsOutMessage = require('./outmessages/AddBlackListPatternsOutMessage')
+const RunCustomCodeOutMessage = require("./outmessages/RunCustomCodeOutMessage");
 const WhiteList_ak = require('./inmessages/WhiteList_ak')
 const BlackListPattern = require('./inmessages/Pattern')
 const Pattern = require('./inmessages/Pattern')
@@ -1519,6 +1520,13 @@ function setApiMethods(internalWS, api) {
     createChatOutMessage.reference = reference
     createChatOutMessage.appId = appId
     api.send(JSON.stringify(createChatOutMessage.toJsonObject()))
+  }
+  api.runCustomCode = (userId, data, appId) => {
+    let runCustomCodeOutMessage = new RunCustomCodeOutMessage();
+    runCustomCodeOutMessage.user_id = userId;
+    runCustomCodeOutMessage.data = data;
+    runCustomCodeOutMessage.app_id = appId;
+    api.send(JSON.stringify(runCustomCodeOutMessage.toJsonObject()));
   }
 }
 
