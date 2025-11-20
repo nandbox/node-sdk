@@ -17,10 +17,12 @@ class Utils {
         return durationInMinsAndSeconds;
     }
 
-    static setNavigationButton(chatId, nextMenu, api){
+    static setNavigationButton(chatId, nextMenu, api,nav_type,menu_open) {
         let navMsg = new SetNavigationButtonOutMessage();
         navMsg.chat_id = chatId;
         navMsg.navigation_button = nextMenu
+        navMsg.nav_type = nav_type
+        navMsg.menu_open = menu_open
 
         api.send(JSON.stringify(navMsg));
     }

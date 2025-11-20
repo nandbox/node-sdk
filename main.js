@@ -309,7 +309,7 @@ nCallBack.onReceive = incomingMsg => {
 
                 let chat_id = incomingMsg.chat.id;
 
-                Utility.setNavigationButton(chat_id, "mainMenu", api);
+                Utility.setNavigationButton(chat_id, "mainMenu", api,null,1);
 
                 let menuBtn1 = createButton("6666", "mainCB", 1, "Gray", "Red", null, null);
                 menuBtn1.button_icon = "ic_smoke_free_24dp";
