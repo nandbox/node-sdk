@@ -845,6 +845,6 @@ module.exports = class NandBox {
     updateMenuCell = (userId,menuId,appId,cells,reference,disableNotification) => {};
     setWorkflowAction = (userId,screenId,nextScreen,vappId,reference,appId) => {};
     createChat = (chatType,isPublic,title,reference,appId) => {};
-    runCustomCode = (userId,data,appId) => {};
+    // runCustomCode = (userId,data,appId) => {};
   }
 };

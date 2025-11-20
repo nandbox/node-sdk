@@ -14,6 +14,12 @@ module.exports = class SetNavigationButtonOutMessage extends OutMessage {
         if (this.navigation_button){
            obj.navigation_button = this.navigation_button
         }
+        if (this.nav_type){
+                obj.nav_type = this.nav_type
+        }
+        if (this.menu_open){
+              obj.menu_open = this.menu_open
+        }
 
         return obj;
     }

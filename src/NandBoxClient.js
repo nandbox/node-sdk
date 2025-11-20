@@ -1521,13 +1521,13 @@ function setApiMethods(internalWS, api) {
     createChatOutMessage.appId = appId
     api.send(JSON.stringify(createChatOutMessage.toJsonObject()))
   }
-  api.runCustomCode = (userId, data, appId) => {
-    let runCustomCodeOutMessage = new RunCustomCodeOutMessage();
-    runCustomCodeOutMessage.user_id = userId;
-    runCustomCodeOutMessage.data = data;
-    runCustomCodeOutMessage.app_id = appId;
-    api.send(JSON.stringify(runCustomCodeOutMessage.toJsonObject()));
-  }
+  // api.runCustomCode = (userId, data, appId) => {
+  //   let runCustomCodeOutMessage = new RunCustomCodeOutMessage();
+  //   runCustomCodeOutMessage.user_id = userId;
+  //   runCustomCodeOutMessage.data = data;
+  //   runCustomCodeOutMessage.app_id = appId;
+  //   api.send(JSON.stringify(runCustomCodeOutMessage.toJsonObject()));
+  // }
 }
 
 module.exports = {
