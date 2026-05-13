@@ -3,7 +3,7 @@ module.exports = class PaymentConfirmationOutMessage extends OutMessage {
 
     constructor() {
         super();
-        this.method = "paymentConfirmation";
+        this.method = "submitPaymentResult";
     }
     toJsonObject() {
         let obj = super.toJsonObject();
@@ -16,8 +16,8 @@ module.exports = class PaymentConfirmationOutMessage extends OutMessage {
         if (this.orderId) {
             obj.order_id = this.orderId;
         }
-        if (this.payload) {
-            obj.payload = this.payload;
+        if (this.providerResponse) {
+            obj.providerResponse = this.providerResponse;
         }
         if (this.secret) {
             obj.secret = this.secret;

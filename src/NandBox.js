@@ -163,7 +163,7 @@ module.exports = class NandBox {
     onWorkflowDetails = (workflowDetails) => {};
     onProductDetail = (productDetail)=>{};
     listCollectionItemResponse = (collections)=>{};
-    onPaymentRequest = (paymentRequest) => {};
+    onPaymentAuthorizationRequest = (paymentRequest) => {};
 
   }
   /**
@@ -846,7 +846,7 @@ module.exports = class NandBox {
     updateMenuCell = (userId,menuId,appId,cells,reference,disableNotification) => {};
     setWorkflowAction = (userId,screenId,nextScreen,vappId,reference,appId) => {};
     createChat = (chatType,isPublic,title,reference,appId) => {};
-    paymentConfirmation = (chatId , userId,orderId,payload,secret,currency,totalAmount,appId,status,debitAmountCents)=> {};
+    submitPaymentResult = (chatId , userId,orderId,payload,secret,currency,totalAmount,appId,status,debitAmountCents)=> {};
     // runCustomCode = (userId,data,appId) => {};
   }
 };

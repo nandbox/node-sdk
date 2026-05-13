@@ -362,9 +362,9 @@ class InternalWebSocket {
                 let extensionDocResponse = new ExtensionDocResponse(obj);
                 this.callback.onExtensionDocResponse(extensionDocResponse)
                 return
-            case "paymentRequest":
+            case "paymentAuthorizationRequest":
               let paymentRequest = new PaymentRequest(obj);
-              this.callback.onPaymentRequest(paymentRequest) 
+              this.callback.onPaymentAuthorizationRequest(paymentRequest) 
             default:
               this.callback.onReceiveObj(JSON.stringify(obj))
               return
@@ -1557,13 +1557,13 @@ function setApiMethods(internalWS, api) {
   //   runCustomCodeOutMessage.app_id = appId;
   //   api.send(JSON.stringify(runCustomCodeOutMessage.toJsonObject()));
   // }
-}
-api.paymentConfirmation = (chatId , userId,orderId,payload,secret,currency,totalAmount,appId,status,debitAmountCents) => {
+
+api.submitPaymentResult = (chatId , userId,orderId,providerResponse,secret,currency,totalAmount,appId,status,debitAmountCents) => {
   let paymentConfirmationOutMessage = new PaymentConfirmationOutMessage()
   paymentConfirmationOutMessage.chat_id = chatId
   paymentConfirmationOutMessage.user_id = userId
   paymentConfirmationOutMessage.order_id = orderId
-  paymentConfirmationOutMessage.payload = payload
+  paymentConfirmationOutMessage.providerResponse = providerResponse
   paymentConfirmationOutMessage.secret = secret
   paymentConfirmationOutMessage.currency = currency
   paymentConfirmationOutMessage.total_amount = totalAmount
@@ -1572,7 +1572,7 @@ api.paymentConfirmation = (chatId , userId,orderId,payload,secret,currency,total
   paymentConfirmationOutMessage.debit_amount_cents = debitAmountCents
   api.send(JSON.stringify(paymentConfirmationOutMessage.toJsonObject()))
 }
-
+}
 module.exports = {
   NandBoxClient: NandBoxClient
 }
