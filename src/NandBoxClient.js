@@ -80,7 +80,7 @@ const PaymentConfirmationOutMessage = require('./outmessages/PaymentConfirmation
 const SendUserNotificationOutMessage = require('./outmessages/SendUserNotificationOutMessage')
 const MenuCallback = require('./data/MenuCallback')
 const WebhookBody = require('./data/WebhookBody')
-const ExtensionDocResponse = require('./inmessages/ExtensionDocResponse')
+const DocumentResponse = require('./inmessages/DocumentResponse')
 const PaymentRequest = require('./inmessages/PaymentRequest')
 
 var sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -368,29 +368,16 @@ class InternalWebSocket {
               let workflowDetails = new WorkflowDetails(obj)
               this.callback.onWorkflowDetails(workflowDetails)
               return
-            case "extensionSetDocResponse":
-            case "extensionGetDocResponse":
-            case "extensionDeleteDocResponse":
-            case "extensionListDocResponse":
-               let type;
-               switch(method){
-                  case "extensionSetDocResponse":
-                    type="insert";
-                    break;
-                  case "extensionGetDocResponse":
-                    type="get";
-                    break;
-                  case "extensionDeleteDocResponse":
-                    type="delete";
-                    break;
-                  case "extensionListDocResponse":
-                    type="list";
-                    break;
-                }
-                obj.type = type;
-                let extensionDocResponse = new ExtensionDocResponse(obj);
-                this.callback.onExtensionDocResponse(extensionDocResponse)
-                return
+            // The method name is passed through as-is. It used to be replaced with
+            // "insert" / "get" / "delete" / "list", which discarded the real name and set a
+            // value that appears nowhere in the protocol.
+            case 'setDocumentResponse':
+            case 'getDocumentResponse':
+            case 'deleteDocumentResponse':
+            case 'listDocumentsResponse':
+              let documentResponse = new DocumentResponse(obj)
+              this.callback.onDocumentResponse(documentResponse)
+              return
             case "paymentAuthorizationRequest":
               let paymentRequest = new PaymentRequest(obj);
               this.callback.onPaymentAuthorizationRequest(paymentRequest)
