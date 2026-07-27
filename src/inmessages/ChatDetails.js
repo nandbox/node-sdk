@@ -7,8 +7,7 @@ module.exports = class ChatDetails {
     }
 
     toJsonObject(){
-        let obj;
-
+        let obj = {};
         if (this.chat) obj.chat = chat.toJsonObject();
 
         return obj;

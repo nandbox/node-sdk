@@ -9,8 +9,7 @@ module.exports = class GetProductItemResponse {
     }
 
     toJsonObject(){
-        let obj;
-
+        let obj = {};
         if (this.productItem) obj.productItem = this.productItem.toJsonObject();
         if (this.appId) obj.app_id = this.appId;
         if (this.reference) obj.reference = this.reference;

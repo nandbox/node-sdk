@@ -78,7 +78,30 @@ var generate = () => {
 
 
 
+/**
+ * Flattens submitted menu cells into a { callback: value } mapping.
+ *
+ * Mirrors Utils.getFieldsAndValues in the Java SDK: each cell's `callback` is the
+ * field name and the first entry of its value list is the submitted value.
+ */
+var getFieldsAndValues = cells => {
+    let result = {}
+    if (!cells) return result
+    for (const cell of cells) {
+        const key = cell.callback
+        let valueStr = ''
+        const values = cell.value
+        if (values && values.length > 0) {
+            const val = values[0].value
+            valueStr = val != null ? String(val) : ''
+        }
+        result[key] = valueStr
+    }
+    return result
+}
+
 module.exports = {
     Utility: Utils,
     Id: generate,
+    getFieldsAndValues: getFieldsAndValues,
 }

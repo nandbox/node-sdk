@@ -23,8 +23,8 @@ module.exports =  class BlackList {
 
 		if (this.users) {
 			let usersArrayObjnew = [];
-			for (let i = 0; i < users.length; i++) {
-				usersArrayObjnew.push(users[i].toJsonObject());
+			for (let i = 0; i < this.users.length; i++) {
+				usersArrayObjnew.push(this.users[i].toJsonObject());
 			}
 			obj.users = usersArrayObjnew;
 		}

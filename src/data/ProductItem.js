@@ -57,7 +57,7 @@ module.exports = class ProductItem {
 		if (this.price) obj.price = this.price;
 		if (this.vendor) obj.vendor = this.vendor;
 		if (this.variant) obj.variant = this.variant;
-		if (this.id) obj.KEY_ID = this.id;
+		if (this.id) obj.id = this.id;
 		if (this.attribute) obj.attribute = {
 			cost: this.attribute.cost,
 			quantity: this.attribute.quantity,

@@ -8,11 +8,10 @@ module.exports = class ButtonQueryResult {
     }
 
     toJsonObject(){
-        let obj;
-
-        if (this.latitude) obj.latitude  = latitude;
-        if (this.longitude) obj.longitude = longitude;
-        if (this.contact) obj.contact = contact;
+        let obj = {};
+        if (this.latitude) obj.latitude  = this.latitude;
+        if (this.longitude) obj.longitude = this.longitude;
+        if (this.contact) obj.contact = this.contact;
 
         return obj;
     }

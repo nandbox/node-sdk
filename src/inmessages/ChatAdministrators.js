@@ -24,18 +24,18 @@ module.exports = class ChatAdministrators {
     }
 
     toJsonObject(){
-        let obj;
+        let obj = {};
         if (this.administrators) {
             let adminsArrayObjnew = [];
-            for (let i = 0; i < administrators.length; i++)
-                adminsArrayObjnew.push(administrators[i].toJsonObject());
+            for (let i = 0; i < this.administrators.length; i++)
+                adminsArrayObjnew.push(this.administrators[i].toJsonObject());
             obj.administrators = adminsArrayObjnew;
         }
         if (this.app_id) obj.app_id = this.app_id;
 
 
         if (this.chat) {
-            obj.chat =  chat.toJsonObject();
+            obj.chat =  this.chat.toJsonObject();
         }
 
         return obj;

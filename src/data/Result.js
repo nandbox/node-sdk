@@ -16,8 +16,7 @@ module.exports = class Result {
     }
 
     toJsonObject(){
-        let obj;
-
+        let obj = {};
         if (this.id) obj.id =  this.id;
         if (this.caption) obj.caption =  this.caption;
         if (this.title) obj.title =  this.title;

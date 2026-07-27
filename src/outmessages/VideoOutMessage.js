@@ -10,7 +10,7 @@ module.exports = class VideoOutMessage extends OutMessage {
     toJsonObject(){
         let obj = super.toJsonObject();
         
-        if (this.video != null) obj.video = video;
+        if (this.video != null) obj.video = this.video;
         
         return obj;
     }

@@ -35,7 +35,9 @@ const SetMyProfileOutMessage = require('./outmessages/SetMyProfileOutMessage')
 const SetChatOutMessage = require('./outmessages/SetChatOutMessage')
 const GetMyProfiles = require('./outmessages/GetMyProfiles')
 const GeneratePermanentUrl = require('./outmessages/GeneratePermanentUrl')
-const SetWorkflowActionOutMessage = require('./outmessages/SetWorkflowActionOutMessage')
+// Filename is SetWorkFlowActionOutMessage.js (capital F); the previous spelling
+// resolved only on case-insensitive filesystems and failed on Linux.
+const SetWorkflowActionOutMessage = require('./outmessages/SetWorkFlowActionOutMessage')
 const Utils = require('./util/Utility')
 const Id = Utils.Id
 const Data = require('./data/Data')
@@ -74,8 +76,10 @@ const WhiteList_ak = require('./inmessages/WhiteList_ak')
 const BlackListPattern = require('./inmessages/Pattern')
 const Pattern = require('./inmessages/Pattern')
 const UpdateMenuCell = require('./outmessages/SetWorkflowOutMessage')
-const { Worker } = require('worker_threads');
 const PaymentConfirmationOutMessage = require('./outmessages/PaymentConfirmationOutMessage')
+const SendUserNotificationOutMessage = require('./outmessages/SendUserNotificationOutMessage')
+const MenuCallback = require('./data/MenuCallback')
+const WebhookBody = require('./data/WebhookBody')
 const ExtensionDocResponse = require('./inmessages/ExtensionDocResponse')
 const PaymentRequest = require('./inmessages/PaymentRequest')
 
@@ -153,7 +157,6 @@ class InternalWebSocket {
           closingCounter < this.NO_OF_RETRIES_IF_CONN_CLOSED
         ) {
           try {
-            console.log('Please wait 30 seconds for Reconnecting ')
             Logger.logger.info('Please wait 30 seconds for Reconnecting')
             await sleep(30000)
 
@@ -172,8 +175,13 @@ class InternalWebSocket {
             Logger.logger.error(e)
           }
         } else {
-          Logger.logger.info('End nandbox client')
-          process.exit(0)
+          // A library must not terminate the host process. Stop reconnecting and
+          // let the application react via Callback.onClose().
+          Logger.logger.warn(
+            'Not reconnecting after close code ' + status.code +
+            ' (retries used: ' + closingCounter + '). The nandbox client is now idle.'
+          )
+          this.stopWebSocketClient()
         }
       },
       open: () => {
@@ -187,52 +195,64 @@ class InternalWebSocket {
 
         this.pingpong()
 
-        Logger.logger.info(strAuthObj)
+        // Never log strAuthObj: it contains the bot token.
+        Logger.logger.info('Sending TOKEN_AUTH')
         this.send(strAuthObj)
         setApiMethods(this, api)
       },
       error: error => {
-        Logger.logger.error('ONERROR: ' + JSON.stringify(error))
-        console.log('ONERROR: ' + JSON.stringify(error))
+        // JSON.stringify(Error) yields "{}", losing the message and stack.
+        Logger.logger.error('ONERROR: ' + (error && error.stack ? error.stack : error))
+        if (this.callback && this.callback.onError) {
+          this.callback.onError(error)
+        }
       },
       message: msg => {
         //reset pinging
         clearInterval(this.pingpongvar)
         this.pingpong()
-        const worker = new Worker('./src/util/messageWorker.js');
-        worker.postMessage({ msg: msg.data });
-        worker.on("message", result=>{
-          let obj = result.obj;
-          let method = result.method;
+        // Previously each inbound message spawned a worker_thread purely to run
+        // JSON.parse. worker.terminate() sat after the switch, which every case
+        // returns past, so one OS thread leaked per message; the worker path was
+        // also resolved against process.cwd() and made delivery order
+        // non-deterministic. Parsing inline avoids all three.
+        let obj
+        let method
+        try {
+          obj = JSON.parse(msg.data)
+          method = obj.method
+        } catch (err) {
+          Logger.logger.error('Failed to parse incoming message: ' + err.message)
+          return
+        }
 
-      
-        
         let user
-        this.lastMessage = new Date().getUTCMilliseconds()
+        this.lastMessage = Date.now()
         Logger.logger.info('INTERNAL: ONMESSAGE')
         Logger.logger.info(new Date() + ' >>>>>>>>> Update Obj : ' + obj)
       
         Logger.logger.info(JSON.stringify(obj))
         if (method) {
           Logger.logger.info('method: ' + method)
-          console.log('method: ' + method)
           switch (method) {
             case 'TOKEN_AUTH_OK':
               Logger.logger.info('authenticated!')
-              console.log('authenticated!')
               this.authenticated = true
               BOT_ID = obj.ID
               Logger.logger.info('====> Your Bot Id is : ' + BOT_ID)
               Logger.logger.info('====> Your Bot Name is : ' + obj.name)
-              console.log('====> Your Bot Id is : ' + BOT_ID)
-              console.log('====> Your Bot Name is : ' + obj.name)
-
               this.callback.onConnect(api, obj)
 
               return
             case 'message':
               let incomingMessage = new IncomingMessage(obj)
               this.callback.onReceive(incomingMessage)
+              return
+            case 'scheduledMessage':
+              // onScheduleMessage was declared in NandBox.js but never dispatched,
+              // so scheduled messages fell through to onReceiveObj as raw JSON.
+              let incomingScheduleMsg = new IncomingMessage(obj)
+              this.callback.onScheduleMessage(incomingScheduleMsg)
               return
             case 'chatMenuCallback':
               let chatMenuCallback = new ChatMenuCallback(obj)
@@ -283,6 +303,7 @@ class InternalWebSocket {
               let listProductItemResponse = new ListCollectionItemResponse(obj)
 
               this.callback.listCollectionItemResponse(listProductItemResponse)
+              return
             case 'getCollectionProductResponse':
               let collectionProduct = new GetCollectionProductResponse(obj)
               this.callback.onCollectionProduct(collectionProduct)
@@ -303,15 +324,23 @@ class InternalWebSocket {
               user = new User(obj.user)
               this.callback.userLeftBot(user)
               return
-            case 'userLeftBot':
+            case 'permanentUrl':
+              // Was a second 'userLeftBot' label, making this branch unreachable
+              // so generatePermanentUrl never delivered a response.
               let permenantURL = new PermanentUrl(obj)
               this.callback.permanentUrl(permenantURL)
               return
             case 'addBlacklistPatterns_ack':
+            // removeBlacklistPatterns_ack is what the server actually sends; the
+            // delete* spelling is kept only for backward compatibility.
+            case 'removeBlacklistPatterns_ack':
+            case 'deleteBlacklistPatterns_ack':
               let blackListPattern = new Pattern(obj)
               this.callback.onBlackListPattern(blackListPattern)
               return
             case 'addWhitelistPatterns_ack':
+            case 'removeWhitelistPatterns_ack':
+            case 'deleteWhitelistPatterns_ack':
               let whiteListPattern = new Pattern(obj)
               this.callback.onWhiteListPattern(whiteListPattern)
               return
@@ -364,7 +393,16 @@ class InternalWebSocket {
                 return
             case "paymentAuthorizationRequest":
               let paymentRequest = new PaymentRequest(obj);
-              this.callback.onPaymentAuthorizationRequest(paymentRequest) 
+              this.callback.onPaymentAuthorizationRequest(paymentRequest)
+              return
+            case 'menuCallback':
+              let menuCallback = new MenuCallback(obj)
+              this.callback.onMenuCallBack(menuCallback)
+              return
+            case 'WebhookEvent':
+              let webhookEvent = new WebhookBody(obj)
+              this.callback.onWebhookEvent(webhookEvent)
+              return
             default:
               this.callback.onReceiveObj(JSON.stringify(obj))
               return
@@ -372,25 +410,21 @@ class InternalWebSocket {
         } else {
           let error = obj.error
           Logger.logger.error('Error: ' + error)
-          console.log('Error: ' + error)
         }
-        worker.terminate();
-      });
-      worker.on("error", error => {
-        Logger.logger.error('Worker Error: ' + error);
-        console.error('Worker Error: ' + error);
-      });
-    }
+      }
     }
   }
 
   pingpong() {
+    // Clear any previous interval first: pingpong() is called both from on.open
+    // and from reconnectWebSocketClient(), which used to orphan a timer that then
+    // pinged forever, one extra per reconnect.
+    clearInterval(this.pingpongvar)
     this.pingpongvar = setInterval(() => {
       let obj = {}
       obj.method = 'PING'
       let ping = JSON.stringify(obj)
-      Logger.logger.info(ping)
-      console.log(ping)
+      Logger.logger.debug(ping)
       this.send(ping)
     }, 30000)
   }
@@ -398,8 +432,9 @@ class InternalWebSocket {
   reconnectWebSocketClient() {
     Logger.logger.info('Creating new webSocketClient')
     this.ws = new WebSocket(this.uri)
+    // setWSCallbacks() installs on.open, which starts the ping loop; starting it
+    // here as well produced two intervals per reconnect.
     this.setWSCallbacks()
-    this.pingpong()
     Logger.logger.info('webSocketClient started')
   }
 
@@ -409,14 +444,15 @@ class InternalWebSocket {
     authObject.token = token
     authObject.rem = true
     let strAuthObj = JSON.stringify(authObject)
-    Logger.logger.info(strAuthObj)
+    // Never log strAuthObj: it contains the bot token.
+    Logger.logger.info('Sending TOKEN_AUTH')
     this.send(strAuthObj)
   }
   send(s) {
     try {
       if (this.ws) {
-        console.log(s)
-
+        // Previously console.log(s), which printed every outgoing payload -
+        // including the auth token and payment bodies - to stdout.
         this.ws.send(s)
       }
     } catch (e) {
@@ -1083,6 +1119,10 @@ function setApiMethods(internalWS, api) {
         appId
       )
       message.method = 'sendLocation'
+      // The coordinates were never assigned, so every location message was sent
+      // without latitude/longitude.
+      message.latitude = latitude
+      message.longitude = longitude
       message.name = name
       message.details = details
       message.reference = reference
@@ -1223,28 +1263,29 @@ function setApiMethods(internalWS, api) {
     updateMessage.message_id = messageId
     updateMessage.text = text
     updateMessage.caption = caption
-    updateMessage.toUser_id = toUserId
+    // UpdateOutMessage serializes to_user_id, not toUser_id, so the recipient was
+    // dropped. `tab` was not a parameter of this function and threw ReferenceError.
+    updateMessage.to_user_id = toUserId
     updateMessage.chat_id = chatId
-    updateMessage.tab = tab
     updateMessage.appId = appId
 
     api.send(JSON.stringify(updateMessage.toJsonObject()))
   }
 
   api.updateTextMsg = (messageId, text, toUserId, appId) => {
-    updateMessage(messageId, text, null, toUserId, null, appId)
+    api.updateMessage(messageId, text, null, toUserId, null, appId)
   }
 
   api.updateMediaCaption = (messageId, caption, toUserId, appId) => {
-    updateMessage(messageId, null, caption, toUserId, null, appId)
+    api.updateMessage(messageId, null, caption, toUserId, null, appId)
   }
 
   api.updateChatMsg = (messageId, text, chatId, appId) => {
-    updateMessage(messageId, text, null, null, chatId, appId)
+    api.updateMessage(messageId, text, null, null, chatId, appId)
   }
 
   api.updateChatMediaCaption = (messageId, caption, chatId, appId) => {
-    updateMessage(messageId, null, caption, null, chatId, appId)
+    api.updateMessage(messageId, null, caption, null, chatId, appId)
   }
 
   api.getChatMember = (chatId, userId, appId, reference) => {
@@ -1560,17 +1601,35 @@ function setApiMethods(internalWS, api) {
 
 api.submitPaymentResult = (chatId , userId,orderId,providerResponse,secret,currency,totalAmount,appId,status,debitAmountCents) => {
   let paymentConfirmationOutMessage = new PaymentConfirmationOutMessage()
-  paymentConfirmationOutMessage.chat_id = chatId
-  paymentConfirmationOutMessage.user_id = userId
-  paymentConfirmationOutMessage.order_id = orderId
+  // These must match the property names PaymentConfirmationOutMessage.toJsonObject
+  // reads; the snake_case names used previously left chat, user, order, amount and
+  // debit out of the submitted payment result entirely.
+  paymentConfirmationOutMessage.chatId = chatId
+  paymentConfirmationOutMessage.userId = userId
+  paymentConfirmationOutMessage.orderId = orderId
   paymentConfirmationOutMessage.providerResponse = providerResponse
   paymentConfirmationOutMessage.secret = secret
   paymentConfirmationOutMessage.currency = currency
-  paymentConfirmationOutMessage.total_amount = totalAmount
+  paymentConfirmationOutMessage.totalAmount = totalAmount
   paymentConfirmationOutMessage.appId = appId
   paymentConfirmationOutMessage.status = status
-  paymentConfirmationOutMessage.debit_amount_cents = debitAmountCents
+  paymentConfirmationOutMessage.debitAmountCents = debitAmountCents
   api.send(JSON.stringify(paymentConfirmationOutMessage.toJsonObject()))
+}
+
+/**
+ * Sends an SMS/Email/Push notification to a user. notificationType is one of
+ * SendUserNotificationOutMessage.SMS / .EMAIL / .PUSH; defaults to Push.
+ */
+api.sendNotification = (userId, notificationType, title, message, appId) => {
+  let sendNotificationOutMessage = new SendUserNotificationOutMessage()
+  sendNotificationOutMessage.account_id = userId
+  sendNotificationOutMessage.type = notificationType
+  sendNotificationOutMessage.title = title
+  sendNotificationOutMessage.message = message
+  // OutMessage serializes app_id from the camelCase `appId` property.
+  sendNotificationOutMessage.appId = appId
+  api.send(JSON.stringify(sendNotificationOutMessage.toJsonObject()))
 }
 }
 module.exports = {

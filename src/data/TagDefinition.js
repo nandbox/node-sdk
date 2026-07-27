@@ -5,7 +5,16 @@ module.exports = class TagDefination {
 		this.id = obj.id;
 		this.name = obj.name;
 		this.description = obj.description;
-		this.isPrivate = Utils.getInteger(obj.isPrivate);
+		// Utils was never imported here, so this threw a ReferenceError for any
+		// inbound message carrying tagsDefinition. The server sends isPrivate as a
+		// boolean (ApiAddChatTag), which parseInt turns into NaN.
+		if (obj.isPrivate == null) {
+			this.isPrivate = null;
+		} else if (typeof obj.isPrivate === 'boolean') {
+			this.isPrivate = obj.isPrivate ? 1 : 0;
+		} else {
+			this.isPrivate = parseInt(obj.isPrivate, 10);
+		}
 
 	}
 

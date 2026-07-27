@@ -23,11 +23,11 @@ module.exports = class WorkflowDetails {
   }
 
   toJsonObject() {
-    let obj;
+    let obj = {};
     if (this.workflowCell) {
       let workflowCellArrayObjnew = [];
-      for (let i = 0; i < workflowCell.length; i++)
-        workflowCellArrayObjnew.push(workflowCell[i].toJsonObject());
+      for (let i = 0; i < this.workflowCell.length; i++)
+        workflowCellArrayObjnew.push(this.workflowCell[i].toJsonObject());
       obj.workflowCell = workflowCellArrayObjnew;
     }
     if (this.app_id) obj.app_id = this.app_id;

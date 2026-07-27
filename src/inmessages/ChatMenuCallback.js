@@ -24,8 +24,7 @@ module.exports = class ChatMenuCallback {
   }
 
   toJsonObject() {
-    let obj;
-
+    let obj = {};
     if (this.date) obj.date = this.date;
     if (this.from) obj.from = this.from.toJsonObject();
     if (this.chat) obj.chat = this.chat.toJsonObject();

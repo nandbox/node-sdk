@@ -11,7 +11,7 @@ module.exports = class GetWhiteListOutMessage extends OutMessage {
 	toJsonObject() {
 		let obj = super.toJsonObject();
         
-        if (this.pageSize) obj.page_size = this.page_size;
+        if (this.page_size) obj.page_size = this.page_size;
 		
 		return obj;
 	}

@@ -34,8 +34,11 @@ module.exports = class Chat {
         if (this.description) obj.description = this.description;
         if (this.category) obj.category = this.category;
         if (this.member_count) obj.member_count = this.member_count;
-        if (this.invite_link) obj.invite_link = this.invite_link;
-        if (this.photo) obj.KEY_PHOTO = this.photo;
+        // Guard read this.invite_link, but the constructor stores it as inviteLink,
+        // so the key was always dropped. photo was written under the placeholder
+        // name KEY_PHOTO.
+        if (this.inviteLink) obj.invite_link = this.inviteLink;
+        if (this.photo) obj.photo = this.photo.toJsonObject ? this.photo.toJsonObject() : this.photo;
         if (this.tagsDefinition) obj.tagsDefinition = this.tagsDefinition;
 
         return obj;

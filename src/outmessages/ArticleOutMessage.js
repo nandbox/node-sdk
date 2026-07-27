@@ -10,7 +10,8 @@ module.exports = class ArticleOutMessage extends OutMessage {
 	}
 
     toJsonObject() {
-		let obj = {};
+		// Was `let obj = {}`, dropping method/chat_id/reference from the base class.
+		let obj = super.toJsonObject();
 
 		if (this.url) obj.url = this.url;
 		if (this.title) obj.title = this.title;

@@ -165,6 +165,22 @@ module.exports = class NandBox {
     listCollectionItemResponse = (collections)=>{};
     onPaymentAuthorizationRequest = (paymentRequest) => {};
 
+    /**
+     * Fired when a user submits a menu form.
+     *
+     * @param menuCallback
+     *           a MenuCallback carrying the submitted cells and their values
+     */
+    onMenuCallBack = (menuCallback) => {};
+
+    /**
+     * Fired for an inbound WebhookEvent.
+     *
+     * @param webhookEvent
+     *           a WebhookBody exposing ref, appId, method and the raw body
+     */
+    onWebhookEvent = (webhookEvent) => {};
+
   }
   /**
    * 
@@ -847,6 +863,17 @@ module.exports = class NandBox {
     setWorkflowAction = (userId,screenId,nextScreen,vappId,reference,appId) => {};
     createChat = (chatType,isPublic,title,reference,appId) => {};
     submitPaymentResult = (chatId , userId,orderId,payload,secret,currency,totalAmount,appId,status,debitAmountCents)=> {};
+
+    /**
+     * Sends an SMS/Email/Push notification to a user.
+     *
+     * @param userId  target account id
+     * @param notificationType  'SMS' | 'Email' | 'Push' (defaults to Push)
+     * @param title  notification title
+     * @param message  notification body
+     * @param appId  application id
+     */
+    sendNotification = (userId, notificationType, title, message, appId) => {};
     // runCustomCode = (userId,data,appId) => {};
   }
 };
