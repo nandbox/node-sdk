@@ -82,6 +82,8 @@ const MenuCallback = require('./data/MenuCallback')
 const WebhookBody = require('./data/WebhookBody')
 const DocumentResponse = require('./inmessages/DocumentResponse')
 const PaymentRequest = require('./inmessages/PaymentRequest')
+const EventResponse = require('./inmessages/EventResponse')
+const EventMessage = require('./inmessages/EventMessage')
 
 var sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -389,6 +391,15 @@ class InternalWebSocket {
             case 'WebhookEvent':
               let webhookEvent = new WebhookBody(obj)
               this.callback.onWebhookEvent(webhookEvent)
+              return
+            case 'eventResponse':
+            case 'listEventSubscriptionsResponse':
+              let eventResponse = new EventResponse(obj)
+              this.callback.onEventResponse(eventResponse)
+              return
+            case 'eventMessage':
+              let eventMessage = new EventMessage(obj)
+              this.callback.onEventMessage(eventMessage)
               return
             default:
               this.callback.onReceiveObj(JSON.stringify(obj))

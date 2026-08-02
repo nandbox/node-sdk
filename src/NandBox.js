@@ -181,6 +181,23 @@ module.exports = class NandBox {
      */
     onWebhookEvent = (webhookEvent) => {};
 
+    /**
+     * Reply to subscribeToEvent, unsubscribeFromEvent or listEventSubscriptions.
+     *
+     * @param eventResponse
+     *           an EventResponse; check ack before assuming the subscription changed
+     */
+    onEventResponse = (eventResponse) => {};
+
+    /**
+     * A change on an event this account is subscribed to.
+     *
+     * @param eventMessage
+     *           an EventMessage whose body is the raw payload; its keys vary by event and by
+     *           the server side filter, so read defensively
+     */
+    onEventMessage = (eventMessage) => {};
+
   }
   /**
    * 

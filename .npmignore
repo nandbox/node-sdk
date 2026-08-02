@@ -4,3 +4,10 @@
 /upload
 /test
 main.js
+
+# Runtime logs. These were reaching the published tarball and contained live bot tokens.
+# .gitignore already keeps them out of git; npm needs to be told separately.
+/Logs
+/src/test/Logs
+*.log
+*.log.*
